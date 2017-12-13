@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>附近</title>
+
+		<link rel="icon" href="/img/userapp/icon/system/icon_16_blue.png">
+		<!--<link rel="stylesheet" type="text/css" href="../../../css/bootstrap-3.3.7-dist/css/bootstrap.min.css">-->
+
+		<link rel="stylesheet" type="text/css" href="../css/userapp/common/all.css">
+		<link rel="stylesheet" type="text/css" href="../css/userapp/common/body.css">
+		<link rel="stylesheet" type="text/css" href="../css/userapp/common/menu_bar.css">
+		<link rel="stylesheet" type="text/css" href="../css/userapp/common/select.css">
+		<link rel="stylesheet" type="text/css" href="../css/userapp/common/item.css">
+		<link rel="stylesheet" type="text/css" href="../css/userapp/common/input.css">
+
+		<script src="http://api.map.baidu.com/api?v=2.0&ak=UhPDFE6Kcj5bHVRCfu4P7s3ZNVdf9Rfk" async defer></script>
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=UhPDFE6Kcj5bHVRCfu4P7s3ZNVdf9Rfk"></script>
+		<script type="text/javascript" src="../js/userapp/common/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="../js/userapp/common/info.js"></script>
+		<script type="text/javascript" src="../js/userapp/common/select.js"></script>
+		<script type="text/javascript" src="../js/userapp/user/personal_center/nearby.js"></script>
+		<!--<script type="text/javascript" src="../../../css/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>-->
+	</head>
+
+	<body>
+		<div class="menu-bar-div">
+			<div class="horizontally-center-by-margin width-1100px height-100-percent">
+				<div class="position-relative float-left width-80px height-100-percent">
+					<img class="vertically-center-by-absolute left-0 right-0" src="../img/icon/system/icon_32_pink.png">
+				</div>
+
+				<div class="element-no-menu-div-hover  float-left width-120px">首页</div>
+
+				<div class="dropdown position-relative display-inline-block float-left">
+					<div class="element-div float-left width-120px">我的订单</div>
+
+					<div class="dropdown-content">
+						<a class="display-block color-FFFFFF text-decoration-none" href="#">待付款订单</a>
+						<a class="display-block color-FFFFFF text-decoration-none" href="#">待评价订单</a>
+						<a class="display-block color-FFFFFF text-decoration-none" href="#">退单记录</a>
+					</div>
+				</div>
+
+				<div class="dropdown position-relative display-inline-block float-left">
+					<div class="element-div float-left width-120px">我的资产</div>
+
+					<div class="dropdown-content">
+						<a class="display-block color-FFFFFF text-decoration-none" href="#">我的优惠券</a>
+						<a class="display-block color-FFFFFF text-decoration-none" href="#">账户余额</a>
+						<a class="display-block color-FFFFFF text-decoration-none" href="#">我的积分</a>
+					</div>
+				</div>
+
+				<div class="dropdown position-relative display-inline-block float-left">
+					<div class="element-div float-left width-120px">我的资料</div>
+
+					<div class="dropdown-content">
+						<a class="display-block color-FFFFFF text-decoration-none" href="#">个人资料</a>
+						<a class="display-block color-FFFFFF text-decoration-none" href="#">安全中心</a>
+						<a class="display-block color-FFFFFF text-decoration-none" href="#">修改密码</a>
+					</div>
+				</div>
+
+				<div class="element-no-menu-div-hover  float-left width-120px">我的收藏</div>
+
+				<div class="dropdown position-relative display-inline-block float-right">
+					<div class="element-div float-right width-120px">用户名哈</div>
+
+					<div class="dropdown-content">
+						<a class="display-block color-FFFFFF text-decoration-none" href="#">个人中心</a>
+						<a class="display-block color-FFFFFF text-decoration-none" href="#">退出</a>
+					</div>
+				</div>
+
+				<div class="position-relative float-right width-60px height-100-percent">
+					<img id="header-avatar" class="vertically-center-by-absolute left-0 right-0 width-32px height-32px border-radius-50-percent" src="../img/userapp/avatar/0.png">
+				</div>
+			</div>
+		</div>
+
+		<div class="width-1100px height-500px margin-top-50px horizontally-center-by-margin">
+			<div id="baiduMap" class="float-left width-630px height-100-percent"></div>
+
+			<div class="float-right width-400px height-100-percent border-radius-15px text-align-center background-color-rgb-245-243-240">
+
+				<div class="margin-top-20px font-size-21px color-444444">
+					活动列表（<label id="city"></label>）
+				</div>
+
+				<div class="position-relative margin-top-20px">
+					<input id="searchContent" type="text" class="width-220px height-32px font-size-15px" onfocus="myPlaceholder(this);" maxlength="11" />
+					<label id="searchContentLabel" for="searchContent" class="input-div-label top-6px left-75px font-size-15px">活动名称</label>
+					<input id="search" type="button" class="width-60px height-32px font-size-15px blue-button" disabled="true" value="搜索" onclick="getActivityList();" />
+				</div>
+
+				<div class="width-100-percent height-25px margin-top-20px color-444444">
+					<div class="select-box select-item">
+						<div id="type" class="select-header">所有类型</div>
+						<ul class="select-content" onclick="monitorTypeAndSortOrderChanges(this, 1);">
+							<li>所有类型</li>
+							<li>外语类</li>
+							<li>音乐类</li>
+							<li>美术类</li>
+							<li>职业技术类</li>
+						</ul>
+					</div>
+
+					<div class="select-box select-item">
+						<div id="sortOrder" class="select-header">综合排序</div>
+						<ul class="select-content" onclick="monitorTypeAndSortOrderChanges(this, 2);">
+							<li>综合排序</li>
+							<li>距离由近到远</li>
+							<li>费用从低到高</li>
+							<li>费用从高到低</li>
+						</ul>
+					</div>
+				</div>
+
+				<div id="activityList" class="height-280px margin-top-20px font-size-15px overflow-auto">
+					<!--<div class="position-relative height-70px text-align-left cursor-pointer item-div" title="点击查看活动信息">
+						<label id="activityId" class="display-none">1111</label>
+						<img id="header-avatar" class="vertically-center-by-absolute left-5px width-60px height-60px" src="../img/userapp/avatar/0.png">
+
+						<div class="float-left width-220px margin-left-70px padding-left-10px">
+							<div class="height-35px line-height-35px font-size-18px color-1296db">来来</div>
+							<div class="height-35px line-height-35px">7000元&emsp;职业技术类</div>
+						</div>
+
+						<label class="position-absolute right-10px">余量：1000人</label>
+						<label class="position-absolute top-20px right-10px">1.7km</label>
+					</div>
+					
+					<div class="position-relative height-70px text-align-left cursor-pointer item-div" title="点击查看活动信息">
+						<img id="header-avatar" class="vertically-center-by-absolute left-5px width-60px height-60px" src="../img/userapp/avatar/0.png">
+
+						<div class="float-left width-220px margin-left-70px padding-left-10px">
+							<div class="height-35px line-height-35px font-size-18px color-1296db">来来</div>
+							<div class="height-35px line-height-35px">7000元&emsp;职业技术类</div>
+						</div>
+
+						<label class="position-absolute right-10px">余量：1000人</label>
+						<label class="position-absolute top-20px right-10px">1.7km</label>
+					</div>
+					
+					<div class="position-relative height-70px text-align-left cursor-pointer item-div" title="点击查看活动信息">
+						<img id="header-avatar" class="vertically-center-by-absolute left-5px width-60px height-60px" src="../img/userapp/avatar/0.png">
+
+						<div class="float-left width-220px margin-left-70px padding-left-10px">
+							<div class="height-35px line-height-35px font-size-18px color-1296db">来来</div>
+							<div class="height-35px line-height-35px">7000元&emsp;职业技术类</div>
+						</div>
+
+						<label class="position-absolute right-10px">余量：1000人</label>
+						<label class="position-absolute top-20px right-10px">1.7km</label>
+					</div>
+					
+					<div class="position-relative height-70px text-align-left cursor-pointer item-div" title="点击查看活动信息">
+						<img id="header-avatar" class="vertically-center-by-absolute left-5px width-60px height-60px" src="../img/userapp/avatar/0.png">
+
+						<div class="float-left width-220px margin-left-70px padding-left-10px">
+							<div class="height-35px line-height-35px font-size-18px color-1296db">来来</div>
+							<div class="height-35px line-height-35px">7000元&emsp;职业技术类</div>
+						</div>
+
+						<label class="position-absolute right-10px">余量：1000人</label>
+						<label class="position-absolute top-20px right-10px">1.7km</label>
+					</div>-->
+				</div>
+
+			</div>
+		</div>
+	</body>
+
+</html>
+
+<script type="text/javascript">// ip获取位置
+/**
+ * http://api.map.baidu.com/location/ip?ak=你的密钥&coor=bd09ll
+ */
+var url = "http://api.map.baidu.com/location/ip";
+var data = {
+	ak: "UhPDFE6Kcj5bHVRCfu4P7s3ZNVdf9Rfk",
+	coor: "bd09ll",
+	callback: "jsonpcallback" //对应值为自定义回调函数名
+};
+// 组合url
+var buffer = [];
+for(var key in data) {
+	buffer.push(key + "=" + encodeURIComponent(data[key]));
+}
+var fullpath = url + "?" + buffer.join("&");
+CreateScript(fullpath);
+
+// 生成script
+function CreateScript(src) {
+	var el = document.createElement("script");
+	el.src = src;
+	el.async = true;
+	el.defer = true;
+	document.body.appendChild(el);
+}
+
+var pointX, pointY;
+// 自定义回调函数，重点
+function jsonpcallback(rs) {
+	var city = rs["content"]["address_detail"]["city"];
+	city = city.toString();
+	$("#city").text(city);
+
+	pointX = rs["content"]["point"]["x"];
+	pointY = rs["content"]["point"]["y"];
+
+	// 百度地图API功能
+	var map = new BMap.Map("baiduMap"); // 创建地图实例  
+	var point = new BMap.Point(parseInt(pointX), parseInt(pointY)); // 创建点坐标  
+	map.centerAndZoom(point, 12); // 初始化地图，设置中心点坐标和地图级别
+
+	var marker = new BMap.Marker(point); // 创建标注    
+	map.addOverlay(marker); // 将标注添加到地图中
+
+	map.enableScrollWheelZoom(true); //开启鼠标滚轮缩放
+
+	var jsonData = {
+		"lng": pointX,
+		"lat": pointY
+	};
+	var jsonString = JSON.stringify(jsonData);
+	// 获取默认活动信息列表
+	$.ajax({
+		type: "post",
+		url: "/alllink/activity/getDefaultActivityList",
+		contentType: "application/json;charset=utf-8",
+		dataType: "json",
+		data: jsonString,
+		async: false,
+		success: function(json) {
+			var activityCount = json.data.activityCount;
+            var dataarray = json.data;
+			/*for (var activity in json.data) {*/
+            for (var activity in dataarray) {
+				$("#activityList").append(
+					"<div class='position-relative height-70px text-align-left cursor-pointer item-div' title='点击查看活动信息' onclick='redirect(this);'>" +
+					"<label class='display-none'>" + dataarray[activity].activityId + "</label>"+
+					"<img class='vertically-center-by-absolute left-5px width-60px height-60px' src='/pic/" + dataarray[activity].imageUrl + "'>" +
+	
+					"<div class='float-left width-220px margin-left-70px padding-left-10px'>" +
+					"<div class='height-35px line-height-35px font-size-18px color-1296db'>" + dataarray[activity].activityName + "</div>" +
+					"<div class='height-35px line-height-35px'>" + dataarray[activity].cost + "&emsp;" + dataarray[activity].activityTypenName + "</div>" +
+					"</div>" +
+	
+					"<label class='position-absolute right-10px'>" + "余量：" + dataarray[activity].enrollNumber + "人" + "</label>" +
+					"<label class='position-absolute top-20px right-10px'>" + dataarray[activity].distance + "km</label>" +
+					"</div>"
+				);
+			}
+		},
+		error: function(json) {
+						alert(json.message);
+		}
+	});
+}
+var map = {};
+$(function() {
+	// 建立map映射
+	//var map = {};
+	// 按类型
+	//map["所有类型"] = 0;
+	map["外语类"] = 1;
+	map["音乐类"] = 2;
+	map["美术类"] = 3;
+	map["职业技术类"] = 4;
+	// 按排序方式
+	map["综合排序"] = 0;
+	map["距离由近到远"] = 1;
+	map["费用从低到高"] = 2;
+	map["费用从高到低"] = 3;
+});
+
+$(function() {
+	getActivityList = function() {
+
+	    var actype= map[$("#type").text()];
+	    var sort = map[$("#sortOrder").text()];
+		var jsonData = {
+			"lng": pointX,
+			"lat": pointY,
+			"distance":"2000000",
+			"searchContent": $("#searchContent").val(),
+			//"activityType": $("#type").text(),
+			//"sortParams": $("#sortOrder").text()
+            "activityType": actype,
+            "sortParams": sort
+		};
+		var jsonString = JSON.stringify(jsonData);
+
+		$.ajax({
+			type: "post",
+			url: "/alllink/activity/getActivityList",
+			contentType: "application/json;charset=utf-8",
+			dataType: "json",
+			data: jsonString,
+			async: false,
+			success: function(json) {
+				//$("#activityList").remove();
+                $("#activityList").text("");
+                var dataarray = json.data;
+                for (var activity in dataarray) {
+                    $("#activityList").append(
+                        "<div class='position-relative height-70px text-align-left cursor-pointer item-div' title='点击查看活动信息' onclick='redirect(this);'>" +
+                        "<label class='display-none'>" + dataarray[activity].activityId + "</label>"+
+                        "<img class='vertically-center-by-absolute left-5px width-60px height-60px' src='/pic/" + dataarray[activity].imageUrl + "'>" +
+
+                        "<div class='float-left width-220px margin-left-70px padding-left-10px'>" +
+                        "<div class='height-35px line-height-35px font-size-18px color-1296db'>" + dataarray[activity].activityName + "</div>" +
+                        "<div class='height-35px line-height-35px'>" + dataarray[activity].cost + "&emsp;" + dataarray[activity].activityTypenName + "</div>" +
+                        "</div>" +
+
+                        "<label class='position-absolute right-10px'>" + "余量：" + dataarray[activity].enrollNumber + "人" + "</label>" +
+                        "<label class='position-absolute top-20px right-10px'>" + dataarray[activity].distance + "km</label>" +
+                        "</div>"
+                    );
+                }
+			},
+			error: function() {
+				//				alert(json.message);
+			}
+		});
+	}
+});</script>

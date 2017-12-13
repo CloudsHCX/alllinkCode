@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.alllink.userapp.activity.dao.ActivityDao">
+    <select id="getActivityByDistance" parameterType="com.alllink.userapp.activity.entity.ActivitySearch" resultType="com.alllink.userapp.activity.entity.ActivityEntity">
+        SELECT * FROM activity WHERE 1=1 AND activity_state=1 AND total_number!= enroll_number
+        <if test="activityType != null">AND activity_type=#{activityType}</if>
+        <if test="minLon != null"> AND longitude &gt;= #{minLon}</if>
+        <if test="maxLon != null"> AND longitude &lt;= #{maxLon}</if>
+        <if test="minLat != null"> AND latitude &gt;= #{minLat}</if>
+        <if test="maxLat != null"> AND latitude &lt;= #{maxLat} </if>
+        <if test="searchContent != null">AND activity_name LIKE '%${searchContent}%'</if>
+    </select>
+    <select id="getActivityInfo" parameterType="Integer" resultType="com.alllink.userapp.activity.entity.ActivityEntity">
+        select * from activity where activity_id=#{id};
+    </select>
+
+</mapper>

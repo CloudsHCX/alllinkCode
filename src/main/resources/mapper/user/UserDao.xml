@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="com.alllink.userapp.user.dao.UserDao">
+
+     <resultMap id="user" type="com.alllink.userapp.user.entity.User" />
+
+
+
+    <!--<resultMap type="com.alllink.userapp.user.entity.User" id="map1">-->
+        <!--<id column="user_id" property="user_id"></id>-->
+    <!--</resultMap>-->
+
+    <select id="getListCount" parameterType="java.util.Map"  resultType="int">
+        SELECT COUNT(1) FROM user WHERE 1=1
+        <if test="phoneNumber != null">AND phone_number = #{phoneNumber}</if>
+        <if test="password != null">AND password = #{password}</if>
+        <if test="state != null">AND state = #{state}</if>
+    </select>
+
+    <select id="getList" parameterType="java.util.Map"  resultMap="user" >
+         SELECT * FROM user WHERE 1=1
+        <if test="phoneNumber != null">AND phone_number = #{phoneNumber}</if>
+        <if test="password != null">AND password = #{password}</if>
+        <if test="state != null">AND state = #{state}</if>
+    </select>
+
+    <insert id="add"  parameterType="com.alllink.userapp.user.entity.User">
+        INSERT INTO user(phone_number,password,identifying_code,state,create_time,code_creat_time) VALUES (#{phoneNumber},#{password},#{identifyingCode},#{state},#{createTime},#{codeCreatTime})
+    </insert>
+
+    <update id="update"  parameterType="com.alllink.userapp.user.entity.User">
+        UPDATE user set
+                   identifying_code= #{identifyingCode},
+                   code_creat_time= #{codeCreatTime},
+                   password = #{password},
+                   state = #{state},
+                   modified_time = #{modifiedTime}
+        where user_id = #{userId}
+    </update>
+
+    <update id="updateUserInfo"  parameterType="com.alllink.userapp.user.entity.User">
+        UPDATE user
+        <trim prefix="set" suffixOverrides=",">
+            <if test="nickname!=null">nickname=#{nickname},</if>
+            <if test="gender!=null">gender=#{gender},</if>
+            <if test="age!=null">age=#{age},</if>
+            <if test="email!=null">email=#{email},</if>
+            <if test="photo!=null">photo=#{photo},</if>
+            <if test="modifiedTime!=null">modified_time=#{modifiedTime},</if>
+            <if test="qqNumber!=null">qq_number=#{qqNumber},</if>
+            <if test="wechatNumber!=null">wechat_number=#{wechatNumber},</if>
+        </trim>
+        WHERE phone_number=#{phoneNumber}
+    </update>
+
+    <select id="getUserInfo" parameterType="String" resultType="com.alllink.userapp.user.entity.User">
+        select * from USER where phone_number=#{phoneNumber}
+    </select>
+
+</mapper>

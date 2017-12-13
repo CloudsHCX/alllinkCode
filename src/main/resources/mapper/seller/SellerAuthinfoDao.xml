@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.alllink.sellerapp.seller.dao.SellerAuthinfoDao">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.alllink.sellerapp.seller.entity.SellerAuthinfoEntity" id="sellerAuthinfoMap">
+        <result property="sauthinfoId" column="sauthinfo_id"/>
+        <result property="sellerId" column="seller_id"/>
+        <result property="crCardId" column="cr_card_id"/>
+        <result property="crRealName" column="cr_real_name"/>
+        <result property="crRealPhoto" column="cr_real_photo"/>
+        <result property="crCardFrontPhoto" column="cr_card_front_photo"/>
+        <result property="crCardBackPhoto" column="cr_card_back_photo"/>
+        <result property="organziationCodeCertificate" column="organziation_code_certificate"/>
+        <result property="businessLicence" column="business_licence"/>
+        <result property="createTime" column="create_time"/>
+        <result property="auditState" column="audit_state"/>
+        <result property="auditTime" column="audit_time"/>
+        <result property="modifiedTime" column="modified_time"/>
+    </resultMap>
+
+    <select id="queryObject" resultType="com.alllink.sellerapp.seller.entity.SellerAuthinfoEntity">
+        select * from seller_authinfo where sauthinfo_id = #{value}
+    </select>
+
+    <select id="queryList" resultType="com.alllink.sellerapp.seller.entity.SellerAuthinfoEntity">
+        select * from seller_authinfo
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+            <otherwise>
+                order by sauthinfo_id desc
+            </otherwise>
+        </choose>
+        <if test="offset != null and limit != null">
+            limit #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="queryTotal" resultType="int">
+        select count(*) from seller_authinfo
+    </select>
+
+    <insert id="save" parameterType="com.alllink.sellerapp.seller.entity.SellerAuthinfoEntity" useGeneratedKeys="true" keyProperty="sauthinfoId">
+        insert into seller_authinfo
+        (
+        `seller_id`,
+        `cr_card_id`,
+        `cr_real_name`,
+        `cr_real_photo`,
+        `cr_card_front_photo`,
+        `cr_card_back_photo`,
+        `organziation_code_certificate`,
+        `business_licence`,
+        `create_time`,
+        `audit_state`,
+        `audit_time`,
+        `modified_time`
+        )
+        values
+        (
+        #{sellerId},
+        #{crCardId},
+        #{crRealName},
+        #{crRealPhoto},
+        #{crCardFrontPhoto},
+        #{crCardBackPhoto},
+        #{organziationCodeCertificate},
+        #{businessLicence},
+        #{createTime},
+        #{auditState},
+        #{auditTime},
+        #{modifiedTime}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.alllink.sellerapp.seller.entity.SellerAuthinfoEntity">
+        update seller_authinfo
+        <set>
+            <if test="sellerId != null">`seller_id` = #{sellerId}, </if>
+            <if test="crCardId != null">`cr_card_id` = #{crCardId}, </if>
+            <if test="crRealName != null">`cr_real_name` = #{crRealName}, </if>
+            <if test="crRealPhoto != null">`cr_real_photo` = #{crRealPhoto}, </if>
+            <if test="crCardFrontPhoto != null">`cr_card_front_photo` = #{crCardFrontPhoto}, </if>
+            <if test="crCardBackPhoto != null">`cr_card_back_photo` = #{crCardBackPhoto}, </if>
+            <if test="organziationCodeCertificate != null">`organziation_code_certificate` = #{organziationCodeCertificate}, </if>
+            <if test="businessLicence != null">`business_licence` = #{businessLicence}, </if>
+            <if test="createTime != null">`create_time` = #{createTime}, </if>
+            <if test="auditState != null">`audit_state` = #{auditState}, </if>
+            <if test="auditTime != null">`audit_time` = #{auditTime}, </if>
+            <if test="modifiedTime != null">`modified_time` = #{modifiedTime}</if>
+        </set>
+        where sauthinfo_id = #{sauthinfoId}
+    </update>
+
+    <delete id="delete">
+        delete from seller_authinfo where sauthinfo_id = #{value}
+    </delete>
+
+    <delete id="deleteBatch">
+        delete from seller_authinfo where sauthinfo_id in
+        <foreach item="sauthinfoId" collection="array" open="(" separator="," close=")">
+            #{sauthinfoId}
+        </foreach>
+    </delete>
+
+</mapper>

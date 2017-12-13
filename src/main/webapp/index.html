@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+</head>
+<body>
+<script type="text/javascript" src="js/sellerapp/jquery.min.js" ></script>
+<script type="text/javascript" src="js/userapp/ajaxfileupload.js"></script>
+
+<h3 align="center">
+    <a href="/alllink/userapp/UserLogin">用户登录</a><br/><br/>
+
+    <a href="/alllink/views/sellerapp/login.html">商家登录</a><br/><br/>
+    <a href="/alllink/views/sellerapp/homepage.html">商家个人中心</a><br/><br/>
+
+    <a href="/alllink/views/wechat/w-login.html">微信登录</a><br/><br/>
+</h3>
+
+
+<input id="picture" name="file" type="file" onchange="upload_cover(this)"/>
+<img id="image" src="" height="16" width="17"/>
+
+<img src="/pic/3/6/44e89a7e311544d6a1ada561c133dfa6_p.jpg" />
+
+<!--<script type="text/javascript">
+
+    function testUpload(){
+        var form = new FormData(document.getElementById("test"));
+        $.ajax({
+            url : "/alllink/file/image",
+            data : form,
+            type : 'POST',
+            async: false,
+            processData:false,
+            contentType:false,
+            success:function(result){
+//                alert("success:url:");
+                $("#photoId").attr("src","img/sellerapp/my.png");
+//                document.getElementById("photoId").src = result.dizhi.toString();
+            },
+            error : function(XMLHttpRequest, textStatus, errorThrown){
+                alert(XMLHttpRequest.readyState);
+            }
+        });
+    }
+</script>-->
+
+<script type="text/javascript">
+    function upload_cover(obj) {
+            $.ajaxFileUpload({
+                url: "/alllink/file/image", //后台方法的路径
+                type: "post",   //当要提交自定义参数时，这个参数要设置成post
+                fileElementId:"picture",    //需要上传的文件域的ID，即<input type="file">的ID。
+                dataType: "json",   //服务器返回的数据类型。可以为xml,script,json,html。如果不填写，jQuery会自动判断。
+                //secureuri: false,   //是否启用安全提交，默认为false。
+                contentType: "application/json;charset=utf-8",
+                async:false,   //是否是异步
+                success: function(data) {//提交成功后自动执行的处理函数，参数data就是服务器返回的数据。
+                    alert(data.url);
+                    $("#image").attr("src", + data.url);
+                },
+                error: function(data, status, e) {  //提交失败自动执行的处理函数。
+                    alert("error");
+                    console.error(e);
+                }
+            });
+    }
+
+
+</script>
+
+
+
+</body>
+</html>

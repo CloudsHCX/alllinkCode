@@ -1,0 +1,130 @@
+/**{
+    		box-sizing: inherit;
+    	}*/
+    	body{
+    		padding-top:50px;
+    	}
+    	.big-li{
+    		margin-bottom: 42px;
+    	}
+    	ul{
+    		list-style: none;
+    	}
+    	a:hover{
+				text-decoration:none;
+				cursor: pointer;
+				}
+				/*span > a{
+					color:rgb(131,175,155);
+				}*/
+    	h2{
+    		font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 14px;
+    	}
+    	.content{
+    		width:100%;
+    		height:700px;
+    		position: relative;
+    		background-color: #F7F7F7;
+    	}
+    	.left{
+    		display:inline-block;
+		    margin-top: 70px;
+		    margin-left: 70px;
+		    width: 170px;
+		    height:400px;
+    		position:absolute;
+    		background-color: #F7F7F7;
+    	}
+    	.right{
+    		display:inline-block;
+		    margin-top: 70px;
+		    margin-left: 270px;
+		    width:980px;
+		    height:550px;
+    		position:absolute;
+    		background-color: #FFFFFF;
+    		padding-left:10px;
+    		padding-right:10px;
+    		border: 1px solid #ecedeb;
+    	}
+    	.person{
+    		border-bottom: 2px solid #F7F7F7;
+		    padding: 0 20px 13px 30px;
+		    font-size: 18px;
+		    font-weight: 700;
+		    background-color: #FFFFFF;
+		    display: block;
+		    margin-top: 24px;
+    	}
+    	.persons{
+    		width:400px;
+    		height:300px;
+    		background-color: #FFFFFF;
+    		margin-left: 56px;
+    		margin-top: 50px;
+    	}
+    	p{
+    		margin-bottom: 20px;
+    	}
+    	.profileinfo-label {
+		    width: 60px;
+		    text-align: right;
+		    color: #666;
+		    display: inline-block;
+		    }
+		    .profileinfo-value {
+		    width: 230px;
+		    color: #666;
+		    margin-left: 40px;
+		    display: inline-block;
+		   }
+	    li>ul>li>a{
+	    	color: #666;
+	    	display: block;
+	    	margin-top: 10px;
+	    }
+	    img{
+		    display: inline-block;
+		    /*vertical-align: top;*/
+		    width: 100px;
+		    height: 100px;
+	    }
+	    h2>i>img{
+	    	width: 15px;
+		    height: 16px;
+		    margin-right: 10px;
+	    }
+	   .navbar > .container-fluid .navbar-brand{
+			   	margin-top: 5px;
+			    margin-left: 81px;
+			    font-size: 30px;
+			    font-weight: 700;
+	   }
+	   .navbar-inverse .navbar-nav > li > a{
+	   	margin-left: 20px;
+	   	font-size: 16px;
+	   }
+	   .navbar-nav{
+	   	margin-top:5px;
+	   }
+	   .dropdown{
+	   	display: block;
+	   	margin-left: 230px;
+	   }
+	   .navbar{
+	   	min-height:60px;
+	   }
+	   .btn{
+	   	width:229px;
+		  height:35px;
+		  margin-left: 105px;
+		  padding:0;
+	   }
+	   .upload-img{
+	   	margin-left: -68px;
+	   }
+	   .modify{
+	   		margin-left: -41px;
+	   }

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.alllink.userapp.order.dao.OrderDao">
+	<insert id="createOrder" parameterType="com.alllink.userapp.order.entity.OrderEntity">
+			insert into orderu (user_id,seller_id,activity_id,order_state,cost,activity_name,create_time,modified_time,evaluate_state) VALUES (#{userId},#{sellerId},#{activityId},#{orderState},#{cost},#{activityName},#{createTime},#{modifiedTime},#{evaluateState})
+	</insert>
+	<select id="getNoPayOrderList" parameterType="Integer" resultType="com.alllink.userapp.order.entity.OrderEntity">
+		select order_id,activity_name,o.create_time,cost,activity_id from orderu o where o.user_id=#{userId} AND order_state=0;
+	</select>
+	<delete id="deleteOrder" parameterType="Integer">
+		delete from orderu where order_id=#{orderid};
+	</delete>
+</mapper>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>待付款订单</title>
+
+		<link rel="icon" href="../img/userapp/icon/system/icon_16_blue.png">
+		<link rel="stylesheet" type="text/css" href="../css/userapp/common/all.css">
+		<link rel="stylesheet" type="text/css" href="../css/userapp/common/body.css">
+		<link rel="stylesheet" type="text/css" href="../css/userapp/common/menu_bar.css">
+		<link rel="stylesheet" type="text/css" href="../css/userapp/common/item.css">
+		<link rel="stylesheet" type="text/css" href="../css/userapp/common/mask_layer.css">
+		<link rel="stylesheet" type="text/css" href="../css/userapp/common/input.css">
+		<script type="text/javascript" src="../js/userapp/common/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="../js/userapp/common/info.js"></script>
+		<script type="text/javascript" src="../js/userapp/user/personal_center/order/unpaid_order.js"></script>
+
+	</head>
+
+	<body>
+
+	<!--阴影-->
+	<div id="maskLayer" class="mask-layer">
+		&lt;!&ndash; 提示框 &ndash;&gt;
+		<div class="tip-div-in-mask-layer">
+			<div class="height-50px line-height-50px font-size-23px color-444444">提示</div>
+
+			<img src="../../../../img/icon/page/close.png" title="关闭" onclick="hideMaskLayer();"/>
+
+			<div id="tipContent"
+				 class="width-100-percent height-80px font-size-18px line-height-80px font-size-18px color-444444"></div>
+
+			<div class="height-50px line-height-50px">
+				<input type="button" class="width-145px height-35px font-size-17px blue-button" value="确定" onclick="hideMaskLayer();deleteOrder();" />
+			</div>
+		</div>
+	</div>
+
+		<div class="menu-bar-div">
+			<div class="horizontally-center-by-margin width-1100px height-100-percent">
+				<div class="position-relative float-left width-80px height-100-percent">
+					<img class="vertically-center-by-absolute left-0 right-0" src="../../../../img/icon/system/icon_32_pink.png">
+				</div>
+
+				<div class="element-no-menu-div-hover  float-left width-120px">首页</div>
+
+				<div class="dropdown position-relative display-inline-block float-left">
+					<div class="element-div float-left width-120px">我的订单</div>
+
+					<div class="dropdown-content">
+						<a class="display-block color-FFFFFF text-decoration-none" href="../order/toNoPayList">待付款订单</a>
+					</div>
+				</div>
+
+				<div class="dropdown position-relative display-inline-block float-left">
+					<div class="element-div float-left width-120px">我的资产</div>
+
+					<div class="dropdown-content">
+						<a class="display-block color-FFFFFF text-decoration-none" href="#">我的优惠券</a>
+						<a class="display-block color-FFFFFF text-decoration-none" href="#">账户余额</a>
+						<a class="display-block color-FFFFFF text-decoration-none" href="#">我的积分</a>
+					</div>
+				</div>
+
+				<div class="dropdown position-relative display-inline-block float-left">
+					<div class="element-div float-left width-120px">我的资料</div>
+
+					<div class="dropdown-content">
+						<a class="display-block color-FFFFFF text-decoration-none" href="location.href = ">个人资料</a>
+						<a class="display-block color-FFFFFF text-decoration-none" href="#">安全中心</a>
+						<a class="display-block color-FFFFFF text-decoration-none" href="location.href = ">修改密码</a>
+					</div>
+				</div>
+
+				<div class="element-no-menu-div-hover  float-left width-120px" onclick="location.href='../activity/toActivityList'">附近</div>
+
+
+				<div class="dropdown position-relative display-inline-block float-right">
+					<div class="element-div float-right width-120px">用户名哈</div>
+
+					<div class="dropdown-content">
+						<a class="display-block color-FFFFFF text-decoration-none" href="">个人中心</a>
+						<a class="display-block color-FFFFFF text-decoration-none" href="../userapp/login">退出</a>
+					</div>
+				</div>
+
+				<div class="position-relative float-right width-60px height-100-percent">
+					<img id="header-avatar" class="vertically-center-by-absolute left-0 right-0 width-32px height-32px border-radius-50-percent" src="../../../../img/avatar/0.png">
+				</div>
+			</div>
+		</div>
+
+		<div class="width-1100px height-500px margin-top-20px padding-top-20px horizontally-center-by-margin color-444444 text-align-center">
+			<div class="float-left height-220px">
+				<div class="title-tab-div">
+					<div class="position-relative float-left width-60px height-100-percent">
+						<img class="vertically-center-by-absolute left-0 right-0" src="../../../../img/icon/page/unpaid_order.png" />
+					</div>
+
+					<div class="float-left width-100px text-align-left">待付款订单</div>
+				</div>
+			</div>
+
+			<div class="float-left width-920px height-100-percent padding-top-20px margin-left-20px color-444444 overflow-auto">
+				<div class="width-100-percent height-35px margin-top-15px font-size-15px line-height-35px border-bottom-1px-solid-FF3333">
+					<div class="float-left width-15-percent">订单号</div>
+					<div class="float-left width-40-percent">活动信息</div>
+					<div class="float-left width-15-percent">金额（元）</div>
+					<div class="float-left width-15-percent">生成时间</div>
+					<div class="float-left width-15-percent">操作</div>
+				</div>
+				<div id="nonPayList" style="width: 100%;"></div>
+				<!--<div class="width-100-percent height-70px margin-top-15px font-size-15px line-height-70px border-1px-solid-DDDDDD hover-border-1px-solid-99BBFF">
+					<div class="float-left width-15-percent">x111111111</div>
+					<label id="activityId" class="display-none">1111</label>
+					<div class="position-relative float-left width-40-percent height-100-percent padding-left-100px text-align-left">
+						<img class="vertically-center-by-absolute left-30px width-60px height-60px" src="../../../../img/avatar/0.png" />
+						活动名称哈哈哈哈哈哈哈哈哈哈哈哈哈
+					</div>
+					<div class="float-left width-15-percent">100000</div>
+					<div class="float-left width-15-percent">2017-12-20</div>
+					<div class="float-left width-15-percent">
+						<input type="button" class="width-60px height-32px font-size-15px green-button" value="支付" onclick="" />&nbsp;
+						<input type="button" class="width-60px height-32px font-size-15px red-button" value="取消" onclick="" />
+					</div>
+				</div>
+				
+				<div class="width-100-percent height-70px margin-top-15px font-size-15px line-height-70px border-1px-solid-DDDDDD hover-border-1px-solid-99BBFF">
+					<div class="float-left width-15-percent">x111111111</div>
+					<div class="position-relative float-left width-40-percent height-100-percent padding-left-100px text-align-left">
+						<img class="vertically-center-by-absolute left-30px width-60px height-60px" src="../../../../img/avatar/0.png" />
+						活动名称哈哈哈哈哈哈哈哈哈哈哈哈哈
+					</div>
+					<div class="float-left width-15-percent">100000</div>
+					<div class="float-left width-15-percent">2017-12-20</div>
+					<div class="float-left width-15-percent">
+						<input type="button" class="width-60px height-32px font-size-15px green-button" value="支付" onclick="" />&nbsp;
+						<input type="button" class="width-60px height-32px font-size-15px red-button" value="取消" onclick="" />
+					</div>
+				</div>
+				
+				<div class="width-100-percent height-70px margin-top-15px font-size-15px line-height-70px border-1px-solid-DDDDDD hover-border-1px-solid-99BBFF">
+					<div class="float-left width-15-percent">x111111111</div>
+					<div class="position-relative float-left width-40-percent height-100-percent padding-left-100px text-align-left">
+						<img class="vertically-center-by-absolute left-30px width-60px height-60px" src="../../../../img/avatar/0.png" />
+						活动名称哈哈哈哈哈哈哈哈哈哈哈哈哈
+					</div>
+					<div class="float-left width-15-percent">100000</div>
+					<div class="float-left width-15-percent">2017-12-20</div>
+					<div class="float-left width-15-percent">
+						<input type="button" class="width-60px height-32px font-size-15px green-button" value="支付" onclick="" />&nbsp;
+						<input type="button" class="width-60px height-32px font-size-15px red-button" value="取消" onclick="" />
+					</div>
+				</div>
+				
+				<div class="width-100-percent height-70px margin-top-15px font-size-15px line-height-70px border-1px-solid-DDDDDD hover-border-1px-solid-99BBFF">
+					<div class="float-left width-15-percent">x111111111</div>
+					<div class="position-relative float-left width-40-percent height-100-percent padding-left-100px text-align-left">
+						<img class="vertically-center-by-absolute left-30px width-60px height-60px" src="../../../../img/avatar/0.png" />
+						活动名称
+					</div>
+					<div class="float-left width-15-percent">100000</div>
+					<div class="float-left width-15-percent">2017-12-20</div>
+					<div class="float-left width-15-percent">
+						<input type="button" class="width-60px height-32px font-size-15px green-button" value="支付" onclick="" />&nbsp;
+						<input type="button" class="width-60px height-32px font-size-15px red-button" value="取消" onclick="" />
+					</div>
+				</div>-->
+			</div>
+		</div>
+	</body>
+
+</html>

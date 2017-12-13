@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.alllink.sellerapp.seller.dao.SellerActivityDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.alllink.sellerapp.seller.entity.SellerActivityEntity" id="activityMap">
+        <result property="activityId" column="activity_id"/>
+        <result property="sellerId" column="seller_id"/>
+        <result property="longitude" column="longitude"/>
+        <result property="latitude" column="latitude"/>
+        <result property="activityName" column="activity_name"/>
+        <result property="totalNumber" column="total_number"/>
+        <result property="cost" column="cost"/>
+        <result property="activityPhoto" column="activity_photo"/>
+        <result property="activityType" column="activity_type"/>
+        <result property="beginTime" column="begin_time"/>
+        <result property="endTime" column="end_time"/>
+        <result property="enrollNumber" column="enroll_number"/>
+        <result property="activityInfo" column="activity_info"/>
+        <result property="activityState" column="activity_state"/>
+        <result property="createTime" column="create_time"/>
+        <result property="modifiedTime" column="modified_time"/>
+        <result property="auditTime" column="audit_time"/>
+        <result property="address" column="address"/>
+    </resultMap>
+
+	<resultMap id="activitymapList" type="java.util.List">
+		<id  property="activityId" column="activity_id"></id>
+		<result property="activityName" column="activity_name"/>
+		<result property="totalNumber" column="total_number"/>
+		<result property="cost" column="cost"/>
+		<result property="activityPhoto" column="activity_photo"/>
+		<result property="activityType" column="activity_type"/>
+		<result property="beginTime" column="begin_time"/>
+		<result property="endTime" column="end_time"/>
+		<result property="enrollNumber" column="enroll_number"/>
+		<result property="activityInfo" column="activity_info"/>
+		<result property="activityState" column="activity_state"/>
+		<result property="createTime" column="create_time"/>
+		<result property="modifiedTime" column="modified_time"/>
+		<result property="address" column="address"/>
+	</resultMap>
+
+	<select id="queryObject" resultType="com.alllink.sellerapp.seller.entity.SellerActivityEntity">
+		select * from activity where activity_id = #{value}
+	</select>
+
+
+
+	<select id="queryList" resultType="com.alllink.sellerapp.seller.entity.SellerActivityEntity">
+-- 	select activity_id,activity_name,modified_time,activity_info,enroll_number,total_number,activity_type,begin_time,end_time,cost,address,activity_state,activity_photo from activity
+		select * from activity
+		where seller_id = #{sellerId}
+            order by activity_id desc
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from activity 
+	</select>
+	 
+	<insert id="save" parameterType="map" useGeneratedKeys="true" keyProperty="activityId">
+		insert into activity
+		(
+			`seller_id`,
+			`longitude`, 
+			`latitude`, 
+			`activity_name`, 
+			`total_number`, 
+			`cost`, 
+			`activity_photo`, 
+			`activity_type`, 
+			`begin_time`, 
+			`end_time`, 
+			`enroll_number`,
+			`activity_info`, 
+			`activity_state`, 
+			`create_time`, 
+			`modified_time`, 
+			`audit_time`, 
+			`address`
+		)
+		values
+		(
+			#{sellerId}, 
+			#{longitude}, 
+			#{latitude}, 
+			#{activityName}, 
+			#{totalNumber}, 
+			#{cost}, 
+			#{activityPhoto}, 
+			#{activityType}, 
+			#{beginTime}, 
+			#{endTime}, 
+			#{enrollNumber},
+			#{activityInfo}, 
+			#{activityState},
+			#{createTime}, 
+			#{modifiedTime}, 
+			#{auditTime}, 
+			#{address}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="map">
+		update activity 
+		<set>
+			<if test="sellerId != null">`seller_id` = #{sellerId}, </if>
+			<if test="longitude != null">`longitude` = #{longitude}, </if>
+			<if test="latitude != null">`latitude` = #{latitude}, </if>
+			<if test="activityName != null">`activity_name` = #{activityName}, </if>
+			<if test="totalNumber != null">`total_number` = #{totalNumber}, </if>
+			<if test="cost != null">`cost` = #{cost}, </if>
+			<if test="activityPhoto != null">`activity_photo` = #{activityPhoto}, </if>
+			<if test="activityType != null">`activity_type` = #{activityType}, </if>
+			<if test="beginTime != null">`begin_time` = #{beginTime}, </if>
+			<if test="endTime != null">`end_time` = #{endTime}, </if>
+			<if test="enrollNumber != null">`enroll_number` = #{enrollNumber}, </if>
+			<if test="activityInfo != null">`activity_info` = #{activityInfo}, </if>
+			<if test="activityState != null">`activity_state` = #{activityState}, </if>
+			<if test="createTime != null">`create_time` = #{createTime}, </if>
+			<if test="modifiedTime != null">`modified_time` = #{modifiedTime}, </if>
+			<if test="auditTime != null">`audit_time` = #{auditTime}, </if>
+			<if test="address != null">`address` = #{address}</if>
+		</set>
+		where activity_id = #{activityId}
+	</update>
+	
+	<delete id="delete">
+		delete from activity where activity_id = #{id}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from activity where activity_id in 
+		<foreach item="activityId" collection="array" open="(" separator="," close=")">
+			#{activityId}
+		</foreach>
+	</delete>
+
+</mapper>

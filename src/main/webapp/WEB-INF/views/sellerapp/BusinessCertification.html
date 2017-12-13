@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>万众艺兴---商家版</title>
+    <link rel="stylesheet" href="../../css/sellerapp/bootstrap.css" />
+    <link rel="stylesheet" href="../../css/sellerapp/BusinessCertification.css" />
+
+  </head>
+  <body>
+  	<div class="header">
+  		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+     		<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">万众艺兴</a>
+				</div>
+		<div>
+		<ul class="nav navbar-nav">
+            <li ><a href="#">订单</a></li>
+            <li><a href="#">评价管理</a></li>
+            <li><a href="#">行业排名</a></li>
+            <li><a href="#">项目管理</a></li>
+            <li><a href="#">财务管理</a></li>
+            <li><a href="#">用户管理</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
+                    <span id="navName"></span><b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">个人中心</a></li>
+                    <li><a href="#">我的地址</a></li>
+                    <li><a href="#">安全设置</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">退出登录</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    </div>
+    </nav>
+  	</div>
+  	
+  	<div class="content">
+  		<div class="left">
+  			<ul>
+  				<li class="big-li">
+  					<h2>
+  						<i><img src="../../img/sellerapp/person.png"></i>
+  						个人中心
+  					</h2>
+  				</li>
+  				
+  				<li class="big-li">
+  					<h2>
+  						<i><img src="../../img/sellerapp/page.png"> </i>
+  						我的活动
+  					</h2>
+  					<ul class="small-ul">
+  						<li><a onclick="window.location.href='EventsList.html'">所有活动</a></li>
+  						<li><a onclick="window.location.href='AddActivity.html'">添加活动</a></li>
+  					</ul>
+  				</li>
+  				
+  				<li class="big-li">
+  					<h2>
+  						<i><img src="../../img/sellerapp/money.png"> </i>
+  						我的资产
+  					</h2>
+  					<ul class="small-ul">
+  						<li><a>账户余额</a></li>
+  						<li><a>我的钱包</a></li>
+  					</ul>
+  				</li>
+  				
+  				<li class="big-li">
+  					<h2>
+  						<i><img src="../../img/sellerapp/my.png"> </i>
+  						我的资料
+  					</h2>
+  					<ul class="small-ul">
+  						<li><a>个人资料</a></li>
+  						<li><a>安全中心</a></li>
+  						<li><a onclick="window.location.href='ChangePassword.html'">修改密码</a></li>
+  					</ul>
+  				</li>
+  			</ul>
+  		</div>
+  		
+  	    <div class="right" id="right0">
+  			<h3 class="person">商家信息认证</h3>
+  			<div class="persons">
+  					<p>
+  						<span class="profileinfo-label">姓名</span>
+  						<span>
+  							<span class="profileinfo-value"><input type="text" class="form-control" id="cr_real_name" name="cr_real_name"></span> 
+  						</span>
+  					</p>
+  					<p>
+  						<span class="profileinfo-label">身份证号码</span>
+  						<span>
+	  						<span class="profileinfo-value"><input type="text" class="form-control" id="cr_card_id" name="cr_card_id"></span>
+  						</span>
+  					</p>
+  					<p>
+  						<span class="profileinfo-label">组织机构代码</span>
+  						<span>
+  							<span class="profileinfo-value"><input type="text" class="form-control" id="organziation_code_certificate" name="organziation_code_certificate"></span> 
+  						</span>
+  					</p>
+  			   	<p>
+  						<span class="profileinfo-label" style="vertical-align: top;">法人照片</span>
+  						<span>
+							<span class="profileinfo-value">
+								<div id="click00" class="click"><img src="../../img/sellerapp/touxiang.jpg"></div>
+							</span>
+  						    <a class="fileinput-button">[上传]<input type="file" class="photo" id="cr_real_photo"></a>
+  						</span>
+  					</p>
+  					
+  					<p>
+  						<span class="profileinfo-label" style="vertical-align: top;">身份证照片</span>
+  						<span>
+							<span class="profileinfo-value">
+								<div id="click01" class="click"><img src="../../img/sellerapp/touxiang.jpg"></div>
+							</span>
+  						    <a class="fileinput-button">[上传正面照]<input type="file" class="photo" id="cr_card_front_photo"></a>
+  						</span>
+  					</p>
+  					<p>
+  						<span class="profileinfo-label" style="vertical-align: top;"></span>
+  						<span>
+							<span class="profileinfo-value">
+								<div id="click02" class="click"><img src="../../img/sellerapp/touxiang.jpg"></div>
+							</span>
+  						    <a class="fileinput-button">[上传背面照]<input type="file" class="photo" id="cr_card_back_photo"></a>
+  						</span>
+  					</p>
+  					<p>
+  						<span class="profileinfo-label" style="vertical-align: top;">营业执照</span>
+  						<span>
+							<span class="profileinfo-value">
+								<div id="click03" class="click"><img src="../../img/sellerapp/touxiang.jpg"></div>
+							</span>
+  						    <a class="fileinput-button">[上传]<input type="file" class="photo" id="business_licence"></a>
+  						</span>
+  					</p>
+  					<button type="button" class="btn btn-primary btn-lg" id="btn" >确定</button>
+  			</div>
+  	 </div>
+
+		<div class="right" id="right1" style="display: none;">
+			<h3 class="person">商家营业信息</h3>
+  			<div class="persons">
+  					<p>
+  						<span class="profileinfo-label">姓名</span>
+  						<span>
+  							<span class="profileinfo-value"><input type="text" class="form-control" id="cr_real_name1" name="cr_real_name"></span> 
+  						</span>
+  					</p>
+  					<p>
+  						<span class="profileinfo-label">身份证号码</span>
+  						<span>
+	  						<span class="profileinfo-value"><input type="text" class="form-control" id="cr_card_id1" name="cr_card_id"></span>
+  						</span>
+  					</p>
+  					<p>
+  						<span class="profileinfo-label">组织机构代码</span>
+  						<span>
+  							<span class="profileinfo-value"><input type="text" class="form-control" id="organziation_code_certificate1" name="organziation_code_certificate"></span> 
+  						</span>
+  					</p>
+  			   	<p>
+  						<span class="profileinfo-label" style="vertical-align: top;">法人照片</span>
+  						<span>
+							<span class="profileinfo-value">
+								<div id="click00" class="click"><img src="../../img/sellerapp/touxiang.jpg"></div>
+							</span>
+  						    <a class="fileinput-button">[上传]<input type="file" class="photo" id="cr_real_photo1"></a>
+  						</span>
+  					</p>
+  					
+  					<p>
+  						<span class="profileinfo-label" style="vertical-align: top;">身份证照片</span>
+  						<span>
+							<span class="profileinfo-value">
+								<div id="click01" class="click"><img src="../../img/sellerapp/touxiang.jpg"></div>
+							</span>
+  						    <a class="fileinput-button">[上传正面照]<input type="file" class="photo" id="cr_card_front_photo1"></a>
+  						</span>
+  					</p>
+  					<p>
+  						<span class="profileinfo-label" style="vertical-align: top;"></span>
+  						<span>
+							<span class="profileinfo-value">
+								<div id="click02" class="click"><img src="../../img/sellerapp/touxiang.jpg"></div>
+							</span>
+  						    <a class="fileinput-button">[上传背面照]<input type="file" class="photo" id="cr_card_back_photo1"></a>
+  						</span>
+  					</p>
+  					<p>
+  						<span class="profileinfo-label" style="vertical-align: top;">营业执照</span>
+  						<span>
+							<span class="profileinfo-value">
+								<div id="click03" class="click"><img src="../../img/sellerapp/touxiang.jpg"></div>
+							</span>
+  						    <a class="fileinput-button">[上传]<input type="file" class="photo" id="business_licence1"></a>
+  						</span>
+  					</p>
+  					<button type="button" class="btn btn-primary btn-lg" id="btn" >确定</button>
+  			</div>
+		</div>
+  	</div>
+  	
+  	<div class="footer"></div>
+  	
+    <script type="text/javascript" src="../../js/sellerapp/jquery.min.js" ></script>
+    <script type="text/javascript" src="../../js/sellerapp/bootstrap.js" ></script>
+    <script>
+    	$(function(){
+			   $("#cr_real_photo").change(function(e){
+			      var files = this.files;
+			    var img = new Image();
+			    var reader = new FileReader();
+			    reader.readAsDataURL(files[0]);
+			    reader.onload = function(e){
+			        var mb = (e.total/1024)/1024;
+			        if(mb>= 2){
+			            alert('文件大小大于2M');
+			            return;
+			        }
+			        img.src = this.result;
+			        img.style.width = "120px";
+			        img.style.height = "120px";
+			      $("#touxiang").hide();
+			      $("#click00").append(img);
+			    }
+			   });
+			});
+			$(function(){
+	  $("#btn").click(function () {
+		  var cr_real_name = $("#cr_real_name").val();
+		  var cr_card_id = $("#cr_card_id").val();
+		  var organziation_code_certificate = $("#organziation_code_certificate").val();
+		  var address = $("#address").val();
+		  var jsondata = {"cr_real_name":cr_real_name,
+		                  "cr_card_id":cr_card_id,
+		                  "organziation_code_certificate":organziation_code_certificate,
+		                 };
+		  $.ajax({
+			  type: "POST",
+			  url: "/alllink/seller/update",
+			  processData: false,
+			  contentType: "application/json;charset=utf-8", //这个是发送信息至服务器时内容编码类型
+			  dataType: "json",
+			  data: JSON.stringify(jsondata),//这里必须将对象转成string类型。
+			  success: function (result) {
+				  if(result.code == 1){
+				  						var d1=document.getElementById('right0');
+                      var d2=document.getElementById('right1');
+                      d2.style.display="block";
+                      $("#d1").replaceWith($("#d2").html());
+                      $("#cr_real_name1").html(result.seller.cr_real_name);
+                      $("#cr_card_id1").html(result.seller.cr_card_id);
+                      $("#organziation_code_certificate1").html(result.seller.organziation_code_certificate);
+				  }
+				  else{
+				  	alert("出现错误");
+				  }
+			  },
+			  error:function(XMLHttpRequest, textStatus){
+                  alert(XMLHttpRequest.status);
+                  alert(XMLHttpRequest.readyState);
+                  alert(textStatus);
+			  }
+		  });
+	  });
+});
+
+	</script>
+  </body>
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>万众艺兴---商家版</title>
+    <link rel="stylesheet" href="../../css/sellerapp/bootstrap.css" />
+	<style>
+		body{
+			padding-top:50px;
+			background-color: #F7F7F7;
+		}
+		.navbar > .container-fluid .navbar-brand{
+			margin-top: 5px;
+			margin-left: 81px;
+			font-size: 30px;
+			font-weight: 700;
+		}
+		.navbar-inverse .navbar-nav > li > a{
+			margin-left: 20px;
+			font-size: 16px;
+		}
+		.navbar-nav{
+			margin-top:5px;
+		}
+		.dropdown{
+			display: block;
+			margin-left: 230px;
+		}
+		.navbar{
+			min-height:60px;
+		}
+		.header{
+			margin-bottom: 50px;
+		}
+		.content{
+			height:1000px;
+		}
+		.maindiv{
+			margin: 0 auto;
+			width:1000px;
+			height:800px;
+			background-color: #FFFFFF;
+			padding-left:10px;
+			padding-right:10px;
+			border: 1px solid #ecedeb;
+		}
+		.maindiv-head{
+			border-bottom: 2px solid #F7F7F7;
+			padding: 0 20px 13px 30px;
+			font-size: 18px;
+			font-weight: 700;
+			display: block;
+			margin-top: 24px;
+		}
+		.maindiv-content{
+			margin-left: 115px;
+			margin-top: 50px;
+			color: #666;
+		}
+		.col-sm-2 {
+		    width: 9.666667%;
+		}
+		.col-sm-10 {
+		    width: 50.333333%;//输入框的宽度
+		}
+		.col-sm-offset-2 {
+		    margin-left: 9.666667%;//请记住我和登录的左边距
+		}
+		.img{
+			width:100px;
+			height:100px;
+			display: inline-block;
+		}
+		#activity_info{
+			height:100px;
+		}
+		#address{
+			height:50px;
+		}
+		.btn{
+			width:100px;
+		}
+	</style>
+  </head>
+  <body>
+  	<div class="header">
+  		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+     		<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">万众艺兴</a>
+				</div>
+		<div>
+		<ul class="nav navbar-nav">
+            <li ><a href="#">订单</a></li>
+            <li><a href="#">评价管理</a></li>
+            <li><a href="#">行业排名</a></li>
+            <li><a href="#">项目管理</a></li>
+            <li><a href="#">财务管理</a></li>
+            <li><a href="#">用户管理</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
+                    <span id="navName"></span><b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="#">个人中心</a></li>
+                    <li><a href="#">我的地址</a></li>
+                    <li><a href="#">安全设置</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">退出登录</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    </div>
+    </nav>
+  	</div>
+  	
+  	<div class="content">
+  	    <div class="maindiv">
+  			<h3 class="maindiv-head">活动详情</h3>
+  			<div class="maindiv-content">
+  			<form class="form-horizontal" role="form">	
+  				  <div class="form-group">
+				    <label class="col-sm-2 control-label">活动名称</label>
+				    <div class="col-sm-10">
+				      <span class="form-control" id="activityName" ></span>
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label class="col-sm-2 control-label">活动人数</label>
+				    <div class="col-sm-10">
+				      <div class="input-group">
+					  
+					  <span class="form-control" id="totalNumber" ></span>
+					  <span class="input-group-addon" id="basic-addon2">人</span>
+					</div>
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label class="col-sm-2 control-label">活动费用</label>
+				    <div class="col-sm-10">
+				      <div class="input-group">
+			            <span class="input-group-addon">$</span>
+			            <span class="form-control" id="cost" ></span>
+			            <span class="input-group-addon">元</span>
+			          </div>
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label class="col-sm-2 control-label">活动类型</label>
+				    <div class="col-sm-10">
+				    
+				    <span class="form-control" id="activityType" ></span>
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label class="col-sm-2 control-label">开始时间</label>
+				    <div class="col-sm-10">
+				      <span class="form-control" id="beginTime" ></span>
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label class="col-sm-2 control-label">结束时间</label>
+				    <div class="col-sm-10">
+				      <span class="form-control" id="endTime" ></span>
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <label class="col-sm-2 control-label">活动地址</label>
+				    <div class="col-sm-10">
+				      <span class="form-control" id="address" ></span>
+				    </div>
+				  </div>
+				  <div class="form-group" >
+				    <label class="col-sm-2 control-label">活动详情</label>
+				    <div class="col-sm-10">
+				      <span class="form-control" id="activityInfo" ></span>
+				    </div>
+				  </div>
+				  
+				  <div class="form-group">
+				    <label class="col-sm-2 control-label">活动图片</label>
+				    <div class="col-sm-10">
+				    <div class="img">
+				      <img src="../../img/sellerapp/touxiang.jpg" id="activityPhoto" class="img-thumbnail">
+				    </div>
+				    
+				    </div>
+				  </div>
+				  <div class="form-group">
+				    <div class="col-sm-offset-2 col-sm-10">
+				      <button type="button" class="btn btn-default" onclick="javascrpt:window.open('AddActivity.html')">修改活动</button>
+				    </div>
+				  </div>
+				</form>
+  			</div>
+  	 </div>
+
+  	</div>
+  	
+  	<div class="footer"></div>
+  	
+    <script type="text/javascript" src="../../js/sellerapp/jquery.min.js" ></script>
+    <script type="text/javascript" src="../../js/sellerapp/bootstrap.js" ></script>
+   <!--<script>-->
+       <!--window.onload = function () {-->
+           <!--function GetQueryString(name) {-->
+               <!--var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");-->
+               <!--var r = window.location.search.substr(1).match(reg);-->
+               <!--if (r != null)-->
+               <!--{return unescape(r[2]);}-->
+               <!--return null;-->
+           <!--}-->
+			   <!--var p1=GetQueryString("p1");-->
+			   <!--var p2=GetQueryString("p2");-->
+			   <!--var p3=GetQueryString("p3");-->
+			   <!--var p4=GetQueryString("p4");-->
+			   <!--var p5=GetQueryString("p5");-->
+			   <!--var p6=GetQueryString("p6");-->
+			   <!--var p7=GetQueryString("p7");-->
+			   <!--var p8=GetQueryString("p8");-->
+
+			   <!--$("#activityName").html(p1);-->
+			   <!--$("#totalNumber").html(p2);-->
+			   <!--$("#cost").html(p3);-->
+				<!--$("#activityType").html(p4);-->
+				<!--$("#beginTime").html(p5);-->
+				<!--$("#endTime").html(p6);-->
+				<!--$("#address").html(p7);-->
+				<!--$("#activityInfo").html(p8);-->
+
+       <!--}-->
+   <!--</script>-->
+	<script>
+        $(document).ready(function () {
+            function GetQueryString(name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+               var r = window.location.search.substr(1).match(reg);
+              if (r != null)
+                {return unescape(r[2]);}
+                return null;
+             }
+              var p1=GetQueryString("p1");
+            var jsondata = {"activityId": p1};
+            $.ajax({
+                async: false,
+                type: "POST",
+                url: "/alllink/sellerActivity/info",
+                processData: false,
+                contentType: "application/json;charset=utf-8", //这个是发送信息至服务器时内容编码类型
+                dataType: "json",
+                data: JSON.stringify(jsondata),//这里必须将对象转成string类型。
+                success: function (result) {
+                    if(result.code == 1){
+                        $("#activityName").html(result.activity.activityName);
+                        $("#totalNumber").html(result.activity.totalNumber);
+                        $("#cost").html(result.activity.cost);
+                      $("#activityType").html(result.activity.activityType);
+                      $("#beginTime").html(result.activity.beginTime);
+                       $("#endTime").html(result.activity.endTime);
+                        $("#address").html(result.activity.address);
+                       $("#activityInfo").html(result.activity.activityInfo);
+                    }
+                    else{
+                        alert("出现错误！请重试！");
+                    }
+                }
+            });
+        });
+        </script>
+  </body>
+</html>

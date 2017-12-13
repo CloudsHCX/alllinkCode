@@ -1,0 +1,98 @@
+@charset "utf-8";
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+form,
+fieldset,
+input,
+textarea,
+p,
+blockquote,
+th,
+td,
+p {
+	margin: 0;
+	padding: 0;
+	font-family: "微软雅黑", Microsoft Yahei, Arial, Helvetica, sans-serif;
+}
+
+ol,
+ul {
+	list-style: none;
+}
+
+.container {
+	padding-top: 100px;
+	margin-left: 100px;
+	background-color: red;
+}
+
+
+/**
+* 模拟select
+**/
+
+.select-box {
+	position: relative;
+	float: left;
+	margin-left: 46.5px;
+}
+
+.select-item .select-header {
+	width: 130px;
+	height: 25px;
+	border: 1px solid #c1c1c1;
+	background: url(../../img/icon/page/up_arrow.png) no-repeat #FFFFFF;
+	/*background-color: #FFFFFF;*/
+	background-position: 101px 4.5px;
+	line-height: 25px;
+	font-size: 15px;
+	color: #444444;
+	cursor: pointer;
+	overflow: hidden;
+	padding-right: 16px;
+}
+
+.select-item .select-arrow {
+	background: url(../../img/icon/page/down_arrow.png) no-repeat #FFFFFF;
+	background-position: 101px 4.5px;
+}
+
+.select-item .select-content {
+	border-left: 1px solid #c1c1c1;
+	border-right: 1px solid #c1c1c1;
+	position: absolute;
+	top: 25px;
+	left: 0;
+	z-index: 1;
+	display: none;
+	background-color: #FFFFFF;
+}
+
+.select-item .select-content li {
+	width: 128px;
+	height: 25px;
+	margin: 0;
+	/*border-bottom: 1px solid #c1c1c1;*/
+	line-height: 25px;
+	font-size: 15px;
+	color: #444444;
+	cursor: pointer;
+	text-align: center;
+}
+
+.select-item .select-content li:last-child {
+	border-bottom: 1px solid #c1c1c1;
+}

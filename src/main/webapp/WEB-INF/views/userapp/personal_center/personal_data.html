@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>个人资料</title>
+
+		<link rel="icon" href="../../../img/icon/system/icon_16_blue.png">
+		<link rel="stylesheet" type="text/css" href="../../../css/common/all.css">
+		<link rel="stylesheet" type="text/css" href="../../../css/common/body.css">
+		<link rel="stylesheet" type="text/css" href="../../../css/common/input.css">
+		<link rel="stylesheet" type="text/css" href="../../../css/common/mask_layer.css">
+		<link rel="stylesheet" type="text/css" href="../../../css/common/menu_bar.css">
+
+		<script type="text/javascript" src="../../../js/common/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="../../../js/common/upload_file.js"></script>
+		<script type="text/javascript" src="../../../js/common/info.js"></script>
+		<script type="text/javascript" src="../../../js/user/personal_center/personal_data.js"></script>
+	</head>
+
+	<body>
+		<!--阴影-->
+		<div id="maskLayer" class="mask-layer">
+			<!-- 提示框 -->
+			<div class="tip-div-in-mask-layer">
+				<div class="height-50px line-height-50px font-size-23px color-444444">提示</div>
+				<div id="tipContent"
+					class="width-100-percent height-80px font-size-18px line-height-80px font-size-18px color-444444"></div>
+
+				<div class="height-50px line-height-50px">
+					<input type="button" class="width-145px" value="确定" onclick="hideMaskLayer();" />
+				</div>
+			</div>
+		</div>
+
+		<div class="menu-bar-div">
+			<div class="horizontally-center-by-margin width-1100px height-100-percent">
+				<div class="position-relative float-left width-80px height-100-percent">
+					<img class="vertically-center-by-absolute left-0 right-0" src="../../../img/icon/system/icon_32_pink.png">
+				</div>
+
+				<div class="element-no-menu-div-hover  float-left width-120px">首页</div>
+
+				<div class="dropdown position-relative display-inline-block float-left">
+					<div class="element-div float-left width-120px">我的订单</div>
+
+					<div class="dropdown-content">
+						<a class="display-block color-FFFFFF text-decoration-none" href="#">近三个月订单</a>
+						<a class="display-block color-FFFFFF text-decoration-none" href="#">待评价订单</a>
+						<a class="display-block color-FFFFFF text-decoration-none" href="#">退单记录</a>
+					</div>
+				</div>
+
+				<div class="dropdown position-relative display-inline-block float-left">
+					<div class="element-div float-left width-120px">我的资产</div>
+
+					<div class="dropdown-content">
+						<a class="display-block color-FFFFFF text-decoration-none" href="#">我的优惠券</a>
+						<a class="display-block color-FFFFFF text-decoration-none" href="#">账户余额</a>
+						<a class="display-block color-FFFFFF text-decoration-none" href="#">我的积分</a>
+					</div>
+				</div>
+
+				<div class="dropdown position-relative display-inline-block float-left">
+					<div class="element-div float-left width-120px">我的资料</div>
+
+					<div class="dropdown-content">
+						<a class="display-block color-FFFFFF text-decoration-none" href="#">个人资料</a>
+						<a class="display-block color-FFFFFF text-decoration-none" href="#">安全中心</a>
+						<a class="display-block color-FFFFFF text-decoration-none" href="#">修改密码</a>
+					</div>
+				</div>
+
+				<div class="element-no-menu-div-hover  float-left width-120px">我的收藏</div>
+
+				<div class="dropdown position-relative display-inline-block float-right">
+					<div class="element-div float-right width-120px">用户名哈</div>
+
+					<div class="dropdown-content">
+						<a class="display-block color-FFFFFF text-decoration-none" href="#">个人中心</a>
+						<a class="display-block color-FFFFFF text-decoration-none" href="#">退出</a>
+					</div>
+				</div>
+
+				<div class="position-relative float-right width-60px height-100-percent">
+					<img id="header-avatar"
+						class="vertically-center-by-absolute left-0 right-0 width-32px height-32px border-radius-50-percent"
+						src="../../../img/avatar/0.png">
+				</div>
+			</div>
+		</div>
+
+		<div class="width-630px height-500px margin-top-40px horizontally-center-by-margin text-align-center">
+			<div class="float-left width-140px height-220px">
+				<div class="title-tab-div">
+					<div class="position-relative float-left width-60px height-100-percent">
+						<img class="vertically-center-by-absolute left-0 right-0" src="../../../img/icon/page/info.png" />
+					</div>
+
+					<div class="float-left width-80px text-align-left">个人资料</div>
+				</div>
+
+				<div class="height-45px margin-top-15px font-size-15px line-height-45px  color-FFFFFF background-color-5599FF cursor-pointer select-tab-hover"
+					id="tab0" onclick="selectTab('#tab0', 0);">基本信息</div>
+				<div class="height-45px font-size-15px line-height-45px  color-778899 cursor-pointer select-tab-hover" id="tab1"
+					onclick="selectTab('#tab1', 1);">第三方账号</div>
+				<div class="height-45px font-size-15px line-height-45px  color-778899 cursor-pointer select-tab-hover" id="tab2"
+					onclick="selectTab('#tab2', 2);">实名信息</div>
+			</div>
+
+			<div class="float-left width-450px height-100-percent margin-top-25px margin-left-40px color-444444">
+				<div id="tab0Info" class="display-block margin-top-negative-20px">
+					<div class="height-70px margin-top-20px line-height-70px">
+						<div class="float-left width-100px text-align-right">头像</div>
+
+						<div class="float-left width-124px height-100-percent position-relative">
+							<img id="tab-content-avatar" class="vertically-center-by-absolute left-0 right-0 border-radius-50-percent"
+								src="../../../img/avatar/0.png">
+						</div>
+
+						<div class="float-left width-220px text-align-left">
+							<div class="height-35px line-height-35px">
+								<input id="avatarFile" name="avatarFile" type="file" class="display-none" onchange="uploadFile(this);">
+								<label class="color-0066FF cursor-pointer content-right-upper-element-div-for-avatar-label-hover"
+									onclick="triggerFileClickEvent(this);">[修改头像]</label>
+							</div>
+
+							<div class="height-35px font-size-12px line-height-35px">
+								支持JPG、PNG、GIF格式，小于2MB
+							</div>
+						</div>
+					</div>
+
+					<div class="height-35px line-height-35px text-align-center margin-top-20px">
+						<div class="float-left width-100px text-align-right">手机号</div>
+						<div id="phoneNumber" class="float-left width-350px padding-left-30px text-align-left">13968574525</div>
+					</div>
+
+					<div class="height-35px line-height-35px text-align-center margin-top-20px">
+						<div class="float-left width-100px text-align-right">昵称</div>
+						<div class="float-left width-350px padding-left-30px text-align-left">
+							<input id="nickname" type="text" class="width-240px height-35px font-size-17px" value="我的昵称" maxlength="11"
+								onfocus="monitorContentChanges(this, 0, 0, 0, 0);" />
+						</div>
+					</div>
+
+					<div class="height-35px line-height-35px text-align-center margin-top-20px">
+						<div class="float-left width-100px text-align-right">性别</div>
+						<div class="float-left width-350px padding-left-30px text-align-left">
+							<label class="radio-div">
+        						<input class="radio-none" type="radio" name="sex" value="0">
+        						<span class="radio-repaint"></span>男
+    						</label>
+
+							<label class="radio-div margin-left-20px">
+        						<input class="radio-none" type="radio" name="sex" value="1">
+        						<span class="radio-repaint"></span>女
+    						</label>
+
+							<label class="radio-div margin-left-20px">
+        						<input class="radio-none" type="radio" name="sex" value="2" checked="true">
+        						<span class="radio-repaint"></span>保密
+    						</label>
+						</div>
+					</div>
+
+					<div class="height-35px line-height-35px text-align-center margin-top-20px">
+						<div class="float-left width-100px text-align-right">年龄</div>
+						<div class="float-left width-350px padding-left-30px text-align-left">
+							<input id="age" type="text" class="width-80px height-35px font-size-17px" value="45" maxlength="3"
+								onfocus="monitorContentChanges(this, 0, 2, 2, 0);" />
+						</div>
+					</div>
+
+					<div class="height-35px line-height-35px text-align-center margin-top-20px">
+						<div class="float-left width-100px text-align-right">邮箱</div>
+						<div class="float-left width-350px padding-left-30px text-align-left">
+							<input id="mailbox" type="text" class="width-240px height-35px font-size-17px" value="111@qq.com" maxlength="30"
+								onfocus="monitorContentChanges(this, 0, 3, 3, 0);" />
+						</div>
+					</div>
+
+					<div class="height-35px line-height-35px text-align-center margin-top-20px">
+						<div class="float-left width-100px text-align-right">注册时间</div>
+						<div id="registerTime" class="float-left width-350px padding-left-30px text-align-left">2017-07-31 17:00:00</div>
+					</div>
+
+					<div class="height-35px line-height-35px text-align-center margin-top-20px">
+						<input type="button" class="width-145px height-35px font-size-17px blue-button" id="modifyBasicInfoButton" disabled="disabled" value="确认修改"
+							onclick="modifyPersonalData(0);" />
+					</div>
+				</div>
+
+				<div id="tab1Info" class="display-none">
+					<div class="height-35px line-height-35px text-align-center margin-top-20px">
+						<div class="float-left width-100px text-align-right">QQ号</div>
+						<div class="float-left width-350px padding-left-30px text-align-left">
+							<input id="QQNumber" type="text" class="width-240px" value="1111111111" maxlength="10"
+								onfocus="monitorContentChanges(this, 1, 0, 4, 1);" />
+						</div>
+					</div>
+
+					<div class="height-35px line-height-35px text-align-center margin-top-20px">
+						<div class="float-left width-100px text-align-right">微信号</div>
+						<div class="float-left width-350px padding-left-30px text-align-left">
+							<input id="weChatNumber" type="text" class="width-240px" value="aaaa11" maxlength="20"
+								onfocus="monitorContentChanges(this, 1, 1, 5, 1);" />
+						</div>
+					</div>
+
+					<div class="height-35px line-height-35px text-align-center margin-top-20px">
+						<input type="button" class="width-145px" id="modifyThirdPartyAccountButton" disabled="disabled"
+							value="确认修改" onclick="modifyPersonalData(1);" />
+					</div>
+				</div>
+
+				<div id="tab2Info" class="display-none">
+					<div class="height-35px line-height-35px text-align-center margin-top-20px">
+						<div class="float-left width-100px text-align-right">真实姓名</div>
+
+						<div class="float-left width-350px padding-left-30px text-align-left">
+							<input id="realName" type="text" class="width-240px" value="我" maxlength="10" />
+						</div>
+					</div>
+
+					<div class="height-35px line-height-35px text-align-center margin-top-20px">
+						<div class="float-left width-100px text-align-right">身份证号</div>
+
+						<div class="float-left width-350px padding-left-30px text-align-left">
+							<input id="IDNumber" type="text" class="width-240px" value="1111111111" maxlength="19" />
+						</div>
+					</div>
+
+					<!--<div class="height-35px line-height-35px text-align-center margin-top-20px">
+						<input type="button" class="short-blue-button" disabled="disabled" value="确认修改" 
+							onclick="confirmModification();" />
+					</div>-->
+				</div>
+			</div>
+		</div>
+	</body>
+
+</html>

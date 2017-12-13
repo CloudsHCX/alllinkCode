@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 设置为IUserDao接口方法提供sql语句配置 -->
+<mapper namespace="com.alllink.sellerapp.seller.dao.SellerDao">
+
+
+
+    <resultMap id="sellerMap" type="java.util.HashMap">
+        <id property="sellerId" column="seller_id"></id>
+        <result property="sellerName" column="seller_name"/>
+        <result property="nickname" column="nickname"/>
+        <result property="address" column="address"/>
+        <result property="phoneNumber" column="phone_number"/>
+        <result property="qqNumber" column="qq_number"/>
+        <result property="wechatNumber" column="wechat_number"/>
+        <result property="email" column="email"/>
+        <result property="photo" column="photo"/>
+        <result property="state" column="state"/>
+        <result property="accountBalance" column="account_balance"/>
+    </resultMap>
+
+    <update id="activeSeller"  parameterType="map">
+        UPDATE seller
+        <set>
+            password = #{password},
+            state = 1
+        </set>
+        where phone_number = #{phoneNumber}
+    </update>
+
+    <insert id="register" parameterType="map">
+        INSERT INTO seller(phone_number, verification_code, code_creat_time, modified_time, salt, state) VALUES (#{phoneNumber}, #{verificationCode}, #{currentTime }, #{currentTime }, #{salt}, 0)
+    </insert>
+
+
+    <select id="login" parameterType="map" resultMap="sellerMap">
+        SELECT seller_id, seller_name,
+               nickname, address, phone_number,
+               qq_number, wechat_number, email,
+               photo, account_balance,state
+        FROM seller WHERE phone_number=#{phoneNumber} AND password=#{password}
+    </select>
+
+    <update id="update" parameterType="com.alllink.sellerapp.seller.entity.SellerEntity">
+        UPDATE seller
+        <set>
+            <if test="sellerName!= null">`seller_name` = #{sellerName},</if>
+            <if test="password != null">`password` = #{password}, </if>
+            <if test="address != null">`address` = #{address}, </if>
+            <if test="phoneNumber != null">`phone_number` = #{phoneNumber}, </if>
+            <if test="qqNumber != null">`qq_number` = #{qqNumber},</if>
+            <if test="wechatNumber != null">`wechat_number` = #{wechatNumber},</if>
+            <if test="email != null">`email` = #{email},</if>
+        </set>
+        where seller_id = #{sellerId}
+    </update>
+
+    <select id="checkPhone" parameterType="String" resultType="com.alllink.sellerapp.seller.entity.SellerEntity">
+         SELECT * FROM seller WHERE phone_number = #{phoneNumber}
+    </select>
+
+    <select id="getSalt" parameterType="String" resultType="String">
+        SELECT salt FROM seller WHERE phone_number = #{phoneNumber}
+    </select>
+
+    <update id="updateCheckcode" parameterType="map">
+        UPDATE seller
+        <set>
+            verification_code = #{verificationCode},
+            code_creat_time = #{currentTime}
+        </set>
+        where phone_number = #{phoneNumber}
+    </update>
+
+    <select id="findSellerById" parameterType="int" resultType="com.alllink.sellerapp.seller.entity.SellerEntity">
+        SELECT * FROM seller WHERE seller_id = #{sellerId}
+    </select>
+</mapper>
