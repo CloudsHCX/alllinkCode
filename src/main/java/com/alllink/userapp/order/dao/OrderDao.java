@@ -2,8 +2,10 @@ package com.alllink.userapp.order.dao;
 
 
 import com.alllink.userapp.order.entity.OrderEntity;
+import org.springframework.core.annotation.Order;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 
@@ -14,6 +16,8 @@ import java.util.List;
  */
 public interface OrderDao{
 	void createOrder(OrderEntity order);
-	List<OrderEntity> getNoPayOrderList(Integer userId);
-	void deleteOrder(Integer orderId);
+	List<OrderEntity> getOrderList(OrderEntity orderEntity);
+	void modifyOrder(OrderEntity orderEntity);
+
+	List<OrderEntity> getList(Map<String, Object> map);
 }

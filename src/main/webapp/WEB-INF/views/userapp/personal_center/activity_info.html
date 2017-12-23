@@ -3,25 +3,25 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<title>附近</title>
+		<title>活动信息</title>
 
 		<link rel="icon" href="../img/userapp/icon/system/icon_16_blue.png">
-
 		<link rel="stylesheet" type="text/css" href="../css/userapp/common/all.css">
 		<link rel="stylesheet" type="text/css" href="../css/userapp/common/body.css">
 		<link rel="stylesheet" type="text/css" href="../css/userapp/common/menu_bar.css">
 		<link rel="stylesheet" type="text/css" href="../css/userapp/common/item.css">
 		<link rel="stylesheet" type="text/css" href="../css/userapp/common/input.css">
 		<link rel="stylesheet" type="text/css" href="../css/userapp/common/menu_bar.css">
-		
+
 		<script type="text/javascript" src="../js/userapp/common/jquery-3.2.1.min.js"></script>
 		<script type="text/javascript" src="../js/userapp/user/personal_center/activity_info.js"></script>
 		<script type="text/javascript" src="../js/userapp/common/info.js"></script>
+		<script type="text/javascript" src="../js/userapp/common/get_head_and_user_name.js"></script>
 
 		<script type="text/javascript">
 
-			$(function(){
-				var jsonData = {"activityId":activityIdss};
+            $(function(){
+                var jsonData = {"activityId":"123"};
                 var jsonString = JSON.stringify(jsonData);
                 $.ajax({
                     url:"/alllink/activity/getActivityInfo",
@@ -31,20 +31,20 @@
                     async: false,
                     success:function (json) {
                         var data = json.data;
-						/*var $imgDiv = $("#imgDiv");
-						var imgList= data.imageUrl.split(",");
-						var imgstr = "";
-						for(var i in imgList){
-						    imgstr = imgstr+ '<img class="vertically-center-by-absolute left-'+(30 + i * 70)+'px width-60px height-60px border-radius-50-percent" src="/pic/'+imgList[i]+'"/>'
-						}
-                        $imgDiv.append(imgstr);*/
-						$("#activityId").val(data.activityId);
+                        var $imgDiv = $("#imgDiv");
+                        var imgList= data.imageUrl.split(",");
+                        var imgstr = "";
+                        for(var i in imgList){
+                            imgstr = imgstr+ '<img class="vertically-center-by-absolute left-'+(30 + i * 70)+'px width-60px height-60px border-radius-50-percent" src="/pic/'+imgList[i]+'"/>'
+                        }
+                        $imgDiv.append(imgstr);
+                        $("#activityId").val(data.activityId);
                         $("#sellerId").val(data.sellerId);
-						$("#activityInfo").html(data.activityInfo);
-						$("#activityName").html(data.activityName);
-						$("#activityType").text(data.activityType);
-						$("#beginTime").text(data.beginTime);
-						$("#endTime").text(data.endTime);
+                        $("#activityInfo").html(data.activityInfo);
+                        $("#activityName").html(data.activityName);
+                        $("#activityType").text(data.activityType);
+                        $("#beginTime").text(data.beginTime);
+                        $("#endTime").text(data.endTime);
                         $("#cost").text(data.cost);
                         $("#number").text(data.enrollNumber+"/"+data.totalNumber);
                         $("#address").text(data.address);
@@ -52,71 +52,57 @@
                     dataType:"json"
 
                 });
-			});
-			</script>
+            });
+		</script>
 	</head>
 
 	<body>
-	<!--设置一个隐藏域，存放activityId;-->
-	<input id="activityId" type="hidden" name="activityId" value=""/>
-	<!--设置一个隐藏域，存放activityId;-->
-	<input id="sellerId" type="hidden" name="sellerId" value=""/>
-		<div class="menu-bar-div">
-			<div class="horizontally-center-by-margin width-1100px height-100-percent">
-				<div class="position-relative float-left width-80px height-100-percent">
-					<img class="vertically-center-by-absolute left-0 right-0" src="../../../img/icon/system/icon_32_pink.png">
-				</div>
+	<div class="menu-bar-div">
+		<div class="horizontally-center-by-margin width-1100px height-100-percent">
+			<div class="position-relative float-left width-80px height-100-percent">
+				<img class="vertically-center-by-absolute left-0 right-0" src="../../img/userapp/icon/system/icon_32_pink.png">
+			</div>
 
-				<div class="element-no-menu-div-hover  float-left width-120px">首页</div>
+			<!--<div class="element-no-menu-div-hover  float-left width-120px">首页</div>-->
+			<div class="element-no-menu-div-hover  float-left width-120px" onclick="redirectPage('../../userapp/personal_center/nearby')">附近</div>
 
-				<div class="dropdown position-relative display-inline-block float-left">
-					<div class="element-div float-left width-120px">我的订单</div>
+			<div class="dropdown position-relative display-inline-block float-left">
+				<div class="element-div float-left width-120px">我的订单</div>
 
-					<div class="dropdown-content">
-						<a class="display-block color-FFFFFF text-decoration-none" href="#">近三个月订单</a>
-						<a class="display-block color-FFFFFF text-decoration-none" href="#">待评价订单</a>
-						<a class="display-block color-FFFFFF text-decoration-none" href="#">退单记录</a>
-					</div>
-				</div>
-
-				<div class="dropdown position-relative display-inline-block float-left">
-					<div class="element-div float-left width-120px">我的资产</div>
-
-					<div class="dropdown-content">
-						<a class="display-block color-FFFFFF text-decoration-none" href="#">我的优惠券</a>
-						<a class="display-block color-FFFFFF text-decoration-none" href="#">账户余额</a>
-						<a class="display-block color-FFFFFF text-decoration-none" href="#">我的积分</a>
-					</div>
-				</div>
-
-				<div class="dropdown position-relative display-inline-block float-left">
-					<div class="element-div float-left width-120px">我的资料</div>
-
-					<div class="dropdown-content">
-						<a class="display-block color-FFFFFF text-decoration-none" href="#">个人资料</a>
-						<a class="display-block color-FFFFFF text-decoration-none" href="#">安全中心</a>
-						<a class="display-block color-FFFFFF text-decoration-none" href="#">修改密码</a>
-					</div>
-				</div>
-
-				<div class="element-no-menu-div-hover  float-left width-120px">我的收藏</div>
-
-				<div class="dropdown position-relative display-inline-block float-right">
-					<div class="element-div float-right width-120px">用户名哈</div>
-
-					<div class="dropdown-content">
-						<a class="display-block color-FFFFFF text-decoration-none" href="#">个人中心</a>
-						<a class="display-block color-FFFFFF text-decoration-none" href="#">退出</a>
-					</div>
-				</div>
-
-				<div class="position-relative float-right width-60px height-100-percent">
-					<img id="header-avatar" class="vertically-center-by-absolute left-0 right-0 width-32px height-32px border-radius-50-percent" src="../../../img/avatar/0.png">
+				<div class="dropdown-content">
+					<a class="display-block color-FFFFFF text-decoration-none" href="../../userapp/personal_center/order/unpaid_order">待付款订单</a>
+					<a class="display-block color-FFFFFF text-decoration-none" href="../../userapp/personal_center/order/paid_order">已付款订单</a>
+					<a class="display-block color-FFFFFF text-decoration-none" href="../../userapp/personal_center/order/refund_order">退款订单</a>
 				</div>
 			</div>
+
+			<div class="dropdown position-relative display-inline-block float-left">
+				<div class="element-div float-left width-120px">我的资料</div>
+
+				<div class="dropdown-content">
+					<a class="display-block color-FFFFFF text-decoration-none" href="../../userapp/personal_center/personal_data">个人资料</a>
+					<a class="display-block color-FFFFFF text-decoration-none" href="../../userapp/reset_password">修改密码</a>
+				</div>
+			</div>
+
+			<div class="dropdown position-relative display-inline-block float-right">
+				<div id="header-user-name" class="element-div float-right width-120px">用户名哈</div>
+
+				<div class="dropdown-content">
+					<a class="display-block color-FFFFFF text-decoration-none" href="../../userapp/personal_center/personal_center">个人中心</a>
+					<a class="display-block color-FFFFFF text-decoration-none" href="#">退出</a>
+				</div>
+			</div>
+
+			<div class="position-relative float-right width-60px height-100-percent">
+				<img id="header-avatar" class="vertically-center-by-absolute left-0 right-0 width-32px height-32px border-radius-50-percent" src="../../img/userapp/avatar/0.png">
+			</div>
 		</div>
+	</div>
 
 		<div class="width-630px height-500px margin-top-20px padding-top-20px horizontally-center-by-margin color-444444">
+			<label id="activityId" class="display-none"></label>
+			
 			<div class="float-left width-140px height-220px">
 				<div class="title-tab-div">
 					<div class="position-relative float-left width-60px height-100-percent">
@@ -180,7 +166,7 @@
 				</div>
 				
 				<div class="padding-left-100px margin-top-25px">
-					<input id="btnOrder" type="button" class="width-145px height-35px font-size-17px blue-button" value="报名活动" onclick="apply();" />
+					<input type="button" class="width-145px height-35px font-size-17px blue-button" value="报名活动" onclick="apply();" />
 				</div>
 			</div>
 		</div>

@@ -4,6 +4,7 @@ import com.alllink.userapp.order.entity.OrderEntity;
 import com.alllink.userapp.order.entity.OrderItem;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 
@@ -13,7 +14,9 @@ import java.util.List;
  * @date 2017-12-06 17:42:52
  */
 public interface OrderService {
-	public void CreateOrder(Integer userId, Integer sellerId, Integer activityId);
-	public List<OrderItem> getNoPayOrderList(Integer UserId);
-	public void deleteOrder(Integer orderid);
+	public void CreateOrder(Integer userId, Integer sellerId, Integer activityId, String ord_str);
+	public List<OrderItem> getOrderList(OrderEntity orderEntity);
+	public void modifyOrder(OrderEntity orderEntity);
+
+	List<OrderEntity> getList(Map<String, Object> map);
 }

@@ -4,8 +4,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>万众艺兴---商家版</title>
+    <title>添加活动</title>
     <link rel="stylesheet" href="../../css/sellerapp/bootstrap.css" />
+
+	  <script type="text/javascript" src="../../js/sellerapp/jquery.min.js" ></script>
+	  <script type="text/javascript" src="../../js/sellerapp/bootstrap.js" ></script>
+	  <script type="text/javascript" src="../../js/sellerapp/activity.js" ></script>
+	  <script type="text/javascript" src="../../js/userapp/ajaxfileupload.js" ></script>
 	<style>
 		body{
 			padding-top:50px;
@@ -100,9 +105,10 @@
             <li><a href="#">财务管理</a></li>
             <li><a href="#">用户管理</a></li>
             <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
-                    <span id="navName"></span><b class="caret"></b>
-                </a>
+
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" >
+					<span id="navName">${Session.seller.phoneNumber}</span><b class="caret"></b>
+				</a>
                 <ul class="dropdown-menu">
                     <li><a href="#">个人中心</a></li>
                     <li><a href="#">我的地址</a></li>
@@ -151,31 +157,36 @@
 				    <label class="col-sm-2 control-label">活动类型</label>
 				    <div class="col-sm-10">
 				    <select class="form-control" id="activity_type">
-				      <option>1</option>
-				      <option>2</option>
-				      <option>3</option>
-				      <option>4</option>
-				      <option>5</option>
+				      <option value="0">英语</option>
+				      <option value="1">音乐</option>
+				      <option value="2">美术</option>
+
 				    </select>
 				    </div>
 				  </div>
-				  <div class="form-group">
-				    <label class="col-sm-2 control-label">开始时间</label>
-				    <div class="col-sm-10">
-				      <input type="text" class="form-control" id="begin_time" placeholder="请输入活动开始时间">
-				    </div>
-				  </div>
-				  <div class="form-group">
-				    <label class="col-sm-2 control-label">结束时间</label>
-				    <div class="col-sm-10">
-				      <input type="text" class="form-control" id="end_time" placeholder="请输入活动结束时间">
-				    </div>
-				  </div>
+				<div class="weui-cells weui-cells_form form-group">
+					<div class="weui-cell">
+						<label class="col-sm-2 control-label">开始时间</label>
+						<div class="weui-cell__bd col-sm-10">
+							<input class="weui-input form-control" type="datetime-local" id="begin_time">
+						</div>
+					</div>
+				</div>
+				<div class="weui-cells weui-cells_form form-group">
+					<div class="weui-cell">
+						<label class="col-sm-2 control-label">结束时间</label>
+						<div class="weui-cell__bd col-sm-10">
+							<input class="weui-input form-control" type="datetime-local" id="end_time">
+						</div>
+					</div>
+				</div>
 				  <div class="form-group">
 				    <label class="col-sm-2 control-label">活动地址</label>
-				    <div class="col-sm-10">
-				      <textarea class="form-control" rows="3" id="address"></textarea>
-				    </div>
+					  <div class="col-sm-10">
+						  <textarea class="form-control" rows="3" id="address"></textarea>
+						  <span  id="latitude" style="display: none"></span>
+						  <span  id="longitude" style="display: none"></span>
+					  </div>
 				  </div>
 				  <div class="form-group" >
 				    <label class="col-sm-2 control-label">活动详情</label>
@@ -184,20 +195,12 @@
 				    </div>
 				  </div>
 				  
-				  <!--<div class="form-group">
-				    <label class="col-sm-2 control-label">上传图片</label>
-				    <div class="col-sm-10">
-				    <div class="img">
-				      <img src="../../img/sellerapp/touxiang.jpg" class="img-thumbnail">
-				    </div>
-				    </div>
-				  </div>-->
-				  
 				  <div class="form-group">
 					  <label class="col-sm-2 control-label">上传图片</label>
 					  <div class="col-sm-10">
 					  <div class="img" id="images">
-						<input type="file" multiple="multiple" id="addimage" accept="image/png,image/jpg">
+						  <img id="activityPhoto" src="" style="display: none;">
+						<input type="file" name="file" id="addimage" accept="image/*"  multiple="">
 					  </div>
 					  </div>
 					</div>
@@ -214,29 +217,26 @@
   	</div>
   	
   	<div class="footer"></div>
-  	
-    <script type="text/javascript" src="../../js/sellerapp/jquery.min.js" ></script>
-    <script type="text/javascript" src="../../js/sellerapp/bootstrap.js" ></script>
-    <script type="text/javascript" src="../../js/sellerapp/activity.js" ></script>
+
     <script>
-    	$("#address").focus(
-				function getLocation()
-				{
-					if (navigator.geolocation)
-					{
-						navigator.geolocation.getCurrentPosition(showPosition);
-					}
-					else
-					{
-						alert("该浏览器不支持获取地理位置。");
-					}
-				});
-				
-				function showPosition(position)
-				{
-					alert("纬度: " + position.coords.latitude + 
-					"<br>经度: " + position.coords.longitude);
-				}
-			</script>
+        $("#address").focus(
+            function getLocation()
+            {
+                if (navigator.geolocation)
+                {
+                    navigator.geolocation.getCurrentPosition(showPosition);
+                }
+                else
+                {
+                    alert("该浏览器不支持获取地理位置。");
+                }
+            });
+        function showPosition(position)
+        {
+            $("#latitude").html(position.coords.latitude);
+            $("#longitude").html(position.coords.longitude);
+        }
+	</script>
+
   </body>
 </html>

@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 @Repository
 public interface SellerDao {
-    public void activeSeller(HashMap<String, String> map);
+    public void activeSeller(HashMap<String, Object> map);
     //public SellerEntity login(@Param("sellerName")String sellerName,@Param("password")String password);
     public HashMap<String, Object> login(HashMap<String, String> map);
     public void update(SellerEntity seller);

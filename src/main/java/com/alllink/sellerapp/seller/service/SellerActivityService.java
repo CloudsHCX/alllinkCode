@@ -16,7 +16,7 @@ import java.util.Map;
  */
 public interface SellerActivityService {
 
-	SellerActivityEntity queryObject(int activityId);
+	HashMap<String, Object> queryObject(int activityId);
 	
 	List<SellerActivityEntity> queryList(Map<String, Object> map);
 	

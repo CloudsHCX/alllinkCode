@@ -5,8 +5,6 @@ import com.alllink.commons.utils.JsonUtils;
 import com.alllink.userapp.order.entity.OrderEntity;
 import com.alllink.userapp.order.entity.OrderItem;
 import com.alllink.userapp.order.service.OrderService;
-import com.alllink.userapp.user.entity.User;
-import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +15,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,7 +26,7 @@ import java.util.Map;
 public class OrderController {
     @Autowired
     private OrderService orderService;
-
+    SimpleDateFormat sdf = new SimpleDateFormat("MMdd");//获取月和日
     @RequestMapping(value = "toNoPayList")
     public ModelAndView toActivityList(ModelAndView mv){
         /*return "redirect:/userapp/personal_center/nearby";*/
@@ -41,21 +41,38 @@ public class OrderController {
     @ResponseBody
     public String createOrder(@RequestBody OrderEntity order, HttpServletRequest request, HttpSession session){
         Map<String,Object> map = new HashMap<>();
+        String orderAttach = null;//下单渠道
+        String datetime = null;//时间信息
+        String randomCode = null;//四位随机码
+        String userIdString = "";//用户ID后四位；
+        datetime = sdf.format(new Date());
+        randomCode = (int)(((Math.random()*9)+1)*1000)+"";
         try{
             String userID = null;//获取用户Id
             if (CheckDevice.getDevice(request)==1){
                 userID = order.getUserId().toString();
+                orderAttach = "1";
             }else {
-                if (session.getAttribute("user")==null){
-                    userID = null;
-                }else {
+                orderAttach = "2";
                     userID = session.getAttribute("user").toString();
+            }
+            //取userid后四位
+            if (userID.length()<4){
+                int ll = 4-userID.length();
+                for (int i = 0;i<ll;i++) {
+                    userIdString+="0";
+
                 }
+                userIdString+=userID;
             }
-            if (userID==null||userID.trim().length()==0){
-                return "0";//表示未登陆，跳转到登陆页面
+            if (userID.length()==4){
+                userIdString = userID;
             }
-            orderService.CreateOrder(Integer.parseInt(userID),order.getSellerId(),order.getActivityId());
+            if (userID.length()>4){
+                userIdString = userID.substring(userID.length()-5,userID.length()-1);
+            }
+            order.setOrderIdStr(orderAttach+datetime+randomCode+userIdString);
+            orderService.CreateOrder(Integer.parseInt(userID),order.getSellerId(),order.getActivityId(),order.getOrderIdStr());
             map.put("result","success");
             map.put("message","活动报名成功");
         }catch (Exception e){
@@ -63,47 +80,46 @@ public class OrderController {
             map.put("result","error");
             map.put("message","活动报名失败");
         }
-        map.put("data","");
+        Map<String,String> orderId = new HashMap<>();//这里是返回给安卓的订单号
+        orderId.put("orderId",order.getOrderIdStr());
+        map.put("data",orderId);
         map.put("exception","");
         return JsonUtils.objectToJson(map);
 
     }
-    @RequestMapping(value = "/getNonPayList",method = RequestMethod.POST,produces="text/html;charset=UTF-8")
+    //获取订单 orderGet中的orderState表示要获取什么样的订单，如果不传表示获取全部订单，-1表示取消的订单，0表示未付款订单，1表示已经付款的订单
+    @RequestMapping(value = "/getOrderList",method = RequestMethod.POST,produces="text/html;charset=UTF-8")
     @ResponseBody
-    public String getNoPayOrder(@RequestBody User user,HttpServletRequest request, HttpSession session){
+    public String getNoPayOrder(@RequestBody OrderEntity orderEntity,HttpServletRequest request, HttpSession session){
         Map<String,Object> map = new HashMap<>();
         String userID = null;//获取用户Id
         if (CheckDevice.getDevice(request)==1){
-            userID = user.getUserId().toString();
+            userID = orderEntity.getUserId().toString();
         }else {
             userID = session.getAttribute("user").toString();
         }
-        List<OrderItem> orderList = orderService.getNoPayOrderList(Integer.parseInt(userID));
-        if (orderList!=null&&orderList.size()>0){
+        orderEntity.setUserId(Integer.parseInt(userID));
+        List<OrderItem> orderList = orderService.getOrderList(orderEntity);
             map.put("result","success");
-            map.put("message","获取未付款订单列表成功");
-
-        }else {
-            map.put("result","error");
-            map.put("message","获取未付款订单列表失败");
-        }
+            map.put("message","获取订单列表成功");
         map.put("data",orderList);
         map.put("exception","");
         String str = JsonUtils.objectToJson(map);
         return str;
     }
-    @RequestMapping(value = "/deleteOrder",method = RequestMethod.POST,produces="text/html;charset=UTF-8")
+    //修改订单状态，删除则orderState传递-1，支付完成orderState传递1
+    @RequestMapping(value = "/modifyOrderState",method = RequestMethod.POST,produces="text/html;charset=UTF-8")
     @ResponseBody
     public String deleteOrder(@RequestBody OrderEntity order){
         Map<String,Object> map = new HashMap<>();
         try {
-            orderService.deleteOrder(order.getOrderId());
+            orderService.modifyOrder(order);
             map.put("result","success");
-            map.put("message","删除订单成功");
+            map.put("message","操作订单成功");
         }catch (Exception e){
             e.printStackTrace();
             map.put("result","error");
-            map.put("message","删除订单失败");
+            map.put("message","操作订单失败");
         }
         map.put("data","");
         map.put("exception","");

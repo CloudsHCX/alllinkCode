@@ -10,18 +10,23 @@ import org.springframework.web.servlet.ModelAndView;
 * 请求地址映射，
 * */
 @Controller
-@RequestMapping(value = "/sellerapp")
+@RequestMapping(value = "/views")
 public class SellerPageController {
 
-    @RequestMapping("/{page}")
+    @RequestMapping("/sellerapp/{page}")
     public ModelAndView showpage1(@PathVariable String page, ModelAndView mv) {
         mv.setViewName("sellerapp/"+page);
-        System.out.println(mv.getViewName());
+        mv.addObject("name", "hello world");
         return mv;
     }
-    @RequestMapping("/modules/{page}")
+    @RequestMapping("/sellerapp/modules/{page}")
     public ModelAndView showpage2(@PathVariable String page,ModelAndView mv) {
         mv.setViewName("sellerapp/modules/"+page);
+        return mv;
+    }
+    @RequestMapping("/wechat/{page}")
+    public ModelAndView showpage3(@PathVariable String page,ModelAndView mv) {
+        mv.setViewName("wechat/"+page);
         return mv;
     }
 }

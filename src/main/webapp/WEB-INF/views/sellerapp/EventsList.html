@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>万众艺兴---商家版</title>
+    <title>网页-活动列表</title>
     <link rel="stylesheet" href="../../css/sellerapp/bootstrap.css" />
 	<style>
 		body{
@@ -142,12 +142,12 @@
     <!--<script type="text/javascript" src="../../js/sellerapp/EventList.js" ></script>-->
   <script>
     $(document).ready(function () {
-        var List = {"sellerId":"1"};
+        var sellerId = ${Session.seller.sellerId};
+        var List = {"sellerId":sellerId};
         var result;
         $.ajax({
             async: false,
             type: "POST",
-//          url: "/alllink/sellerActivity/info/?activityId=" +activityId,
             url: "/alllink/sellerActivity/queryAll",
             processData: false,
             contentType: "application/json;charset=utf-8", //这个是发送信息至服务器时内容编码类型
@@ -169,24 +169,9 @@
                                 '<span class="activity_type">'+List.activityType+'</span>|' +
                                 '<span class="address">'+List.address+'</span>' +
                                 '</div>' +
-                                '<div class="cost">单人 ￥'+List.cost+'元</div>' +
+                                '<div class="cost">每人 ￥'+List.cost+'元</div>' +
                                 '<div class="activity_info">'+List.activityInfo+'</div>' +
                                 '</li>';
-
-                     /*   for(var i in List){ //第二层循环取list中的对象
-                            resultList.innerHTML = resultList.innerHTML + '<li class="list-group-item" id="li'+i+'">' +
-                                '<span class="badge">新</span>' +
-                                '<div class="activity_name" id="activity_name"><span id="namespan">'+List[i]["activityName"]+'</span>' +
-                                '<span class="cancel" id="cancel'+i+'" data-toggle="modal" data-target="#myModal" >取消</span>' +
-                                '</div>' +
-                                '<div class="activity_content">' +
-                                '<span class="activity_type">'+List[i]["activityType"]+'</span>|' +
-                                '<span class="address">'+List[i]["address"]+'</span>' +
-                                '</div>' +
-                                '<div class="cost">单人 ￥'+List[i]["cost"]+'元</div>' +
-                                '<div class="activity_info">'+List[i]["activityInfo"]+'</div>' +
-                                '</li>'
-                        }*/
                     }
                 }
                 else{
@@ -194,8 +179,6 @@
                 }
             },
             error:function(XMLHttpRequest, textStatus){
-                alert(XMLHttpRequest.status);
-                alert(XMLHttpRequest.readyState);
                 alert(textStatus);
             }
         });

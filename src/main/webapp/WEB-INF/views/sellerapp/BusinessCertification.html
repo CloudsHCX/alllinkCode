@@ -29,7 +29,9 @@
                     <span id="navName"></span><b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="#">个人中心</a></li>
+                    <li><a href="#">个人中心</a>
+						<span  id="sellerId-none" style="display: none">${Session.seller.sellerId}</span>
+					</li>
                     <li><a href="#">我的地址</a></li>
                     <li><a href="#">安全设置</a></li>
                     <li class="divider"></li>
@@ -109,13 +111,13 @@
   							<span class="profileinfo-value"><input type="text" class="form-control" id="organziation_code_certificate" name="organziation_code_certificate"></span> 
   						</span>
   					</p>
-  			   	<p>
+  			   		<p>
   						<span class="profileinfo-label" style="vertical-align: top;">法人照片</span>
   						<span>
 							<span class="profileinfo-value">
-								<div id="click00" class="click"><img src="../../img/sellerapp/touxiang.jpg"></div>
+								<div id="click00" class="click"><img src="../../img/sellerapp/touxiang.jpg" id="img0"></div>
 							</span>
-  						    <a class="fileinput-button">[上传]<input type="file" class="photo" id="cr_real_photo"></a>
+  						    <a class="fileinput-button" id="a0">[上传]<input type="file" name="file" class="photo" id="cr_real_photo"></a>
   						</span>
   					</p>
   					
@@ -123,161 +125,121 @@
   						<span class="profileinfo-label" style="vertical-align: top;">身份证照片</span>
   						<span>
 							<span class="profileinfo-value">
-								<div id="click01" class="click"><img src="../../img/sellerapp/touxiang.jpg"></div>
+								<div id="click01" class="click"><img src="../../img/sellerapp/touxiang.jpg" id="img1"></div>
 							</span>
-  						    <a class="fileinput-button">[上传正面照]<input type="file" class="photo" id="cr_card_front_photo"></a>
+  						    <a class="fileinput-button" id="a1">[上传正面照]<input type="file" name="file" class="photo" id="cr_card_front_photo"></a>
   						</span>
   					</p>
   					<p>
   						<span class="profileinfo-label" style="vertical-align: top;"></span>
   						<span>
 							<span class="profileinfo-value">
-								<div id="click02" class="click"><img src="../../img/sellerapp/touxiang.jpg"></div>
+								<div id="click02" class="click"><img src="../../img/sellerapp/touxiang.jpg" id="img2"></div>
 							</span>
-  						    <a class="fileinput-button">[上传背面照]<input type="file" class="photo" id="cr_card_back_photo"></a>
+  						    <a class="fileinput-button" id="a2">[上传背面照]<input type="file" name="file" class="photo" id="cr_card_back_photo"></a>
   						</span>
   					</p>
   					<p>
   						<span class="profileinfo-label" style="vertical-align: top;">营业执照</span>
   						<span>
 							<span class="profileinfo-value">
-								<div id="click03" class="click"><img src="../../img/sellerapp/touxiang.jpg"></div>
+								<div id="click03" class="click"><img src="../../img/sellerapp/touxiang.jpg" id="img3"></div>
 							</span>
-  						    <a class="fileinput-button">[上传]<input type="file" class="photo" id="business_licence"></a>
+  						    <a class="fileinput-button" id="a3">[上传]<input type="file" name="file" class="photo" id="business_licence"></a>
   						</span>
   					</p>
   					<button type="button" class="btn btn-primary btn-lg" id="btn" >确定</button>
   			</div>
   	 </div>
 
-		<div class="right" id="right1" style="display: none;">
-			<h3 class="person">商家营业信息</h3>
-  			<div class="persons">
-  					<p>
-  						<span class="profileinfo-label">姓名</span>
-  						<span>
-  							<span class="profileinfo-value"><input type="text" class="form-control" id="cr_real_name1" name="cr_real_name"></span> 
-  						</span>
-  					</p>
-  					<p>
-  						<span class="profileinfo-label">身份证号码</span>
-  						<span>
-	  						<span class="profileinfo-value"><input type="text" class="form-control" id="cr_card_id1" name="cr_card_id"></span>
-  						</span>
-  					</p>
-  					<p>
-  						<span class="profileinfo-label">组织机构代码</span>
-  						<span>
-  							<span class="profileinfo-value"><input type="text" class="form-control" id="organziation_code_certificate1" name="organziation_code_certificate"></span> 
-  						</span>
-  					</p>
-  			   	<p>
-  						<span class="profileinfo-label" style="vertical-align: top;">法人照片</span>
-  						<span>
-							<span class="profileinfo-value">
-								<div id="click00" class="click"><img src="../../img/sellerapp/touxiang.jpg"></div>
-							</span>
-  						    <a class="fileinput-button">[上传]<input type="file" class="photo" id="cr_real_photo1"></a>
-  						</span>
-  					</p>
-  					
-  					<p>
-  						<span class="profileinfo-label" style="vertical-align: top;">身份证照片</span>
-  						<span>
-							<span class="profileinfo-value">
-								<div id="click01" class="click"><img src="../../img/sellerapp/touxiang.jpg"></div>
-							</span>
-  						    <a class="fileinput-button">[上传正面照]<input type="file" class="photo" id="cr_card_front_photo1"></a>
-  						</span>
-  					</p>
-  					<p>
-  						<span class="profileinfo-label" style="vertical-align: top;"></span>
-  						<span>
-							<span class="profileinfo-value">
-								<div id="click02" class="click"><img src="../../img/sellerapp/touxiang.jpg"></div>
-							</span>
-  						    <a class="fileinput-button">[上传背面照]<input type="file" class="photo" id="cr_card_back_photo1"></a>
-  						</span>
-  					</p>
-  					<p>
-  						<span class="profileinfo-label" style="vertical-align: top;">营业执照</span>
-  						<span>
-							<span class="profileinfo-value">
-								<div id="click03" class="click"><img src="../../img/sellerapp/touxiang.jpg"></div>
-							</span>
-  						    <a class="fileinput-button">[上传]<input type="file" class="photo" id="business_licence1"></a>
-  						</span>
-  					</p>
-  					<button type="button" class="btn btn-primary btn-lg" id="btn" >确定</button>
-  			</div>
-		</div>
   	</div>
   	
   	<div class="footer"></div>
   	
     <script type="text/javascript" src="../../js/sellerapp/jquery.min.js" ></script>
     <script type="text/javascript" src="../../js/sellerapp/bootstrap.js" ></script>
+	<script src="../../js/userapp/ajaxfileupload.js"></script>
     <script>
-    	$(function(){
-			   $("#cr_real_photo").change(function(e){
-			      var files = this.files;
-			    var img = new Image();
-			    var reader = new FileReader();
-			    reader.readAsDataURL(files[0]);
-			    reader.onload = function(e){
-			        var mb = (e.total/1024)/1024;
-			        if(mb>= 2){
-			            alert('文件大小大于2M');
-			            return;
-			        }
-			        img.src = this.result;
-			        img.style.width = "120px";
-			        img.style.height = "120px";
-			      $("#touxiang").hide();
-			      $("#click00").append(img);
-			    }
-			   });
-			});
-			$(function(){
+
+        $(function(){
+            $(".photo").change(function(e){
+                var id = $(e.target).attr('id');
+                var files = this.files;
+                var img = new Image();
+                var reader = new FileReader();
+                reader.readAsDataURL(files[0]);
+                reader.onload = function(e){
+                    var mb = (e.total/1024)/1024;
+                    if(mb>= 2){
+                        alert('文件大小大于2M');
+                        return;
+                    }
+                    img.src = this.result;
+                    img.style.width = "120px";
+                    img.style.height = "120px";
+                    var id1=$("#"+id).parent().prev().attr("id");
+                    var id2=$("#"+id1).find("img");
+                    var id3=$("#"+id1).find("img").attr("id");
+                    $.ajaxFileUpload({
+                        url: "/alllink/file/photo", //后台方法的路径
+                        type: "post",   //当要提交自定义参数时，这个参数要设置成post
+                        fileElementId:id,    //需要上传的文件域的ID，即<input type="file">的ID。
+                        dataType: "json",   //服务器返回的数据类型。可以为xml,script,json,html。如果不填写，jQuery会自动判断。
+                        //secureuri: false,   //是否启用安全提交，默认为false。
+                        contentType: "application/json;charset=utf-8",
+                        async:false,   //是否是异步
+                        success: function(data) {//提交成功后自动执行的处理函数，参数data就是服务器返回的数据。
+                            $("#"+id3).attr("src",  data.url);
+                        },
+                        error: function(data, status, e) {  //提交失败自动执行的处理函数。
+                            alert("error");
+                        }
+                    });
+                }
+            });
+        });
+	$(function(){
 	  $("#btn").click(function () {
-		  var cr_real_name = $("#cr_real_name").val();
-		  var cr_card_id = $("#cr_card_id").val();
-		  var organziation_code_certificate = $("#organziation_code_certificate").val();
-		  var address = $("#address").val();
-		  var jsondata = {"cr_real_name":cr_real_name,
-		                  "cr_card_id":cr_card_id,
-		                  "organziation_code_certificate":organziation_code_certificate,
-		                 };
+	      //result.sellerAuthinfo.sauthinfoId .crCardId
+          var sellerId = $("#sellerId-none").html();
+		  var crRealName = $("#cr_real_name").val();
+		  var crCardId = $("#cr_card_id").val();
+		  var organziationCodeCertificate = $("#organziation_code_certificate").val();
+		  var crRealPhoto = $("#img0").attr("src");
+		  var crCardFrontPhoto = $("#img1").attr("src");
+          var crCardBackPhoto = $("#img2").attr("src");
+          var businessLicence = $("#img3").attr("src");
+		  var jsondata = {"sellerId":sellerId,
+			  			  "crRealName":crRealName,
+		                  "crCardId":crCardId,
+		                  "organziationCodeCertificate":organziationCodeCertificate,
+              "crRealPhoto":crRealPhoto,
+              "crCardFrontPhoto":crCardFrontPhoto,
+			  "crCardBackPhoto":crCardBackPhoto,
+			  "businessLicence":businessLicence
+		  };
 		  $.ajax({
 			  type: "POST",
-			  url: "/alllink/seller/update",
+			  url: "/alllink/sellerauthinfo/save",
 			  processData: false,
 			  contentType: "application/json;charset=utf-8", //这个是发送信息至服务器时内容编码类型
 			  dataType: "json",
 			  data: JSON.stringify(jsondata),//这里必须将对象转成string类型。
 			  success: function (result) {
 				  if(result.code == 1){
-				  						var d1=document.getElementById('right0');
-                      var d2=document.getElementById('right1');
-                      d2.style.display="block";
-                      $("#d1").replaceWith($("#d2").html());
-                      $("#cr_real_name1").html(result.seller.cr_real_name);
-                      $("#cr_card_id1").html(result.seller.cr_card_id);
-                      $("#organziation_code_certificate1").html(result.seller.organziation_code_certificate);
+                      window.location.href = "/alllink/views/sellerapp/BusinessCf.html";
 				  }
 				  else{
-				  	alert("出现错误");
+				  	alert(result.msg);
 				  }
 			  },
 			  error:function(XMLHttpRequest, textStatus){
-                  alert(XMLHttpRequest.status);
-                  alert(XMLHttpRequest.readyState);
-                  alert(textStatus);
+                  alert("XMLHttpRequest.status:"+XMLHttpRequest.status+"|XMLHttpRequest.readyState:"+XMLHttpRequest.readyState+"|textStatus:"+textStatus);
 			  }
 		  });
 	  });
-});
 
+});
 	</script>
   </body>
 </html>

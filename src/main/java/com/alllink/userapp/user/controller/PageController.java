@@ -23,5 +23,9 @@ public class PageController {
         return mv;
     }
 
-
+    @RequestMapping("/personal_center/order/{page}")
+    public ModelAndView showpage3(@PathVariable String page,ModelAndView mv) {
+        mv.setViewName("userapp/personal_center/order/"+page);
+        return mv;
+    }
 }

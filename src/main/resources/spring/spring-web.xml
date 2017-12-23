@@ -23,14 +23,51 @@
 	 -->
 	 <mvc:default-servlet-handler/>
 
+
+	<!-- FreeMarker视图解析器默认视图 -->
+	<bean id="viewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView"/>
+		<property name="contentType" value="text/html;charset=utf-8"/>
+		<property name="requestContextAttribute" value="request"/>
+		<property name="cache" value="false"/>
+		<!--<property name="viewNames" value="*.html" />-->
+		<property name="suffix" value=".html"/>
+		<property name="order" value="0"/>
+	</bean>
+	<bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape" />
+	<bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+		<property name="templateLoaderPath" value="/WEB-INF/views/"/>
+		<property name="freemarkerVariables">
+			<map>
+				<entry key="xml_escape" value-ref="fmXmlEscape" />
+			</map>
+		</property>
+		<property name="freemarkerSettings">
+			<props>
+				<prop key="default_encoding">UTF-8</prop>
+				<prop key="url_escaping_charset">UTF-8</prop>
+				<prop key="template_update_delay">1</prop>
+				<prop key="tag_syntax">auto_detect</prop>
+				<prop key="whitespace_stripping">true</prop>
+				<prop key="classic_compatible">true</prop>
+				<prop key="number_format">0.##########</prop>
+				<prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
+				<prop key="template_exception_handler">ignore</prop>
+				<prop key="object_wrapper">freemarker.ext.beans.BeansWrapper</prop>
+			</props>
+		</property>
+	</bean>
 	 <!-- 3.配置jsp 显示ViewResolver -->
 	 <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 	 	<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+		 <!--<property name="viewClass" value="org.springframework.web.servlet.view.InternalResourceView"/>-->
 	 	<property name="prefix" value="/WEB-INF/views/" />
-	 	<property name="suffix" value=".html" />
+		 <!--<property name="viewNames" value=".jsp" />-->
+		 <property name="suffix" value=".jsp"/>
+		 <property name="order" value="2"/>
 	 </bean>
 
-	<mvc:resources mapping="/views/**" location="/WEB-INF/views/" />
+	<!--<mvc:resources mapping="/views/**" location="/WEB-INF/views/" />-->
 	 
 	 <!-- 4.扫描web相关的bean -->
 	 <context:component-scan base-package="com.alllink.*.*.controller" />

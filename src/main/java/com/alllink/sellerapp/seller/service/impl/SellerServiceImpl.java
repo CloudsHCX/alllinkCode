@@ -16,7 +16,7 @@ public class SellerServiceImpl implements SellerService {
     @Autowired
     private SellerDao sellerDao;
     @Override
-    public void activeSeller(HashMap<String, String> map) {
+    public void activeSeller(HashMap<String, Object> map) {
 
         sellerDao.activeSeller(map);
     }

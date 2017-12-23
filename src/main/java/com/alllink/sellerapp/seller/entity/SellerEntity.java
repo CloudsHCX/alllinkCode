@@ -7,10 +7,6 @@ import java.util.Date;
 
 /**
  *
- *
- * @author chenshun
- * @email sunlightcs@gmail.com
- * @date 2017-11-05 15:57:37
  */
 public class SellerEntity implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -27,17 +23,18 @@ public class SellerEntity implements Serializable {
     private int state;
     //地址
     private String address;
-
     //手机号
     private String phoneNumber;
     //QQ
     private String qqNumber;
     //微信
     private String wechatNumber;
+    //支付宝账号
+    private String alipayNumber;
     //邮箱
     private String email;
     //头像
-    private Blob avatar;
+    private String photo;
     //余额
     private double accountBalance;
     //创建时间
@@ -50,22 +47,72 @@ public class SellerEntity implements Serializable {
     //加密盐
     private String salt;
 
-    private String photo;
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public int getSellerId() {
+        return sellerId;
+    }
+
+    public String getSellerName() {
+        return sellerName;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public int getState() {
+        return state;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getQqNumber() {
+        return qqNumber;
+    }
+
+    public String getWechatNumber() {
+        return wechatNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
 
     public String getPhoto() {
         return photo;
     }
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
+    public double getAccountBalance() {
+        return accountBalance;
     }
 
-    public void setCodeCreatTime(Timestamp codeCreatTime) {
-        this.codeCreatTime = codeCreatTime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
     public Timestamp getCodeCreatTime() {
         return codeCreatTime;
+    }
+
+    public String getVerificationCode() {
+        return verificationCode;
+    }
+
+    public String getSalt() {
+        return salt;
     }
 
     public void setSellerId(int sellerId) {
@@ -82,6 +129,10 @@ public class SellerEntity implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void setState(int state) {
+        this.state = state;
     }
 
     public void setAddress(String address) {
@@ -104,8 +155,8 @@ public class SellerEntity implements Serializable {
         this.email = email;
     }
 
-    public void setAvatar(Blob avatar) {
-        this.avatar = avatar;
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 
     public void setAccountBalance(double accountBalance) {
@@ -116,82 +167,24 @@ public class SellerEntity implements Serializable {
         this.createTime = createTime;
     }
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    public int getSellerId() {
-        return sellerId;
-    }
-
-    public String getSellerName() {
-        return sellerName;
-    }
-
-    public String getNickname() {
-        return nickname;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public String getQqNumber() {
-        return qqNumber;
-    }
-
-    public String getWechatNumber() {
-        return wechatNumber;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public Blob getAvatar() {
-        return avatar;
-    }
-
-    public double getAccountBalance() {
-        return accountBalance;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-
-    public int getState() {
-        return state;
-    }
-
-    public void setState(int state) {
-        this.state = state;
-    }
-
-    public String getVerificationCode() {
-        return verificationCode;
+    public void setCodeCreatTime(Timestamp codeCreatTime) {
+        this.codeCreatTime = codeCreatTime;
     }
 
     public void setVerificationCode(String verificationCode) {
         this.verificationCode = verificationCode;
     }
 
-    public String getSalt() {
-        return salt;
-    }
-
     public void setSalt(String salt) {
         this.salt = salt;
+    }
+
+    public String getAlipayNumber() {
+        return alipayNumber;
+    }
+
+    public void setAlipayNumber(String alipayNumber) {
+        this.alipayNumber = alipayNumber;
     }
 
     @Override
@@ -207,7 +200,6 @@ public class SellerEntity implements Serializable {
                 ", qqNumber='" + qqNumber + '\'' +
                 ", wechatNumber='" + wechatNumber + '\'' +
                 ", email='" + email + '\'' +
-                ", avatar=" + avatar +
                 ", accountBalance=" + accountBalance +
                 ", createTime=" + createTime +
                 ", codeCreatTime=" + codeCreatTime +

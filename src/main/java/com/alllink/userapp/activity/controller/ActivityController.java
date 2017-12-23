@@ -79,15 +79,8 @@ public class ActivityController {
         Map<String,Object> map = new HashMap<>();
 
         List<ActivityItem> list = activityService.getActivityByDistance(activitySearch);
-        if (list!=null&&list.size()>0){
             map.put("result","success");
             map.put("message","获取活动列表成功");
-
-        }else {
-            map.put("result","error");
-            map.put("message","获取活动列表失败");
-
-        }
         map.put("data",list);
         map.put("exception","");
         return JsonUtils.objectToJson(map);

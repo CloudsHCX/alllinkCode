@@ -5,6 +5,8 @@ import com.alllink.sellerapp.seller.entity.SellerAuthinfoEntity;
 import com.alllink.sellerapp.seller.service.SellerAuthinfoService;
 import org.springframework.stereotype.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,8 +17,8 @@ public class SellerAuthinfoServiceImpl implements SellerAuthinfoService {
     private SellerAuthinfoDao sellerAuthinfoDao;
 
     @Override
-    public SellerAuthinfoEntity queryObject(int sauthinfoId){
-        return sellerAuthinfoDao.queryObject(sauthinfoId);
+    public HashMap<String, Object> queryObject(int sellerId){
+        return sellerAuthinfoDao.queryObject(sellerId);
     }
 
     @Override

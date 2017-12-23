@@ -1,28 +1,73 @@
-var activityIdss;
 $(function() {
 	redirect = function(obj) {
         activityIdss =$($(obj).children("label").get(0)).text();
-
-
-            //  var getTimestamp=Math.random();
-			//解决浏览器缓存
-            var getTimestamp=new Date().getTime();
-
-        //location.open = "../activity/setActivityId?activityId="+activityIdss;
-        window.open("../activity/setActivityId?activityId="+activityIdss+"&timestamp="+getTimestamp);
+        var getTimestamp=new Date().getTime();
+        window.open("../../activity/setActivityId?activityId="+activityIdss+"&timestamp="+getTimestamp);
     }
 });
 
-$(function() {
-	myPlaceholder = function(obj) {
-		$(obj).on("input propertychange", function() {
-			var label = $(this).next();
-			var val = $(this).val();
+$(function () {
+	redirectPage = function (curUrl) {
+		location.href = curUrl;
+    }
+})
 
-			if(val == "") {
-				label.show();
+var curDomObject;
+// 点击刪除订单按钮
+$(function() {
+	a = function(obj) {
+		showMaskLayer('确定继续?');
+		curDomObject = $(obj).parent().parent();
+	}
+
+	$(function() {
+		deleteOrder = function() {
+			hideMaskLayer();
+
+			var jsonData = {
+				"orderIdStr": $($(curDomObject).children("div").get(0)).text(),
+                "orderState":"-1"
+			};
+			var jsonString = JSON.stringify(jsonData);
+
+			//$("#tipContent").text("正在提交");
+
+			$.ajax({
+				type: "post",
+				url: "../order/modifyOrderState",
+				contentType: "application/json;charset=utf-8",
+				async: false,
+				data: jsonString,
+				dataType: "json",
+				success: function(json) {
+					// $("#tipContent").text("取消成功");
+					// confirmDelete = true;
+					$(curDomObject).hide();
+
+				},
+				error: function() {
+					//				alert(json.message);
+				}
+			});
+		}
+	});
+});
+
+$(function() {
+	$("#phoneNumber").bind("input propertychange change", function(event) {
+		if($(this).val() == "") {
+			$(this).next().show();
+		} else {
+			$(this).next().hide();
+		}
+	});
+
+	myPlaceholder = function(obj) {
+		$(obj).on("keypress", function() {
+			if($(this).val() == "") {
+				$(this).next().show();
 			} else {
-				label.hide();
+				$(this).next().hide();
 			}
 		});
 	}
@@ -244,7 +289,7 @@ $(function() {
 		var jsonData;
 		if(isLogin) {
 			jsonData = {
-				"phoneNumber": $(idArray[0]).val(),
+				"phone_number": $(idArray[0]).val(),
 				"password": hex_md5($(idArray[1]).val())
 			};
 		} else {
@@ -275,7 +320,16 @@ $(function() {
 						location.href = '/alllink/userapp/login';
 					} else if(curStep == 1) {
 						// alert("登录成功，跳转到主页面");
-						location.href = '/alllink/userapp/personalCenter';
+						//location.href = '/alllink/userapp/personalCenter';
+
+                        //若不为空，则跳转到之前的页面
+                        var ll = getQueryString("url");
+                        if(ll!=null){
+                            location.href = ll;
+                        }else{
+                            // alert("登录成功，跳转到主页面");
+                            location.href = '/alllink/userapp/personalCenter';
+                        }
 					} else if(curStep == 2) {
 						// alert("重置密码成功，跳转到登录页面");
 						location.href = '/alllink/userapp/login';
@@ -299,10 +353,10 @@ $(function() {
 
 $(function() {
 	var formerId = "#tab0";
-//	$(formerId).css({
-//		"color": "#FFFFFF",
-//		"background-color": "#5599FF"
-//	});
+	//	$(formerId).css({
+	//		"color": "#FFFFFF",
+	//		"background-color": "#5599FF"
+	//	});
 
 	showSelectedTabInfo = function(id) {
 		$(id).slideDown(1000);
@@ -318,12 +372,12 @@ $(function() {
 				"background-color": "#5599FF",
 				"color": "#FFFFFF"
 			});
-			
+
 			displayTabInfo(infoType);
-			
+
 			var buttonIdArray = ["#modifyBasicInfoButton", "#modifyThirdPartyAccountButton"];
 			$(buttonIdArray[infoType]).attr("disabled", true);
-			
+
 			$(formerId + "Info").slideUp(1000, showSelectedTabInfo(curId + "Info"));
 
 			formerId = curId;
@@ -342,8 +396,8 @@ $(function() {
 			return true;
 		}
 
-//		年龄(2)、邮箱(3)、QQ号(4)和微信号(5)
-//		其中,年龄范围是1-120
+		//		年龄(2)、邮箱(3)、QQ号(4)和微信号(5)
+		//		其中,年龄范围是1-120
 		var reg = [
 			"^(?:[1-9][0-9]?|1[01][0-9]|120)$", "^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$",
 			"^[1-9]{1}[0-9]{4,9}$", "^[a-zA-Z]{1}[-_a-zA-Z0-9]{5,19}$"
@@ -354,7 +408,7 @@ $(function() {
 
 $(function() {
 	showMaskLayer = function(tipContent) {
-//		修改div内容需要使用text方法
+		//		修改div内容需要使用text方法
 		$("#tipContent").text(tipContent);
 		$("#maskLayer").show();
 	}

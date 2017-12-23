@@ -54,7 +54,7 @@ ul {
 	width: 130px;
 	height: 25px;
 	border: 1px solid #c1c1c1;
-	background: url(../../img/icon/page/up_arrow.png) no-repeat #FFFFFF;
+	background: url(../../../img/userapp/icon/page/up_arrow.png) no-repeat #FFFFFF;
 	/*background-color: #FFFFFF;*/
 	background-position: 101px 4.5px;
 	line-height: 25px;
@@ -66,7 +66,7 @@ ul {
 }
 
 .select-item .select-arrow {
-	background: url(../../img/icon/page/down_arrow.png) no-repeat #FFFFFF;
+	background: url(../../../img/userapp/icon/page/down_arrow.png) no-repeat #FFFFFF;
 	background-position: 101px 4.5px;
 }
 

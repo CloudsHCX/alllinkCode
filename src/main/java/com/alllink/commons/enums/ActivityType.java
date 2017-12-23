@@ -9,7 +9,10 @@ public enum ActivityType {
     English(0,"英语"),
     Music(1,"音乐"),
     Art(2,"美术"),
-    VocTechnology(3,"职业技术");
+    VocTechnology(3,"职业技术"),
+    Dance(4,"舞蹈");
+
+
 
     private  int value ;
     private  String name;
@@ -46,4 +49,14 @@ public enum ActivityType {
         return retName;
     }
 
+    public static int getValueByName(String name){
+        int value = 0;
+        for(ActivityType state : ActivityType.values()){
+            if(state.name.equals(name)){
+                value =state.value;
+            }
+        }
+        return value;
+
+    }
 }

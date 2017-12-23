@@ -32,10 +32,10 @@ public class SellerController {
      * */
     @RequestMapping(value="/add" ,method= RequestMethod.POST)
     @ResponseBody
-    public R add(@RequestBody HashMap<String, String> map) throws ParseException {
+    public R add(@RequestBody HashMap<String, Object> map) throws ParseException {
         System.out.println("add.. phoneNumber" + map.get("phoneNumber"));
-        String phoneNumber = map.get("phoneNumber");
-        String password = map.get("password");
+        String phoneNumber = (String)map.get("phoneNumber");
+        String password = (String)map.get("password");
 
         //校验添加商家的手机号和密码
         if(phoneNumber.length() != 11)
@@ -49,7 +49,7 @@ public class SellerController {
             return R.error(0, "手机号错误");
         }
 
-        String verificationCode = map.get("verificationCode");
+        String verificationCode = (String)map.get("verificationCode");
         Timestamp currentTime = TimeUtil.getCurrentTime();
         Timestamp codeTime = sellerEntity.getCodeCreatTime();
         Long betweenTime = currentTime.getTime() - codeTime.getTime() ;//验证码的时间差
@@ -66,6 +66,7 @@ public class SellerController {
 
         //对密码加密从新放入map中
         map.put("password", SHAUtil.SHAEncode(password + sellerEntity.getSalt() ));
+
         sellerService.activeSeller(map);
 
         Map<String, Object> sellerMap = new HashMap<>();
@@ -85,9 +86,9 @@ public class SellerController {
         String encodepassword = map.get("password") + sellerService.getSalt(map.get("phoneNumber"));
         map.put("password", SHAUtil.SHAEncode(encodepassword));
         HashMap<String, Object> sellerMap = sellerService.login(map);
-        System.out.println(sellerMap.get("state") + sellerMap.toString());
-        if (sellerMap.isEmpty()) {
-            System.out.println("用户名密码错误");
+
+
+        if (sellerMap == null) {
             return R.error(0, "用户名或密码错误");
         } else if (sellerMap.get("state").equals(0)) {
             return R.error(0, "用户没有短信激活");
@@ -98,7 +99,7 @@ public class SellerController {
             seller.put("seller", sellerMap);
             return R.ok(seller);
         }
-        return R.error();
+        return R.error(0, "异常登录");
     }
 
     /*
@@ -118,16 +119,11 @@ public class SellerController {
     @ResponseBody
     public R update(@RequestBody SellerEntity seller, HttpServletRequest request) throws ParseException {
         System.out.println("seller:" + seller);
-        //seller.setCreateTime(getCurrentTime());
-        //SellerEntity sellerEntity = (SellerEntity) request.getSession().getAttribute("seller");
         String password = seller.getPassword();
         if(password != null) {
             String encodepassword = seller.getPassword() + sellerService.getSalt(seller.getSalt());
             seller.setPassword(SHAUtil.SHAEncode(encodepassword));
         }
-//        seller.setSellerId(14);
-        SellerEntity sessionSeller = (SellerEntity) request.getSession().getAttribute("seller");
-        seller.setSellerId(sessionSeller.getSellerId());
         sellerService.update(seller);
 
         Map<String, Object> sellerMap = new HashMap<>();
@@ -170,7 +166,7 @@ public class SellerController {
         }else{
             sellerService.updateCheckcode(phoneNumber, verificationCode, currentTime);
         }
-        //SendSMS.send(phoneNumber, verificationCode);
+        SendSMS.send(phoneNumber, verificationCode);
         System.out.println(verificationCode);
         return R.ok();
     }

@@ -12,6 +12,9 @@ public class OrderItem {
     * 订单Id
     */
     private String orderId = null;
+    //订单号
+    private String orderIdStr = null;
+    //订单号
     /**
     * 活动名称
     */
@@ -25,6 +28,15 @@ public class OrderItem {
     */
     private String cost = null;
     private String imageUrl;
+    private String orderState;
+
+    public String getOrderState() {
+        return orderState;
+    }
+
+    public void setOrderState(String orderState) {
+        this.orderState = orderState;
+    }
 
     public String getImageUrl() {
         return imageUrl;
@@ -64,5 +76,13 @@ public class OrderItem {
 
     public void setCost(String cost) {
         this.cost = cost;
+    }
+
+    public String getOrderIdStr() {
+        return orderIdStr;
+    }
+
+    public void setOrderIdStr(String orderIdStr) {
+        this.orderIdStr = orderIdStr;
     }
 }

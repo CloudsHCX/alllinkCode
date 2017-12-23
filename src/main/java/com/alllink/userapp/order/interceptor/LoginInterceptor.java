@@ -10,13 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
-       /* if (CheckDevice.getDevice(httpServletRequest)==1){
+        if (CheckDevice.getDevice(httpServletRequest)==1){
             return true;
         }
         if (httpServletRequest.getSession().getAttribute("user")==null){
-            httpServletResponse.sendRedirect("localhost:8080/userapp/UserLogin");
+            httpServletResponse.getWriter().write("0");
             return false;
-        }*/
+        }
         return true;
     }
 

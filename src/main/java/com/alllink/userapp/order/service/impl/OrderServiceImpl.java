@@ -13,6 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 
 @Service("orderService")
@@ -24,7 +25,7 @@ public class OrderServiceImpl implements OrderService {
 
 
 	@Override
-	public void CreateOrder(Integer userId, Integer sellerId, Integer activityId) {
+	public void CreateOrder(Integer userId, Integer sellerId, Integer activityId,String ord_str) {
 		OrderEntity order = new OrderEntity();
 		order.setUserId(userId);
 		order.setSellerId(sellerId);
@@ -36,29 +37,37 @@ public class OrderServiceImpl implements OrderService {
 		order.setOrderState(0);
 		order.setModifiedTime(new Date());
 		order.setEvaluateState(0);
+		order.setOrderIdStr(ord_str);
 		orderDao.createOrder(order);
 	}
 
 	@Override
-	public List<OrderItem> getNoPayOrderList(Integer userId) {
-		List<OrderEntity> orders =  orderDao.getNoPayOrderList(userId);
+	public List<OrderItem> getOrderList(OrderEntity orderEntity) {
+		List<OrderEntity> orders =  orderDao.getOrderList(orderEntity);
 		List<OrderItem> orderList = new ArrayList<>();
 		for (OrderEntity order:orders){
 			OrderItem item = new OrderItem();
+			item.setOrderIdStr(order.getOrderIdStr());
 			item.setActivityName(order.getActivityName());
 			item.setCost(order.getCost().toString());
 			item.setCreateTime(convert(order.getCreateTime()));
 			item.setOrderId(order.getOrderId().toString());
 			ActivityEntity activity = activityDao.getActivityInfo(order.getActivityId());
-			//item.setImageUrl(activity.getActivityPhoto().split(",")[0]);
+			item.setImageUrl(activity.getActivityPhoto().split(",")[0]);
+			item.setOrderState(order.getOrderState().toString());
 			orderList.add(item);
 		}
 		return orderList;
 	}
 
 	@Override
-	public void deleteOrder(Integer orderid) {
-		orderDao.deleteOrder(orderid);
+	public void modifyOrder(OrderEntity orderEntity) {
+		orderDao.modifyOrder(orderEntity);
+	}
+
+	@Override
+	public List<OrderEntity> getList(Map<String, Object> map) {
+		return orderDao.getList(map);
 	}
 
 	public String convert(Date d1){

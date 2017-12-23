@@ -10,6 +10,7 @@ public enum  AuditState {
     AuditWaitCheck(0,"待审核"),
     AuditPass(1,"审核通过");
 
+
     private  int value ;
     private  String name;
 

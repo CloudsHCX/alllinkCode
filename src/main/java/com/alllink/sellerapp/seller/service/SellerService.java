@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 
 public interface SellerService {
-    public void activeSeller(HashMap<String, String> map);
+    public void activeSeller(HashMap<String, Object> map);
     public HashMap<String, Object> login(HashMap<String, String> map);
     public void update(SellerEntity seller);
     public SellerEntity checkPhone(String phoneNumber);

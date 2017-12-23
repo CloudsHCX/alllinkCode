@@ -33,7 +33,10 @@ public class OrderEntity implements Serializable {
 	//订单修改时间
 	private Date modifiedTime;
 	private int evaluateState;
-
+	private String orderIdStr;
+	private Integer paymentChannel;
+    //退款原因
+	private String refundReason;
 	/**
 	 * 设置：订单id
 	 */
@@ -149,5 +152,29 @@ public class OrderEntity implements Serializable {
 
 	public void setEvaluateState(int evaluateState) {
 		this.evaluateState = evaluateState;
+	}
+	//订单号
+	public String getOrderIdStr() {
+		return orderIdStr;
+	}
+
+	public void setOrderIdStr(String orderIdStr) {
+		this.orderIdStr = orderIdStr;
+	}
+	//支付渠道
+	public Integer getPaymentChannel() {
+		return paymentChannel;
+	}
+
+	public void setPaymentChannel(Integer paymentChannel) {
+		this.paymentChannel = paymentChannel;
+	}
+
+	public String getRefundReason() {
+		return refundReason;
+	}
+
+	public void setRefundReason(String refundReason) {
+		this.refundReason = refundReason;
 	}
 }

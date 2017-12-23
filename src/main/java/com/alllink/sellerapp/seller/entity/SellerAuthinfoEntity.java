@@ -1,6 +1,9 @@
 package com.alllink.sellerapp.seller.entity;
 
+import com.alllink.commons.utils.TimeUtil;
+
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 
 /**
@@ -37,59 +40,8 @@ public class SellerAuthinfoEntity implements Serializable {
     //审核时间
     private Date auditTime;
     //修改时间
-    private Date modifiedTime;
+    private Timestamp modifiedTime;
 
-    public void setSauthinfoId(int sauthinfoId) {
-        this.sauthinfoId = sauthinfoId;
-    }
-
-    public void setSellerId(int sellerId) {
-        this.sellerId = sellerId;
-    }
-
-    public void setCrCardId(String crCardId) {
-        this.crCardId = crCardId;
-    }
-
-    public void setCrRealName(String crRealName) {
-        this.crRealName = crRealName;
-    }
-
-    public void setCrRealPhoto(String crRealPhoto) {
-        this.crRealPhoto = crRealPhoto;
-    }
-
-    public void setCrCardFrontPhoto(String crCardFrontPhoto) {
-        this.crCardFrontPhoto = crCardFrontPhoto;
-    }
-
-    public void setCrCardBackPhoto(String crCardBackPhoto) {
-        this.crCardBackPhoto = crCardBackPhoto;
-    }
-
-    public void setOrganziationCodeCertificate(String organziationCodeCertificate) {
-        this.organziationCodeCertificate = organziationCodeCertificate;
-    }
-
-    public void setBusinessLicence(String businessLicence) {
-        this.businessLicence = businessLicence;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public void setAuditState(int auditState) {
-        this.auditState = auditState;
-    }
-
-    public void setAuditTime(Date auditTime) {
-        this.auditTime = auditTime;
-    }
-
-    public void setModifiedTime(Date modifiedTime) {
-        this.modifiedTime = modifiedTime;
-    }
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -143,7 +95,78 @@ public class SellerAuthinfoEntity implements Serializable {
         return auditTime;
     }
 
-    public Date getModifiedTime() {
+    public Timestamp getModifiedTime() {
         return modifiedTime;
+    }
+
+    public void setSauthinfoId(int sauthinfoId) {
+        this.sauthinfoId = sauthinfoId;
+    }
+
+    public void setSellerId(int sellerId) {
+        this.sellerId = sellerId;
+    }
+
+    public void setCrCardId(String crCardId) {
+        this.crCardId = crCardId;
+    }
+
+    public void setCrRealName(String crRealName) {
+        this.crRealName = crRealName;
+    }
+
+    public void setCrRealPhoto(String crRealPhoto) {
+        this.crRealPhoto = crRealPhoto;
+    }
+
+    public void setCrCardFrontPhoto(String crCardFrontPhoto) {
+        this.crCardFrontPhoto = crCardFrontPhoto;
+    }
+
+    public void setCrCardBackPhoto(String crCardBackPhoto) {
+        this.crCardBackPhoto = crCardBackPhoto;
+    }
+
+    public void setOrganziationCodeCertificate(String organziationCodeCertificate) {
+        this.organziationCodeCertificate = organziationCodeCertificate;
+    }
+
+    public void setBusinessLicence(String businessLicence) {
+        this.businessLicence = businessLicence;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public void setAuditState(int auditState) {
+        this.auditState = auditState;
+    }
+
+    public void setAuditTime(Date auditTime) {
+        this.auditTime = auditTime;
+    }
+
+    public void setModifiedTime(Timestamp modifiedTime) {
+        this.modifiedTime = modifiedTime;
+    }
+
+    @Override
+    public String toString() {
+        return "SellerAuthinfoEntity{" +
+                "sauthinfoId=" + sauthinfoId +
+                ", sellerId=" + sellerId +
+                ", crCardId='" + crCardId + '\'' +
+                ", crRealName='" + crRealName + '\'' +
+                ", crRealPhoto='" + crRealPhoto + '\'' +
+                ", crCardFrontPhoto='" + crCardFrontPhoto + '\'' +
+                ", crCardBackPhoto='" + crCardBackPhoto + '\'' +
+                ", organziationCodeCertificate='" + organziationCodeCertificate + '\'' +
+                ", businessLicence='" + businessLicence + '\'' +
+                ", createTime=" + createTime +
+                ", auditState=" + auditState +
+                ", auditTime=" + auditTime +
+                ", modifiedTime=" + modifiedTime +
+                '}';
     }
 }

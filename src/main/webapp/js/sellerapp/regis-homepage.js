@@ -38,8 +38,6 @@
 				  }
 			  },
 			  error:function(XMLHttpRequest, textStatus){
-                  alert(XMLHttpRequest.status);
-                  alert(XMLHttpRequest.readyState);
                   alert(textStatus);
 			  }
 		  });
@@ -114,12 +112,11 @@
              dataType: "json",
              data: JSON.stringify(jsondata),//这里必须将对象转成string类型。
              success: function (result) {
-                 if(result.code == 1){alert("aa");
+                 if(result.code == 1){
                      var d1=document.getElementById('right1.4');
                      var d2=document.getElementById('right1');
                      d1.style.display="none";
                      d2.style.display="block";
-                     alert(result.seller.email);
                      $("#d1").replaceWith($("#d2").html());
                      $("#email1").val("");
                      $("#email1").html(result.seller.email);
@@ -158,5 +155,7 @@
              }
          });
      });
+
+
 
   });

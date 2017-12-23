@@ -1,5 +1,5 @@
 $(function(){
-    $(".nameSpan").click(function (e) {alert("h");
+    $(".nameSpan").click(function (e) {
         var id = $(e.target).attr('id');
         var activityId=$("#"+id).parent().find("span:last-child").attr("id");
         var jsondata = {"activityId": activityId};
@@ -24,7 +24,7 @@ $(function(){
     });
 });
     $(function(){
-    $(".cancel").click(function (e) {alert("cancel");
+    $(".cancel").click(function (e) {
         var id = $(e.target).attr('id');
         var delid=$("#"+id).parent().parent().attr("id");
         var jsondata = {"activityId": id};

@@ -1,15 +1,29 @@
 package com.alllink.sellerapp.seller.controller;
 
+import com.alllink.commons.utils.CheckDevice;
 import com.alllink.commons.utils.R;
+import com.alllink.commons.utils.RandomNumberUtil;
+import com.alllink.commons.utils.TimeUtil;
 import com.alllink.sellerapp.seller.entity.SellerAuthinfoEntity;
+import com.alllink.sellerapp.seller.entity.SellerEntity;
 import com.alllink.sellerapp.seller.service.SellerAuthinfoService;
+import com.sun.tools.javac.comp.Check;
+import javafx.beans.binding.ObjectExpression;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.crypto.hash.Hash;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author xzz
@@ -24,18 +38,15 @@ public class SellerAuthinfoController {
     /**
      * 信息
      */
-    @RequestMapping("/info/{sauthinfoId}")
+    @RequestMapping("/info")
     @ResponseBody
-    public R info(@PathVariable("sauthinfoId") Integer sauthinfoId) {
-        SellerAuthinfoEntity sellerAuthinfo = sellerAuthinfoService.queryObject(sauthinfoId);
-        //AuditState=-1代表未通过审核，0代表待审核状态，1代表审核通过状态
-        if (sellerAuthinfo.getAuditState() == -1) {
-            return R.error(0,"您提交的信息审核未通过");
-        }else if (sellerAuthinfo.getAuditState() == 1) {
-            return R.ok().put("sellerAuthinfo", sellerAuthinfo);
-        }else {
-            return R.error(0, "您提交的信息正在审核，请稍后查看");
+    public R info(@RequestBody HashMap<String, String> map) {
+        System.out.println("SellerAuthinfoController  info :::"+map.get("sellerId"));
+        HashMap<String, Object> activityMap = sellerAuthinfoService.queryObject(Integer.parseInt(map.get("sellerId")) );
+        if(activityMap ==null){
+            return R.error();
         }
+        return R.ok().put("sellerAuthinfo", activityMap);
     }
 
     /**
@@ -43,20 +54,13 @@ public class SellerAuthinfoController {
      */
     @RequestMapping("/save")
     @ResponseBody
-    public R save(@RequestBody SellerAuthinfoEntity sellerAuthinfo, HttpServletRequest request) {
-        System.out.println("add.. sellerauthinfo" );
-
-        HttpSession session = request.getSession();
-        SellerAuthinfoEntity sessionSeller = (SellerAuthinfoEntity) session.getAttribute("sellerAuthinfo");
-        sellerAuthinfo.setSellerId(sessionSeller.getSellerId());
-
+    public R save(@RequestBody SellerAuthinfoEntity sellerAuthinfo, HttpServletRequest request) throws ParseException {
+        System.out.println(">>>>>>>>>>>>>>>>.add.. sellerauthinfo"+ sellerAuthinfo );
         sellerAuthinfo.setAuditState(0);
-
+        sellerAuthinfo.setCreateTime(TimeUtil.getCurrentTime());
         sellerAuthinfoService.save(sellerAuthinfo);
-
         return R.ok();
     }
-
 
     /**
      * 修改

@@ -4,7 +4,7 @@
 <mapper namespace="com.alllink.sellerapp.seller.dao.SellerAuthinfoDao">
 
     <!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.alllink.sellerapp.seller.entity.SellerAuthinfoEntity" id="sellerAuthinfoMap">
+    <resultMap type="java.util.HashMap" id="sellerAuthinfoMap">
         <result property="sauthinfoId" column="sauthinfo_id"/>
         <result property="sellerId" column="seller_id"/>
         <result property="crCardId" column="cr_card_id"/>
@@ -20,8 +20,8 @@
         <result property="modifiedTime" column="modified_time"/>
     </resultMap>
 
-    <select id="queryObject" resultType="com.alllink.sellerapp.seller.entity.SellerAuthinfoEntity">
-        select * from seller_authinfo where sauthinfo_id = #{value}
+    <select id="queryObject" resultMap="sellerAuthinfoMap">
+        select * from seller_authinfo where seller_id = #{id}
     </select>
 
     <select id="queryList" resultType="com.alllink.sellerapp.seller.entity.SellerAuthinfoEntity">
@@ -43,7 +43,7 @@
         select count(*) from seller_authinfo
     </select>
 
-    <insert id="save" parameterType="com.alllink.sellerapp.seller.entity.SellerAuthinfoEntity" useGeneratedKeys="true" keyProperty="sauthinfoId">
+    <insert id="save" parameterType="com.alllink.sellerapp.seller.entity.SellerAuthinfoEntity" >
         insert into seller_authinfo
         (
         `seller_id`,
@@ -56,7 +56,6 @@
         `business_licence`,
         `create_time`,
         `audit_state`,
-        `audit_time`,
         `modified_time`
         )
         values
@@ -71,7 +70,6 @@
         #{businessLicence},
         #{createTime},
         #{auditState},
-        #{auditTime},
         #{modifiedTime}
         )
     </insert>

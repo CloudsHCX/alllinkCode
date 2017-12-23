@@ -306,7 +306,33 @@
       <systemPath>${project.basedir}/lib/aliyun-java-sdk-dysmsapi-1.0.0.jar</systemPath>
     </dependency>
 
+    <dependency>
+      <groupId>alipay-sdk-java</groupId>
+      <artifactId>alipay-sdk-java</artifactId>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/lib/alipay-sdk-java20170324180803.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>commons-logging</groupId>
+      <artifactId>commons-logging</artifactId>
+      <version>1.1.1</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/lib/commons-logging-1.1.1.jar</systemPath>
+    </dependency>
 
+    <!--安卓的支付sdk-->
+    <dependency>
+      <groupId>alipaySdk</groupId>
+      <artifactId>alipaySdk</artifactId>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/lib/alipaySdk-20170922.jar</systemPath>
+    </dependency>
+
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+      <version>3.1.0</version>
+    </dependency>
 
 
 </dependencies>

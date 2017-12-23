@@ -30,7 +30,9 @@
     </update>
 
     <insert id="register" parameterType="map">
-        INSERT INTO seller(phone_number, verification_code, code_creat_time, modified_time, salt, state) VALUES (#{phoneNumber}, #{verificationCode}, #{currentTime }, #{currentTime }, #{salt}, 0)
+        INSERT INTO
+          seller(phone_number, verification_code, code_creat_time,create_time, modified_time, salt, state)
+        VALUES (#{phoneNumber}, #{verificationCode}, #{currentTime },#{currentTime }, #{currentTime }, #{salt}, 0)
     </insert>
 
 
@@ -52,9 +54,12 @@
             <if test="qqNumber != null">`qq_number` = #{qqNumber},</if>
             <if test="wechatNumber != null">`wechat_number` = #{wechatNumber},</if>
             <if test="email != null">`email` = #{email},</if>
+            <if test="photo != null">`photo` = #{photo},</if>
+            <if test="alipayNumber != null">`alipay_number` = #{alipayNumber}</if>
         </set>
         where seller_id = #{sellerId}
     </update>
+
 
     <select id="checkPhone" parameterType="String" resultType="com.alllink.sellerapp.seller.entity.SellerEntity">
          SELECT * FROM seller WHERE phone_number = #{phoneNumber}

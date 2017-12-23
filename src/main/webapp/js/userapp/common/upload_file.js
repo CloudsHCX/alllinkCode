@@ -26,7 +26,7 @@ $(function() {
 				var jsonString = JSON.stringify(jsonData);
 
 				$.ajaxFileUpload({
-					url: "/user/uploadPic?phoneNumber=13968574525",
+					url: "/alllink/user/uploadPic?phoneNumber=13968574525",
 					type: "post",
 					fileElementId: "avatarFile", // 对应html中上传file的id
 					contentType: "application/json;charset=utf-8",

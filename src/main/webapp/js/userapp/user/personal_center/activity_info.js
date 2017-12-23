@@ -57,7 +57,8 @@ $(function() {
 			async: false,
 			success: function(json) {
 				if(json==0){
-					location.href = "../userapp/login";
+                    var local = location.href;
+                    location.href = "../userapp/login?url="+local;
 				}
 				if(json.result=="success"){
                     location.href = "../order/toNoPayList";

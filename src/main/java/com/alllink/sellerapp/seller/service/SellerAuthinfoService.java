@@ -1,6 +1,8 @@
 package com.alllink.sellerapp.seller.service;
 
 import com.alllink.sellerapp.seller.entity.SellerAuthinfoEntity;
+
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -13,7 +15,7 @@ import java.util.Map;
  */
 public interface SellerAuthinfoService {
 
-    SellerAuthinfoEntity queryObject(int sauthinfoId);
+    HashMap<String, Object> queryObject(int sellerId);
 
     List<SellerAuthinfoEntity> queryList(Map<String, Object> map);
 

@@ -8,13 +8,14 @@
     <link rel="stylesheet" href="../../css/sellerapp/bootstrap.css" />
     <link rel="stylesheet" href="../../css/sellerapp/homepage.css" />
 	<link rel="stylesheet" href="../../css/sellerapp/homepage-photo.css">
+
   </head>
   <body>
   	<div class="header">
   		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
      		<div class="container-fluid">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="#">万众艺兴</a>
+					<a class="navbar-brand" href="home.html">万众艺兴</a>
 				</div>
 		<div>
 		<ul class="nav navbar-nav">
@@ -26,14 +27,14 @@
             <li><a href="#">用户管理</a></li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
-                    <span id="navName"></span><b class="caret"></b>
+                    <span id="navName">${Session.seller.phoneNumber}</span><b class="caret"></b>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="#">个人中心</a></li>
-                    <li><a href="#">我的地址</a></li>
+                    <li><a href="home.html">个人中心</a></li>
+                    <li><a href="#">法人信息</a></li>
                     <li><a href="#">安全设置</a></li>
                     <li class="divider"></li>
-                    <li><a href="#">退出登录</a></li>
+                    <li><a href="login.html">退出登录</a></li>
                 </ul>
             </li>
         </ul>
@@ -80,8 +81,8 @@
   						我的资料
   					</h2>
   					<ul class="small-ul">
-  						<li><a>个人资料</a></li>
-  						<li><a>安全中心</a></li>
+  						<li><a href="home.html">个人资料</a></li>
+  						<li><a href="BusinessCertification.html">商家认证</a></li>
   						<li><a onclick="window.location.href='/alllink/views/sellerapp/ChangePassword.html'">修改密码</a></li>
   					</ul>
   				</li>
@@ -95,16 +96,16 @@
   						<span class="profileinfo-label" style="vertical-align: top;">头像</span>
   						<span>
 							<span class="profileinfo-value">
-								<div id="click"><img src="../../img/sellerapp/touxiang.jpg"></div>
+								<div id="click"><img id="image" src="../../img/sellerapp/touxiang.jpg" ></div>
 							</span>
-  						    <a class="fileinput-button">[上传头像]<input type="file" id="photo"></a>
+  						    <a class="fileinput-button">[上传头像]<input type="file" name="file" id="photo" onchange="upload_cover(this)" /></a>
   						</span>
   					</p>
   					
   					<p>
   						<span class="profileinfo-label">手机号</span>
   						<span>
-  							<span class="profileinfo-value" id="phoneNumber"></span>
+  							<span class="profileinfo-value" id="phoneNumber">${Session.seller.phoneNumber}</span>
   							<!--<a class="modify" onclick="updateMobile()">[修改]</a>-->
   						</span>
   					</p>
@@ -122,7 +123,12 @@
   							<span class="profileinfo-value"><input type="text" class="form-control" id="weChatNumber" name="weChatNumber"></span> 
   						</span>
   					</p>
-  					
+				<p>
+					<span class="profileinfo-label">支付宝</span>
+					<span>
+  							<span class="profileinfo-value"><input type="text" class="form-control" id="alipayNumber" name="alipayNumber"></span>
+  						</span>
+				</p>
   					<p>
   						<span class="profileinfo-label">邮箱</span>
   						<span>
@@ -160,7 +166,13 @@
   							<!--<a onclick="updateMobile()">[修改]</a>-->
   						</span>
 				</p>
-
+				<p>
+					<span class="profileinfo-label">支付宝</span>
+					<span>
+  							<span class="profileinfo-value" id="alipayNumber1"></span>
+						<!--<a onclick="updateMobile()">[修改]</a>-->
+  						</span>
+				</p>
 				<p>
 					<span class="profileinfo-label">用户名</span>
 					<span>
@@ -220,7 +232,6 @@
 		<div class="right" id="right1.2" style="display: none;">
 			<h3 class="person">修改用户名</h3>
 			<div class="persons" style="width:230px;margin-left: 155px;">
-				<form class="form-horizontal my_form" id="form1" name="form" action="提交页面" method="post"  onsubmit="">
 					<div class="form-group" >
 						<input type="text" name="sellerName" class="form-control" id="sellerName2" placeholder="请输入新的用户名" style="height: 45px;">
 					</div>
@@ -229,14 +240,12 @@
 							<button type="button" class="btn btn-primary btn-lg" id="name-btn" style="margin-left: -56px;width: 95px;">确定</button>
 						</div>
 					</div>
-				</form>
 			</div>
 		</div>
 
 		<div class="right" id="right1.3" style="display: none;">
 			<h3 class="person">修改微信号</h3>
 			<div class="persons" style="width:230px;margin-left: 155px;">
-				<form class="form-horizontal my_form" id="form1" name="form" action="提交页面" method="post"  onsubmit="">
 					<div class="form-group" >
 						<input type="text" name="weChatNumber" class="form-control" id="weChatNumber2" placeholder="请输入新的微信号" style="height: 45px;">
 					</div>
@@ -245,14 +254,12 @@
 							<button type="button" class="btn btn-primary btn-lg" id="wechat-btn" style="margin-left: -56px;width: 95px;">确定</button>
 						</div>
 					</div>
-				</form>
 			</div>
 		</div>
 
 		<div class="right" id="right1.4" style="display: none;">
 			<h3 class="person">修改邮箱</h3>
 			<div class="persons" style="width:230px;margin-left: 155px;">
-				<form class="form-horizontal my_form" id="form1" name="form" action="提交页面" method="post"  onsubmit="">
 					<div class="form-group" >
 						<input type="text" name="email" class="form-control" id="email2" placeholder="请输入新的邮箱" style="height: 45px;">
 					</div>
@@ -261,14 +268,12 @@
 							<button type="button" class="btn btn-primary btn-lg" id="email-btn" style="margin-left: -56px;width: 95px;">确定</button>
 						</div>
 					</div>
-				</form>
 			</div>
 		</div>
 
 		<div class="right" id="right1.5" style="display: none;">
 			<h3 class="person">修改地址</h3>
 			<div class="persons" style="width:230px;margin-left: 155px;">
-				<form class="form-horizontal my_form" id="form1" name="form" action="提交页面" method="post"  onsubmit="">
 					<div class="form-group" >
 						<input type="text" name="address" class="form-control" id="address2" placeholder="请输入新的地址" style="height: 45px;">
 					</div>
@@ -277,16 +282,16 @@
 							<button type="button" class="btn btn-primary btn-lg" id="address-btn" style="margin-left: -56px;width: 95px;">确定</button>
 						</div>
 					</div>
-				</form>
 			</div>
 		</div>
   	</div>
   	
   	<div class="footer"></div>
-  	
-    <script type="text/javascript" src="../../js/sellerapp/jquery.min.js" ></script>
-    <script type="text/javascript" src="../../js/sellerapp/bootstrap.js" ></script>
-    <script type="text/javascript" src="../../js/sellerapp/regis-homepage.js" ></script>
+	<script type="text/javascript" src="../../js/sellerapp/jquery.min.js" ></script>
+	<script type="text/javascript" src="../../js/sellerapp/bootstrap.js" ></script>
+	<script type="text/javascript" src="../../js/userapp/ajaxfileupload.js" ></script>
+	<script type="text/javascript" src="../../js/sellerapp/homepage.js" ></script>
+
     <script>
       window.onload = function () {
           function GetQueryString(name) {
@@ -364,6 +369,30 @@ document.getElementById('photo').addEventListener('change',function(e){
           var d2=document.getElementById('right1.5');
           d2.style.display="block";
           $("#d1").replaceWith($("#d2").html());
+      }
+
+      function upload_cover(obj) {
+          $.ajaxFileUpload({
+              url: "/alllink/file/image", //后台方法的路径
+			  data:{"sellerId":"2"},
+              type: "post",   //当要提交自定义参数时，这个参数要设置成post
+              fileElementId:"photo",    //需要上传的文件域的ID，即<input type="file">的ID。
+              dataType: "json",   //服务器返回的数据类型。可以为xml,script,json,html。如果不填写，jQuery会自动判断。
+              //secureuri: false,   //是否启用安全提交，默认为false。
+              //contentType: "multipart/form-data",
+              contentType:"application/json;charset=utf-8",
+              async:false,   //是否是异步
+              success: function(data) {//提交成功后自动执行的处理函数，参数data就是服务器返回的数据。
+                  if(data.code==1){
+                      alert(data.url);
+                      $("#image").attr("src", + data.url);
+				  }
+              },
+              error: function(data, status, e) {  //提交失败自动执行的处理函数。
+                  alert("error");
+                  console.error(e);
+              }
+          });
       }
 	</script>
   </body>

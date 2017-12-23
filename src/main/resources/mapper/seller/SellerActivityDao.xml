@@ -4,7 +4,7 @@
 <mapper namespace="com.alllink.sellerapp.seller.dao.SellerActivityDao">
 
 	<!-- 可根据自己的需求，是否要使用 -->
-    <resultMap type="com.alllink.sellerapp.seller.entity.SellerActivityEntity" id="activityMap">
+    <resultMap type="java.util.HashMap" id="activityMap">
         <result property="activityId" column="activity_id"/>
         <result property="sellerId" column="seller_id"/>
         <result property="longitude" column="longitude"/>
@@ -25,6 +25,7 @@
         <result property="address" column="address"/>
     </resultMap>
 
+
 	<resultMap id="activitymapList" type="java.util.List">
 		<id  property="activityId" column="activity_id"></id>
 		<result property="activityName" column="activity_name"/>
@@ -40,17 +41,29 @@
 		<result property="createTime" column="create_time"/>
 		<result property="modifiedTime" column="modified_time"/>
 		<result property="address" column="address"/>
+		<result property="longitude" column="longitude"/>
+		<result property="latitude" column="latitude"/>
 	</resultMap>
 
-	<select id="queryObject" resultType="com.alllink.sellerapp.seller.entity.SellerActivityEntity">
-		select * from activity where activity_id = #{value}
+	<select id="queryObject" resultMap="activityMap">
+		select
+		 activity_id,activity_name,total_number,cost,activity_photo,activity_type,
+-- 		  (begin_time,'%Y-%m-%d %H:%i:%s'),FROM_UNIXTIME(end_time,'%Y-%m-%d %H:%i:%s'),
+ 		  DATE_FORMAT(begin_time,'%Y-%m-%d %h:%i:%s'),  DATE_FORMAT(end_time,'%Y-%m-%d %h:%i:%s'),
+-- 		 begin_time,end_time,
+		 enroll_number,activity_info,address,longitude,latitude
+		from activity where activity_id = #{id}
 	</select>
 
 
 
 	<select id="queryList" resultType="com.alllink.sellerapp.seller.entity.SellerActivityEntity">
--- 	select activity_id,activity_name,modified_time,activity_info,enroll_number,total_number,activity_type,begin_time,end_time,cost,address,activity_state,activity_photo from activity
-		select * from activity
+		select
+			activity_id,activity_name,total_number,cost,activity_photo,activity_type,
+			DATE_FORMAT(begin_time,'%Y-%m-%d %T') beginTime,  DATE_FORMAT(end_time,'%Y-%m-%d %T') endTime,
+			DATE_FORMAT(modified_time,'%Y-%m-%d %T') modifiedTime,
+			enroll_number,activity_state,activity_info,address,longitude,latitude
+		from activity
 		where seller_id = #{sellerId}
             order by activity_id desc
 		<if test="offset != null and limit != null">
@@ -66,8 +79,8 @@
 		insert into activity
 		(
 			`seller_id`,
-			`longitude`, 
-			`latitude`, 
+			`longitude`,
+			`latitude`,
 			`activity_name`, 
 			`total_number`, 
 			`cost`, 
@@ -85,9 +98,9 @@
 		)
 		values
 		(
-			#{sellerId}, 
-			#{longitude}, 
-			#{latitude}, 
+			#{sellerId},
+			#{longitude},
+			#{latitude},
 			#{activityName}, 
 			#{totalNumber}, 
 			#{cost}, 

@@ -8,7 +8,10 @@ public enum OrderState {
 
     OrderCancel(-1,"订单取消"),
     OrderNotPay(0,"订单未支付"),
-    OrderPayed(0,"订单已支付");
+    OrderPayed(1,"订单已支付"),
+    OrderRefundCheck(2,"订单退款审核中"),
+    OrderRefund(3,"订单已退款"),
+    OrderRefundNotPass(4,"订单退款未通过");
 
     private  int value ;
     private  String name;

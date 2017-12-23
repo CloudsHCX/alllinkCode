@@ -19,7 +19,7 @@ public class SellerActivityServiceImpl implements SellerActivityService {
 	
 	@Override
 	@Transactional
-	public SellerActivityEntity queryObject(int activityId){
+	public HashMap<String, Object> queryObject(int activityId){
 		return activityDao.queryObject(activityId);
 	}
 	

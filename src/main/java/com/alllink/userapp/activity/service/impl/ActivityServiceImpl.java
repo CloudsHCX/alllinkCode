@@ -38,7 +38,7 @@ public class ActivityServiceImpl implements ActivityService {
             item.setCost(activity.getCost().toString());
             item.setEnrollNumber(activity.getEnrollNumber().toString());
             item.setTotalNumber(activity.getTotalNumber().toString());
-            //item.setImageUrl(activity.getActivityPhoto().split(",")[0]);
+            item.setImageUrl(activity.getActivityPhoto().split(",")[0]);
             item.setDistance(activity.getDistance().toString());
             item.setActivityTypenName(ActivityType.getNameByValue(activity.getActivityType()));
             itemList.add(item);
@@ -81,7 +81,7 @@ public class ActivityServiceImpl implements ActivityService {
             item.setCost(activity.getCost().toString());
             item.setEnrollNumber(activity.getEnrollNumber().toString());
             item.setTotalNumber(activity.getTotalNumber().toString());
-            //item.setImageUrl(activity.getActivityPhoto().split(",")[0]);
+            item.setImageUrl(activity.getActivityPhoto().split(",")[0]);
             item.setDistance(activity.getDistance().toString());
             item.setActivityTypenName(ActivityType.getNameByValue(activity.getActivityType()));
             itemList.add(item);
@@ -99,7 +99,7 @@ public class ActivityServiceImpl implements ActivityService {
         activityItem.setActivityId(activity.getActivityId().toString());
         activityItem.setActivityInfo(activity.getActivityInfo());
         activityItem.setActivityName(activity.getActivityName());
-        activityItem.setActivityType(activity.getActivityType().toString());
+        activityItem.setActivityType(ActivityType.getNameByValue(activity.getActivityType()));
         activityItem.setAddress(activity.getAddress());
         activityItem.setBeginTime(convert(activity.getBeginTime()));
         activityItem.setCost(activity.getCost().toString());
