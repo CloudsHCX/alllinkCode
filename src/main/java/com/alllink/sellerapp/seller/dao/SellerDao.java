@@ -9,15 +9,21 @@ import java.util.HashMap;
 
 @Repository
 public interface SellerDao {
-    public void activeSeller(HashMap<String, Object> map);
-    //public SellerEntity login(@Param("sellerName")String sellerName,@Param("password")String password);
-    public HashMap<String, Object> login(HashMap<String, String> map);
-    public void update(SellerEntity seller);
-    public SellerEntity checkPhone(String phoneNumber);
+    void activeSeller(HashMap<String, Object> map);
 
-    public void register(@Param("phoneNumber")String phoneNumber, @Param("verificationCode")String verificationCode, @Param("currentTime")Timestamp currentTime, @Param("salt")String salt);
-    public void updateCheckcode(@Param("phoneNumber")String phoneNumber, @Param("verificationCode")String verificationCode, @Param("currentTime")Timestamp currentTime);
-    public String getSalt(String phoneNumber);
+    HashMap<String, Object> login(HashMap<String, String> map);
 
-    public SellerEntity findSellerById(int id);
+    void update(SellerEntity seller);
+
+    SellerEntity checkPhone(String phoneNumber);
+
+    void register(@Param("phoneNumber") String phoneNumber, @Param("verificationCode") String verificationCode, @Param("currentTime") Timestamp currentTime, @Param("salt") String salt);
+
+    void updateCheckcode(@Param("phoneNumber") String phoneNumber, @Param("verificationCode") String verificationCode, @Param("currentTime") Timestamp currentTime);
+
+    String getSalt(String phoneNumber);
+
+    SellerEntity findSellerById(int id);
+
+    Double checkBalance(int sellerId);
 }

@@ -7,12 +7,21 @@ import java.util.HashMap;
 
 
 public interface SellerService {
-    public void activeSeller(HashMap<String, Object> map);
-    public HashMap<String, Object> login(HashMap<String, String> map);
-    public void update(SellerEntity seller);
-    public SellerEntity checkPhone(String phoneNumber);
-    public void register(String phoneNumber, String verificationCode, Timestamp currentTime);
-    public void updateCheckcode(String phoneNumber, String verificationCode, Timestamp currentTime);
-    public String getSalt(String phoneNumber);
-    public SellerEntity findSellerById(int id);
+    void activeSeller(HashMap<String, Object> map);
+
+    HashMap<String, Object> login(HashMap<String, String> map);
+
+    void update(SellerEntity seller);
+
+    SellerEntity checkPhone(String phoneNumber);
+
+    void register(String phoneNumber, String verificationCode, Timestamp currentTime);
+
+    void updateCheckcode(String phoneNumber, String verificationCode, Timestamp currentTime);
+
+    String getSalt(String phoneNumber);
+
+    SellerEntity findSellerById(int id);
+
+    Double checkBalance(int sellerId);
 }

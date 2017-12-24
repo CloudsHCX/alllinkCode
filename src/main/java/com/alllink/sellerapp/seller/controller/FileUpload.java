@@ -13,11 +13,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/file")
@@ -66,8 +68,11 @@ public class FileUpload {
         SellerEntity sellerEntity = new SellerEntity();
         sellerEntity.setPhoto((String) map.get("url"));
         sellerEntity.setSellerId(Integer.parseInt(sellerId));
-        System.out.println("<><><><><><><><><><><><><"+sellerEntity.getSellerId()+sellerEntity.getPhoto());
         sellerService.update(sellerEntity);
+        Map<String, Object> sellerMap = new HashMap<>();
+        sellerMap.put("seller", sellerService.findSellerById(Integer.parseInt(sellerId)));
+        HttpSession session = request.getSession();
+        session.setAttribute("seller", sellerMap);
 
         return R.ok(map);
     }

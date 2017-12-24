@@ -6,6 +6,7 @@ import com.alllink.sellerapp.seller.entity.SellerEntity;
 import com.alllink.sellerapp.seller.service.SellerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.HashMap;
@@ -61,6 +62,12 @@ public class SellerServiceImpl implements SellerService {
     @Override
     public SellerEntity findSellerById(int id) {
         return sellerDao.findSellerById(id);
+    }
+
+    @Transactional
+    @Override
+    public Double checkBalance(int sellerId) {
+        return sellerDao.checkBalance(sellerId);
     }
 
 

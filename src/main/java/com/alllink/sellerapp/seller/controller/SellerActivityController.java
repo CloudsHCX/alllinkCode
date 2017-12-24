@@ -62,8 +62,6 @@ public class SellerActivityController {
 	public R info(@RequestBody  HashMap<String, String> map){
 		System.out.println(">>>>>>>>>>>>>" + map.get("activityId"));
 		HashMap<String, Object> activityMap = activityService.queryObject(Integer.parseInt(map.get("activityId")));
-//		activityMap.put("beginTime", TimeUtil.timestampToString((Timestamp)activityMap.get("beginTime")));
-//		activityMap.put("endTime", TimeUtil.timestampToString((Timestamp)activityMap.get("endTime")));
 		System.out.println(activityMap.get("beginTime"));
 		return R.ok().put("activity", activityMap);
 	}

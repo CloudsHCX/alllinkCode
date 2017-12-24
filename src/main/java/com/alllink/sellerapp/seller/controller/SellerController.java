@@ -8,6 +8,7 @@ import com.alllink.commons.utils.SHAUtil;
 import com.alllink.commons.utils.TimeUtil;
 import com.alllink.commons.utils.RandomNumberUtil;
 import com.alllink.sellerapp.seller.entity.SellerEntity;
+import com.alllink.sellerapp.seller.service.SellerActivityService;
 import com.alllink.sellerapp.seller.service.SellerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,10 +26,11 @@ public class SellerController {
 
     @Autowired
     private SellerService sellerService;
+    @Autowired
+    private SellerActivityService sellerActivityService;
 
     /**
      * 添加商家
-     *
      * */
     @RequestMapping(value="/add" ,method= RequestMethod.POST)
     @ResponseBody
@@ -103,6 +105,16 @@ public class SellerController {
     }
 
     /*
+    * 查询余额
+    * */
+    @RequestMapping(value = "/checkBalance", method = RequestMethod.POST)
+    public R checkBalance(@RequestBody HashMap<String, String> map) {
+        //sellerActivityService.update();
+        Double balance = sellerService.checkBalance(Integer.parseInt(map.get("sellerId")));
+        return R.ok().put("balance", balance);
+    }
+
+    /*
     * 登出
     * */
     @RequestMapping(value="/logout")
@@ -128,6 +140,8 @@ public class SellerController {
 
         Map<String, Object> sellerMap = new HashMap<>();
         sellerMap.put("seller", sellerService.findSellerById(seller.getSellerId()));
+        HttpSession session = request.getSession();
+        session.setAttribute("seller", sellerMap);
         return R.ok(sellerMap);
     }
 
