@@ -1,12 +1,16 @@
 var infoArray = [
 	["我的昵称", 2, 45, "111@qq.com"],
-	["1111111111", "aaaa11"]
+    ["", ""]
 ];
 
 // 第1个表示基本信息被修改的地方个数， 第2个表示第三方账号被修改的地方个数
 var personalDataModifiedPlaceCount = [0, 0];
 // 按钮id数组
 var buttonIdArray = ["#modifyBasicInfoButton", "#modifyThirdPartyAccountButton"];
+
+$(function () {
+
+});
 
 $(function() {
 	// 对应昵称(0)、性别(1)、年龄(2)、邮箱(3)、QQ号(4)和微信号(5)
@@ -22,7 +26,7 @@ $(function() {
 				$(buttonIdArray[buttonNumber]).attr("disabled", true);
 			}
 		}
-	}
+    };
 
 	contrastAndAdjustModifiedState = function(infoNumber, curModifiedState, buttonNumber) {
 		if(curModifiedState != modifiedState[infoNumber]) {
@@ -34,7 +38,7 @@ $(function() {
 
 			modifiedState[infoNumber] = curModifiedState;
 		}
-	}
+    };
 
 	$("input:radio[name=sex]").change(function() {
 		if(this.value == infoArray[0][1]) {
@@ -72,37 +76,43 @@ $(function() {
 	}
 });
 
+var phoneNumber;
 $(function() {
 	//	infoType: 0表示基本信息 1表示第三方账号
 	getUserPersonalData = function(infoType) {
 		var urlArray = ["/alllink/user/getUserBasicInfo", "/alllink/user/getUserThirdPartyAccount"];
-		var jsonData = {
-			"phone_number": $(idArray[0]).val(),
-		};
-		var jsonString = JSON.stringify(jsonData);
+        var jsonData = {
+            "phoneNumber": "131111111"
+        };
 
 		$.ajax({
 			type: "post",
 			url: urlArray[infoType],
 			contentType: "application/json;charset=utf-8",
-			dataType: "json",
-			data: jsonString,
-			async: false,
+            async: true,
+            dataType: "json",
+            data: JSON.stringify(jsonData),
 			success: function(info) {
 				if(infoType == 0) {
 					//	设置图片路径
-					$("#header-avatar").attr("src", info.photo);
-					$("#tab-content-avatar").attr("src", info.photo);
+                    $("#header-avatar").attr("src", info.data.photo);
+                    $("#tab-content-avatar").attr("src", info.data.photo);
 
 					// 存储基本信息
-					infoArray[0][0] = info.nickname;
-					infoArray[0][1] = info.sex;
-					infoArray[0][2] = info.age;
-					infoArray[0][3] = info.email;
+                    infoArray[0][0] = info.data.nickname;
+                    infoArray[0][1] = info.data.gender;
+                    infoArray[0][2] = info.data.age;
+                    infoArray[0][3] = info.data.email;
+
+                    phoneNumber = info.data.phoneNumber;
+                    $("#phoneNumber").text(info.data.phoneNumber);
+
+                    var curTime = info.data.createTime;
+                    $("#registerTime").text(curTime.substring(0, 19));
 				} else {
 					//	存储第三方账号
-					infoArray[1][0] = info.QQNumber;
-					infoArray[1][1] = info.weChatNumber;
+                    infoArray[1][0] = info.data.qqNumber;
+                    infoArray[1][1] = info.data.wechatNumber;
 				}
 				
 				displayTabInfo(infoType);
@@ -111,7 +121,9 @@ $(function() {
 				alert("获取基本信息失败");
 			}
 		});
-	}
+    };
+    getUserPersonalData(0);
+    getUserPersonalData(1);
 });
 
 $(function() {
@@ -121,7 +133,7 @@ $(function() {
 		var jsonData;
 		if(infoType == 0) {
 			jsonData = {
-				"phoneNumber": $(idArray[0]).text(),
+                "phoneNumber": phoneNumber,
 				"nickname": $(idArray[1]).val(),
 				"sex": $("input:radio[name=sex]:checked").val(),
 				"age": $(idArray[2]).val(),
@@ -141,7 +153,7 @@ $(function() {
 
 		$.ajax({
 			type: "post",
-			url: "/user/updateUserInfo",
+            url: "/alllink/user/updateUserInfo",
 			contentType: "application/json;charset=utf-8",
 			dataType: "json",
 			data: jsonString,

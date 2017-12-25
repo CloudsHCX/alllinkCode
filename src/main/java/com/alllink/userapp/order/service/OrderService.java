@@ -14,9 +14,11 @@ import java.util.Map;
  * @date 2017-12-06 17:42:52
  */
 public interface OrderService {
-	public void CreateOrder(Integer userId, Integer sellerId, Integer activityId, String ord_str);
-	public List<OrderItem> getOrderList(OrderEntity orderEntity);
-	public void modifyOrder(OrderEntity orderEntity);
+    void CreateOrder(Integer userId, Integer sellerId, Integer activityId, String ord_str);
+
+    List<OrderItem> getOrderList(OrderEntity orderEntity);
+
+    void modifyOrder(OrderEntity orderEntity);
 
 	List<OrderEntity> getList(Map<String, Object> map);
 }

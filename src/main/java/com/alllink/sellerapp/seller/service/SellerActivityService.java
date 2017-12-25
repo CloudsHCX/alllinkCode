@@ -30,4 +30,5 @@ public interface SellerActivityService {
 	
 	void deleteBatch(int[] activityIds);
 
+    void updateTotalCost(int sellerId);
 }

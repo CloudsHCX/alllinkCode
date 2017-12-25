@@ -43,7 +43,7 @@ public class SendMessageController {
      */
     @RequestMapping(value="/sms",method = RequestMethod.POST)
     @ResponseBody
-    public Object sendMessage(HttpServletRequest request, @RequestBody Map<String, Object> paramMap) throws ClientException ,Exception{
+    public Object sendMessage(HttpServletRequest request, @RequestBody Map<String, Object> paramMap) throws Exception {
 
         Map<String, Object> map=new HashMap<String, Object>();
         String phoneNumber = null;

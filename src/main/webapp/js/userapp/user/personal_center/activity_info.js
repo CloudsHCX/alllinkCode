@@ -54,14 +54,14 @@ $(function() {
 			contentType: "application/json;charset=utf-8",
 			dataType: "json",
 			data: jsonString,
-			async: false,
+            async: true,
 			success: function(json) {
 				if(json==0){
                     var local = location.href;
                     location.href = "../userapp/login?url="+local;
 				}
 				if(json.result=="success"){
-                    location.href = "../order/toNoPayList";
+                    location.href = "../userapp/personal_center/order/unpaid_order";
 				}else{
 
 				}

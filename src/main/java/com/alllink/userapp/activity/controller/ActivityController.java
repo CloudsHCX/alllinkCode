@@ -53,15 +53,8 @@ public class ActivityController {
             Map<String,Object> map = new HashMap<>();
 
         List<ActivityItem> list = activityService.getDefaultActivity(activitySearch);
-        if (list!=null&&list.size()>0){
             map.put("result","success");
             map.put("message","获取默认活动列表成功");
-
-        }else {
-            map.put("result","error");
-            map.put("message","获取默认活动列表失败");
-
-        }
         if (CheckDevice.getDevice(request)==1){
             for (ActivityItem activityItem :list){
                 activityItem.setImageUrl(activityItem.getImageUrl());

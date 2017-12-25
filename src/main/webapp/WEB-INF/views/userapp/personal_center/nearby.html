@@ -40,7 +40,8 @@
 				<div class="dropdown-content">
 					<a class="display-block color-FFFFFF text-decoration-none" href="../../userapp/personal_center/order/unpaid_order">待付款订单</a>
 					<a class="display-block color-FFFFFF text-decoration-none" href="../../userapp/personal_center/order/paid_order">已付款订单</a>
-					<a class="display-block color-FFFFFF text-decoration-none" href="../../userapp/personal_center/order/refund_order">退款订单</a>
+                    <a class="display-block color-FFFFFF text-decoration-none"
+                       href="../../userapp/personal_center/order/cancel_order">已取消订单</a>
 				</div>
 			</div>
 
@@ -58,7 +59,7 @@
 
 				<div class="dropdown-content">
 					<a class="display-block color-FFFFFF text-decoration-none" href="../../userapp/personal_center/personal_center">个人中心</a>
-					<a class="display-block color-FFFFFF text-decoration-none" href="#">退出</a>
+                    <a class="display-block color-FFFFFF text-decoration-none" onclick="loginout(0);">退出</a>
 				</div>
 			</div>
 
@@ -176,23 +177,24 @@
             contentType: "application/json;charset=utf-8",
             dataType: "json",
             data: jsonString,
-            async: false,
+            async: true,
             success: function(json) {
                 var activityCount = json.data.activityCount;
                 var dataarray = json.data;
                 /*for (var activity in json.data) {*/
                 for (var activity in dataarray) {
+                    var num = dataarray[activity].totalNumber - dataarray[activity].enrollNumber;
                     $("#activityList").append(
                         "<div class='position-relative height-70px text-align-left cursor-pointer item-div' title='点击查看活动信息' onclick='redirect(this);'>" +
                         "<label class='display-none'>" + dataarray[activity].activityId + "</label>"+
-                        "<img class='vertically-center-by-absolute left-5px width-60px height-60px' src='/pic/" + dataarray[activity].imageUrl + "'>" +
+                        "<img class='vertically-center-by-absolute left-5px width-60px height-60px' src='" + dataarray[activity].imageUrl + "'>" +
 
                         "<div class='float-left width-220px margin-left-70px padding-left-10px'>" +
                         "<div class='height-35px line-height-35px font-size-18px color-1296db'>" + dataarray[activity].activityName + "</div>" +
                         "<div class='height-35px line-height-35px'>" + dataarray[activity].cost + "&emsp;" + dataarray[activity].activityTypenName + "</div>" +
                         "</div>" +
 
-                        "<label class='position-absolute right-10px'>" + "余量：" + dataarray[activity].enrollNumber + "人" + "</label>" +
+                        "<label class='position-absolute right-10px'>" + "余量：" + num + "人" + "</label>" +
                         "<label class='position-absolute top-20px right-10px'>" + dataarray[activity].distance + "km</label>" +
                         "</div>"
                     );
@@ -229,7 +231,7 @@
             var jsonData = {
                 "lng": pointX,
                 "lat": pointY,
-                "distance":"200000",
+                "distance": "2000000000",
                 "searchContent": $("#searchContent").val(),
                 //"activityType": $("#type").text(),
                 //"sortParams": $("#sortOrder").text()
@@ -244,7 +246,7 @@
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
                 data: jsonString,
-                async: false,
+                async: true,
                 success: function(json) {
                     //$("#activityList").remove();
                     $("#activityList").text("");
@@ -253,14 +255,14 @@
                         $("#activityList").append(
                             "<div class='position-relative height-70px text-align-left cursor-pointer item-div' title='点击查看活动信息' onclick='redirect(this);'>" +
                             "<label class='display-none'>" + dataarray[activity].activityId + "</label>"+
-                            "<img class='vertically-center-by-absolute left-5px width-60px height-60px' src='/pic/" + dataarray[activity].imageUrl + "'>" +
+                            "<img class='vertically-center-by-absolute left-5px width-60px height-60px' src='" + dataarray[activity].imageUrl + "'>" +
 
                             "<div class='float-left width-220px margin-left-70px padding-left-10px'>" +
                             "<div class='height-35px line-height-35px font-size-18px color-1296db'>" + dataarray[activity].activityName + "</div>" +
                             "<div class='height-35px line-height-35px'>" + dataarray[activity].cost + "&emsp;" + dataarray[activity].activityTypenName + "</div>" +
                             "</div>" +
 
-                            "<label class='position-absolute right-10px'>" + "余量：" + dataarray[activity].enrollNumber + "人" + "</label>" +
+                            "<label class='position-absolute right-10px'>" + "余量：" + (dataarray[activity].totalNumber - dataarray[activity].enrollNumber) + "人" + "</label>" +
                             "<label class='position-absolute top-20px right-10px'>" + dataarray[activity].distance + "km</label>" +
                             "</div>"
                         );

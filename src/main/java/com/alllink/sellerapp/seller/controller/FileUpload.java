@@ -69,10 +69,9 @@ public class FileUpload {
         sellerEntity.setPhoto((String) map.get("url"));
         sellerEntity.setSellerId(Integer.parseInt(sellerId));
         sellerService.update(sellerEntity);
-        Map<String, Object> sellerMap = new HashMap<>();
-        sellerMap.put("seller", sellerService.findSellerById(Integer.parseInt(sellerId)));
+        SellerEntity sessionSellerEntity = sellerService.findSellerById(Integer.parseInt(sellerId));
         HttpSession session = request.getSession();
-        session.setAttribute("seller", sellerMap);
+        session.setAttribute("seller", sessionSellerEntity);
 
         return R.ok(map);
     }

@@ -1,77 +1,86 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-		<title>登录</title>
-		<link rel="stylesheet" href="//cdn.bootcss.com/weui/1.1.1/style/weui.min.css">
-		<link rel="stylesheet" href="//cdn.bootcss.com/jquery-weui/1.1.1/css/jquery-weui.min.css">
-		<style>
-			body{
-				font-family: "微软雅黑";
-			}
-			.head{
-				height: 200px;
-			    line-height: 200px;
-			    text-align: center;
-			    font-size: 32px;
-			    color: #666666;
-			}
-			.content{
-				margin-left: 45px;
-				margin-right: 55px;
-			}
-			.a{
-				color: #666666;
-				text-decoration: none;
-			}
-			.left{
-				float:left;
-				margin-left: 60px;
-			}
-			.right{
-				float:right;
-				margin-right: 52px;
-			}
-			.weui-btn_default{
-				margin:0px 55px 20px 57px;
-			}
-			.weui-label{
-				width:45px;
-			}
-		</style>
-	</head>
-	<body>
-		<div class="head">
-			万众艺兴
-		</div>
-		<div class="content">
-		<form id="form2" name="form" action="提交页面" method="post" onsubmit="return LoginValidate()">
-		  <div class="weui-cell">
-		    <div class="weui-cell__hd"><label class="weui-label"><img src="../../img/sellerapp/user.png"/></label></div>
-		    <div class="weui-cell__bd">
-		      <input class="weui-input" type="text" placeholder="请输入账号" id="phoneNumber">
-		    </div>
-		  </div>
-		  
-		  <div class="weui-cell">
-		    <div class="weui-cell__hd"><label class="weui-label"><img src="../../img/sellerapp/password.png"/></label></div>
-		    <div class="weui-cell__bd">
-		      <input class="weui-input" type="password" placeholder="请输入密码" id="password">
-		    </div>
-		  </div>
-		  <div class="weui-cell"></div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>登录</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/weui/1.1.1/style/weui.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/jquery-weui/1.1.1/css/jquery-weui.min.css">
+    <style>
+        body {
+            font-family: "微软雅黑";
+        }
 
-			<a href="javascript:" class="weui-btn weui-btn_default" id="login-btn">登录</a>
-        <div class="footer">
-        	<a class="a left" href="w-registration.html">注册</a>
-            <a class="a right" href="w-ResetPassword.html">忘记密码？</a>
+        .head {
+            height: 200px;
+            line-height: 200px;
+            text-align: center;
+            font-size: 32px;
+            color: #666666;
+        }
+
+        .content {
+            margin-left: 45px;
+            margin-right: 55px;
+        }
+
+        .a {
+            color: #666666;
+            text-decoration: none;
+        }
+
+        .left {
+            float: left;
+            margin-left: 60px;
+        }
+
+        .right {
+            float: right;
+            margin-right: 52px;
+        }
+
+        .weui-btn_default {
+            margin: 0px 55px 20px 57px;
+        }
+
+        .weui-label {
+            width: 45px;
+        }
+    </style>
+</head>
+<body>
+<div class="head">
+    万众艺兴
+</div>
+<div class="content">
+    <form id="form2" name="form" action="提交页面" method="post" onsubmit="return LoginValidate()">
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label"><img src="../../img/sellerapp/user.png"/></label></div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" type="text" placeholder="请输入账号" id="phoneNumber">
+            </div>
         </div>
-       </form>
-		<script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
-		<script src="//cdn.bootcss.com/jquery-weui/1.1.1/js/jquery-weui.min.js"></script>
-		<script src="//cdn.bootcss.com/jquery-weui/1.1.1/js/swiper.min.js"></script>
-		<script src="//cdn.bootcss.com/jquery-weui/1.1.1/js/city-picker.min.js"></script>
-		<script type="text/javascript" src="../../js/wechatJS/w-login.js" ></script>
-	</body>
+
+        <div class="weui-cell">
+            <div class="weui-cell__hd"><label class="weui-label"><img src="../../img/sellerapp/password.png"/></label>
+            </div>
+            <div class="weui-cell__bd">
+                <input class="weui-input" type="password" placeholder="请输入密码" id="password">
+            </div>
+        </div>
+        <div class="weui-cell"></div>
+</div>
+<a href="javascript:" class="weui-btn weui-btn_default" id="login-btn">登录</a>
+<div class="footer">
+    <a class="a left" href="w-registration.html">注册</a>
+    <a class="a right" href="w-ResetPassword.html">忘记密码？</a>
+</div>
+</form>
+<script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-weui/1.1.1/js/jquery-weui.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-weui/1.1.1/js/swiper.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-weui/1.1.1/js/city-picker.min.js"></script>
+<script type="text/javascript" src="../../js/wechatJS/w-login.js"></script>
+</body>
 </html>

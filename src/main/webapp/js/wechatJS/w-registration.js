@@ -3,11 +3,11 @@ function vailPhone(){
     var phone = jQuery("#phone").val();
     var flag = false;
     var message = "";
-    var myreg = /^(((13[0-9]{1})|(14[0-9]{1})|(17[0]{1})|(15[0-3]{1})|(15[5-9]{1})|(18[0-9]{1}))+\d{8})$/;
+    // var myreg = /^(((13[0-9]{1})|(14[0-9]{1})|(17[0]{1})|(15[0-3]{1})|(15[5-9]{1})|(18[0-9]{1}))+\d{8})$/;
     if(phone == ''){
         message = "手机号码不能为空！";
-    }else if(phone.length !=11){
-        message = "手机号码必须为11位！";
+    } else if (!(/^1[34578]\d{9}$/.test(phone))) {
+        message = "手机号码有误！";
     }
     else if(checkPhoneIsExist()){
         message = "该手机号码已经被绑定！";
@@ -73,6 +73,7 @@ function check(){
         else {
 
             $.alert("两次输入密码不一致，请重新输入！");
+            return false;
         }
     }
     else{

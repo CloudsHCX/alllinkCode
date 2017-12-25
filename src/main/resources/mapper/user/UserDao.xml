@@ -24,7 +24,6 @@
         <if test="phoneNumber != null">AND phone_number = #{phoneNumber}</if>
         <if test="password != null">AND password = #{password}</if>
         <if test="state != null">AND state = #{state}</if>
-        <if test="userId != null">AND user_id = #{userId}</if>
     </select>
 
     <insert id="add"  parameterType="com.alllink.userapp.user.entity.User">
@@ -59,6 +58,8 @@
     <select id="getUserInfo" parameterType="String" resultType="com.alllink.userapp.user.entity.User">
         select * from USER where phone_number=#{phoneNumber}
     </select>
-
+    <select id="getUserInfoInWeb" parameterType="Integer" resultType="com.alllink.userapp.user.entity.User">
+        select * from USER where user_id=#{userId}
+    </select>
 
 </mapper>

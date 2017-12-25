@@ -16,7 +16,7 @@ $(function() {
         if(checkPasswordFormat(isLogin) == false) {
             return false;
         }
-
+        // debugger;
         var idArray = ["#phoneNumber", "#password", "#verificationCode"];
         var jsonData;
         if(isLogin) {
@@ -41,7 +41,7 @@ $(function() {
             contentType: "application/json;charset=utf-8",
             dataType: "json",
             data: jsonString,
-            async: false,
+            async: true,
             beforeSend: function() {
                 showTip('正在检验，请稍等');
             },
@@ -69,19 +69,20 @@ $(function() {
                     }
 
                 } else {
-                    alert(json.message);
+                    // alert(json.message);
+                    showTip(json.message);
                 }
             },
             error: function() {
-                if(curStep == 0){
-                    alert("注册失败！");
-                }else if(curStep == 1){
-
-                    alert("登录失败！");
-                }else if(curStep == 2){
-
-                    alert("重置密码失败！");
-                }
+                // if(curStep == 0){
+                //     alert("注册失败！");
+                // }else if(curStep == 1){
+                //
+                //     alert("登录失败！");
+                // }else if(curStep == 2){
+                //
+                //     alert("重置密码失败！");
+                // }
             }
         });
     }

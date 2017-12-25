@@ -6,6 +6,10 @@ import com.alllink.userapp.activity.entity.ActivitySearch;
 import java.util.List;
 
 public interface ActivityDao {
-    public List<ActivityEntity> getActivityByDistance(ActivitySearch activitySearch);
-    public ActivityEntity getActivityInfo(Integer id);
+    List<ActivityEntity> getActivityByDistance(ActivitySearch activitySearch);
+
+    ActivityEntity getActivityInfo(Integer id);
+
+    void updateEnrollNumber(ActivityEntity activityEntity);
+
 }

@@ -62,8 +62,28 @@ public class RegisterController {
 
         //因为发短信之前就进行了用户的查询，注册的时候就不在进行查询-------但是不严谨
         //查询出数据库中存在待注册的数据
-        paramMap.put("state",0);//状态为待注册的
         paramMap.remove("password");//移除password 参数
+
+        int count_done_login = 0; //已经注册的个数
+        paramMap.put("state", 1);//状态为已经注册的
+        try {
+            count_done_login = userService.getListCount(paramMap); //查询已经注册
+        } catch (Exception e) {
+
+            map = MapMessage.returnMapMessage(map, "error",
+                    "查询用户出错！", e.getMessage());
+            return map;
+        }
+
+        if (count_done_login != 0) {
+
+            map = MapMessage.returnMapMessage(map, "error",
+                    "用户已经注册！", "");
+            return map;
+        }
+
+        paramMap.put("state", 0);//状态为待注册的
+
         int count_wait_login= 0;
         try{
             count_wait_login = userService.getListCount(paramMap); //查询未注册但是已经发过短信的
@@ -77,7 +97,7 @@ public class RegisterController {
         if(count_wait_login == 0){
 
             map = MapMessage.returnMapMessage(map,"error",
-                    "用户已经注册！","");
+                    "请先发送验证码！", "");
             return  map ;
         }
 

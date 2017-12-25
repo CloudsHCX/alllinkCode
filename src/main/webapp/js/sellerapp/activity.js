@@ -17,7 +17,6 @@ $(function(){
         if(latitude.trim()==null || longitude.trim() ==null)
             alert("浏览器不支持H5定位，请用IE或edge");
         var activityPhoto= $("#activityPhoto").attr("src");
-        alert(latitude+"+++"+longitude);
         if (activityName==''){
             $("#activity_name").focus();
         }else if (totalNumber==''){
@@ -38,7 +37,8 @@ $(function(){
         if (activityName==''||totalNumber==''||cost==''||activityType==''||beginTime==''||endTime==''||address==''||activityInfo=='') {
             alert("请完善所有信息！")
         }else {
-            var jsondata = {"activityName": activityName,
+            var jsondata = {
+                "activityName": activityName,
                 "totalNumber":totalNumber,
                 "cost":cost,
                 "activityType":activityType,

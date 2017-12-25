@@ -9,7 +9,6 @@
         <result property="sellerId" column="seller_id"/>
         <result property="crCardId" column="cr_card_id"/>
         <result property="crRealName" column="cr_real_name"/>
-        <result property="crRealPhoto" column="cr_real_photo"/>
         <result property="crCardFrontPhoto" column="cr_card_front_photo"/>
         <result property="crCardBackPhoto" column="cr_card_back_photo"/>
         <result property="organziationCodeCertificate" column="organziation_code_certificate"/>
@@ -49,7 +48,6 @@
         `seller_id`,
         `cr_card_id`,
         `cr_real_name`,
-        `cr_real_photo`,
         `cr_card_front_photo`,
         `cr_card_back_photo`,
         `organziation_code_certificate`,
@@ -63,7 +61,6 @@
         #{sellerId},
         #{crCardId},
         #{crRealName},
-        #{crRealPhoto},
         #{crCardFrontPhoto},
         #{crCardBackPhoto},
         #{organziationCodeCertificate},
@@ -80,7 +77,6 @@
             <if test="sellerId != null">`seller_id` = #{sellerId}, </if>
             <if test="crCardId != null">`cr_card_id` = #{crCardId}, </if>
             <if test="crRealName != null">`cr_real_name` = #{crRealName}, </if>
-            <if test="crRealPhoto != null">`cr_real_photo` = #{crRealPhoto}, </if>
             <if test="crCardFrontPhoto != null">`cr_card_front_photo` = #{crCardFrontPhoto}, </if>
             <if test="crCardBackPhoto != null">`cr_card_back_photo` = #{crCardBackPhoto}, </if>
             <if test="organziationCodeCertificate != null">`organziation_code_certificate` = #{organziationCodeCertificate}, </if>

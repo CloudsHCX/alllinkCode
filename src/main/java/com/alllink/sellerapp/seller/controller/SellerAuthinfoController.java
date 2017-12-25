@@ -7,6 +7,7 @@ import com.alllink.commons.utils.TimeUtil;
 import com.alllink.sellerapp.seller.entity.SellerAuthinfoEntity;
 import com.alllink.sellerapp.seller.entity.SellerEntity;
 import com.alllink.sellerapp.seller.service.SellerAuthinfoService;
+import com.alllink.sellerapp.seller.service.SellerService;
 import com.sun.tools.javac.comp.Check;
 import javafx.beans.binding.ObjectExpression;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -34,7 +35,8 @@ import java.util.List;
 public class SellerAuthinfoController {
     @Autowired
     private SellerAuthinfoService sellerAuthinfoService;
-
+    @Autowired
+    private SellerService sellerService;
     /**
      * 信息
      */
@@ -59,6 +61,11 @@ public class SellerAuthinfoController {
         sellerAuthinfo.setAuditState(0);
         sellerAuthinfo.setCreateTime(TimeUtil.getCurrentTime());
         sellerAuthinfoService.save(sellerAuthinfo);
+
+        SellerEntity sellerEntity = new SellerEntity();
+        sellerEntity.setSellerId(sellerAuthinfo.getSellerId());
+        sellerEntity.setState(2);
+        sellerService.update(sellerEntity);
         return R.ok();
     }
 

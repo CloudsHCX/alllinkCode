@@ -19,7 +19,7 @@ public class ActivityServiceImpl implements ActivityService {
     public List<ActivityItem> getDefaultActivity(ActivitySearch activitySearch){
         List<ActivityEntity> activityList = activityDao.getActivityByDistance(activitySearch);
         if (activityList==null||activityList.size()==0){
-            return null;
+            return new ArrayList<ActivityItem>();
         }
         //设置每个活动到用户的距离
         for (ActivityEntity ae :activityList){
@@ -38,7 +38,9 @@ public class ActivityServiceImpl implements ActivityService {
             item.setCost(activity.getCost().toString());
             item.setEnrollNumber(activity.getEnrollNumber().toString());
             item.setTotalNumber(activity.getTotalNumber().toString());
-            item.setImageUrl(activity.getActivityPhoto().split(",")[0]);
+            if (activity.getActivityPhoto() != null) {
+                item.setImageUrl(activity.getActivityPhoto().split(",")[0]);
+            }
             item.setDistance(activity.getDistance().toString());
             item.setActivityTypenName(ActivityType.getNameByValue(activity.getActivityType()));
             itemList.add(item);
@@ -62,7 +64,7 @@ public class ActivityServiceImpl implements ActivityService {
         //查询数据
         List<ActivityEntity> activityList = activityDao.getActivityByDistance(activitySearch);
         if (activityList==null||activityList.size()==0){
-            return null;
+            return new ArrayList<ActivityItem>();
         }
         //设置每个活动到用户的距离
         for (ActivityEntity ae :activityList){
@@ -81,7 +83,9 @@ public class ActivityServiceImpl implements ActivityService {
             item.setCost(activity.getCost().toString());
             item.setEnrollNumber(activity.getEnrollNumber().toString());
             item.setTotalNumber(activity.getTotalNumber().toString());
-            item.setImageUrl(activity.getActivityPhoto().split(",")[0]);
+            if (activity.getActivityPhoto() != null) {
+                item.setImageUrl(activity.getActivityPhoto().split(",")[0]);
+            }
             item.setDistance(activity.getDistance().toString());
             item.setActivityTypenName(ActivityType.getNameByValue(activity.getActivityType()));
             itemList.add(item);
@@ -117,5 +121,11 @@ public class ActivityServiceImpl implements ActivityService {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         return sdf.format(d1);
     }
+
+
+    public void updateEnrollNumber(ActivityEntity activityEntity) {
+        activityDao.updateEnrollNumber(activityEntity);
+    }
+
 
 }

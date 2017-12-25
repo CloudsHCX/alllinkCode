@@ -23,8 +23,6 @@ public class SellerAuthinfoEntity implements Serializable {
     private String crCardId;
     //法人代表
     private String crRealName;
-    //法人照片
-    private String crRealPhoto;
     //法人身份证正面照
     private String crCardFrontPhoto;
     //法人身份证反面照
@@ -63,9 +61,6 @@ public class SellerAuthinfoEntity implements Serializable {
         return crRealName;
     }
 
-    public String getCrRealPhoto() {
-        return crRealPhoto;
-    }
 
     public String getCrCardFrontPhoto() {
         return crCardFrontPhoto;
@@ -115,9 +110,6 @@ public class SellerAuthinfoEntity implements Serializable {
         this.crRealName = crRealName;
     }
 
-    public void setCrRealPhoto(String crRealPhoto) {
-        this.crRealPhoto = crRealPhoto;
-    }
 
     public void setCrCardFrontPhoto(String crCardFrontPhoto) {
         this.crCardFrontPhoto = crCardFrontPhoto;
@@ -158,7 +150,6 @@ public class SellerAuthinfoEntity implements Serializable {
                 ", sellerId=" + sellerId +
                 ", crCardId='" + crCardId + '\'' +
                 ", crRealName='" + crRealName + '\'' +
-                ", crRealPhoto='" + crRealPhoto + '\'' +
                 ", crCardFrontPhoto='" + crCardFrontPhoto + '\'' +
                 ", crCardBackPhoto='" + crCardBackPhoto + '\'' +
                 ", organziationCodeCertificate='" + organziationCodeCertificate + '\'' +

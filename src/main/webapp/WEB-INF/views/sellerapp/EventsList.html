@@ -124,7 +124,7 @@
     </div>
     </nav>
   	</div>
-  	
+    <!--<input type="hidden" id="seller_id" value="${Session.seller.sellerId}">-->
   	<div class="content">
   	  <div class="maindiv" id="maindiv">
   	  	<h3 class="maindiv-head">活动列表</h3>
@@ -211,7 +211,7 @@
         });
     });
     $(function(){
-        $(".cancel").click(function (e) {alert("cancel");
+        $(".cancel").click(function (e) {
             var id = $(e.target).attr('id');
             var delid=$("#"+id).parent().parent().attr("id");
             var jsondata = {"activityId": id};

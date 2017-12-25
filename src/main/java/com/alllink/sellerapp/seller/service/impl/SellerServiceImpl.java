@@ -1,8 +1,10 @@
 package com.alllink.sellerapp.seller.service.impl;
 
 import com.alllink.commons.utils.RandomNumberUtil;
+import com.alllink.sellerapp.seller.dao.SellerActivityDao;
 import com.alllink.sellerapp.seller.dao.SellerDao;
 import com.alllink.sellerapp.seller.entity.SellerEntity;
+import com.alllink.sellerapp.seller.service.SellerActivityService;
 import com.alllink.sellerapp.seller.service.SellerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,8 @@ public class SellerServiceImpl implements SellerService {
 
     @Autowired
     private SellerDao sellerDao;
+    @Autowired
+    private SellerActivityDao sellerActivityDao;
     @Override
     public void activeSeller(HashMap<String, Object> map) {
 
@@ -67,6 +71,9 @@ public class SellerServiceImpl implements SellerService {
     @Transactional
     @Override
     public Double checkBalance(int sellerId) {
+        sellerActivityDao.updateTotalCost(sellerId);
+        sellerDao.updateBalance(sellerId);
+        sellerActivityDao.updateActivityState();
         return sellerDao.checkBalance(sellerId);
     }
 

@@ -48,5 +48,11 @@ public class UserServiceImpl implements UserService {
         return userDao.getUserInfo(phoneNumber);
     }
 
+    @Override
+    public User getUserInfoInWeb(Integer userId) {
+        return userDao.getUserInfoInWeb(userId);
+    }
+
+
 
 }

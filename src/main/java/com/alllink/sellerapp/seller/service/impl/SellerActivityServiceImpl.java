@@ -55,5 +55,11 @@ public class SellerActivityServiceImpl implements SellerActivityService {
 	public void deleteBatch(int[] activityIds){
 		activityDao.deleteBatch(activityIds);
 	}
-	
+
+    @Override
+    @Transactional
+    public void updateTotalCost(int sellerId) {
+        activityDao.updateTotalCost(sellerId);
+    }
+
 }

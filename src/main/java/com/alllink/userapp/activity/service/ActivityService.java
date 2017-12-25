@@ -8,7 +8,10 @@ import com.alllink.userapp.activity.entity.ActivitySearch;
 import java.util.List;
 
 public interface ActivityService {
-        public List<ActivityItem> getDefaultActivity(ActivitySearch activitySearch);
+    List<ActivityItem> getDefaultActivity(ActivitySearch activitySearch);
         List<ActivityItem> getActivityByDistance(ActivitySearch activitySearch);
         ActivityDetailItem getActivityInfo(Integer id);
+
+    void updateEnrollNumber(ActivityEntity activityEntity);
+
 }

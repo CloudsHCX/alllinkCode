@@ -111,15 +111,15 @@
   							<span class="profileinfo-value"><input type="text" class="form-control" id="organziation_code_certificate" name="organziation_code_certificate"></span> 
   						</span>
   					</p>
-  			   		<p>
-  						<span class="profileinfo-label" style="vertical-align: top;">法人照片</span>
-  						<span>
-							<span class="profileinfo-value">
-								<div id="click00" class="click"><img src="../../img/sellerapp/touxiang.jpg" id="img0"></div>
-							</span>
-  						    <a class="fileinput-button" id="a0">[上传]<input type="file" name="file" class="photo" id="cr_real_photo"></a>
-  						</span>
-  					</p>
+				<!--<p>
+                 <span class="profileinfo-label" style="vertical-align: top;">法人照片</span>
+                 <span>
+                   <span class="profileinfo-value">
+                       <div id="click00" class="click"><img src="../../img/sellerapp/touxiang.jpg" id="img0"></div>
+                   </span>
+                     <a class="fileinput-button" id="a0">[上传]<input type="file" name="file" class="photo" id="cr_real_photo"></a>
+                 </span>
+             </p>-->
   					
   					<p>
   						<span class="profileinfo-label" style="vertical-align: top;">身份证照片</span>
@@ -205,7 +205,7 @@
 		  var crRealName = $("#cr_real_name").val();
 		  var crCardId = $("#cr_card_id").val();
 		  var organziationCodeCertificate = $("#organziation_code_certificate").val();
-		  var crRealPhoto = $("#img0").attr("src");
+//		  var crRealPhoto = $("#img0").attr("src");
 		  var crCardFrontPhoto = $("#img1").attr("src");
           var crCardBackPhoto = $("#img2").attr("src");
           var businessLicence = $("#img3").attr("src");
@@ -213,7 +213,7 @@
 			  			  "crRealName":crRealName,
 		                  "crCardId":crCardId,
 		                  "organziationCodeCertificate":organziationCodeCertificate,
-              "crRealPhoto":crRealPhoto,
+//              "crRealPhoto":crRealPhoto,
               "crCardFrontPhoto":crCardFrontPhoto,
 			  "crCardBackPhoto":crCardBackPhoto,
 			  "businessLicence":businessLicence

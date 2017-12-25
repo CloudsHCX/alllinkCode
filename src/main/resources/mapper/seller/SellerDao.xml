@@ -12,6 +12,7 @@
         <result property="nickname" column="nickname"/>
         <result property="address" column="address"/>
         <result property="phoneNumber" column="phone_number"/>
+        <result property="alipayNumber" column="alipay_number"/>
         <result property="qqNumber" column="qq_number"/>
         <result property="wechatNumber" column="wechat_number"/>
         <result property="email" column="email"/>
@@ -37,7 +38,7 @@
 
 
     <select id="login" parameterType="map" resultMap="sellerMap">
-        SELECT seller_id, seller_name,
+        SELECT seller_id, seller_name,alipay_number,
                nickname, address, phone_number,
                qq_number, wechat_number, email,
                photo, account_balance,state
@@ -49,6 +50,7 @@
         <set>
             <if test="sellerName!= null">`seller_name` = #{sellerName},</if>
             <if test="password != null">`password` = #{password}, </if>
+            <if test="state == 2">`state` = #{state},</if>
             <if test="address != null">`address` = #{address}, </if>
             <if test="phoneNumber != null">`phone_number` = #{phoneNumber}, </if>
             <if test="qqNumber != null">`qq_number` = #{qqNumber},</if>
@@ -64,9 +66,16 @@
         SELECT account_balance
         FROM seller
         WHERE seller_id=#{sellerId}
-
     </select>
 
+    <select id="updateBalance" parameterType="int">
+        UPDATE seller s,
+        (SELECT SUM(a.total_cost) as account_balance,a.seller_id as seller_id
+        FROM activity a, seller s
+        WHERE a.seller_id=s.seller_id AND a.activity_state='3' AND s.seller_id='3' ) t
+        SET s.account_balance= s.account_balance + t.account_balance
+        WHERE s.seller_id=t.seller_id;
+    </select>
     <select id="checkPhone" parameterType="String" resultType="com.alllink.sellerapp.seller.entity.SellerEntity">
          SELECT * FROM seller WHERE phone_number = #{phoneNumber}
     </select>

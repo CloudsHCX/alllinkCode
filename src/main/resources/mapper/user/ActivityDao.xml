@@ -14,4 +14,13 @@
         select * from activity where activity_id=#{id};
     </select>
 
+    <update id="updateEnrollNumber" parameterType="com.alllink.userapp.activity.entity.ActivityEntity">
+        update activity
+        <set>
+            <if test="enrollNumber != null">enroll_number = #{enrollNumber}</if>
+        </set>
+        where activity_id = #{activityId}
+    </update>
+
+
 </mapper>

@@ -10,7 +10,7 @@ $(function () {
 	redirectPage = function (curUrl) {
 		location.href = curUrl;
     }
-})
+});
 
 var curDomObject;
 // 点击刪除订单按钮
@@ -18,7 +18,7 @@ $(function() {
 	a = function(obj) {
 		showMaskLayer('确定继续?');
 		curDomObject = $(obj).parent().parent();
-	}
+    };
 
 	$(function() {
 		deleteOrder = function() {
@@ -26,15 +26,15 @@ $(function() {
 
 			var jsonData = {
 				"orderIdStr": $($(curDomObject).children("div").get(0)).text(),
-                "orderState":"-1"
+                "orderState": "-2"
 			};
 			var jsonString = JSON.stringify(jsonData);
 
 			//$("#tipContent").text("正在提交");
-
+            // $(curDomObject).hide();
 			$.ajax({
 				type: "post",
-				url: "../order/modifyOrderState",
+                url: "../../../order/modifyOrderState",
 				contentType: "application/json;charset=utf-8",
 				async: false,
 				data: jsonString,
@@ -63,7 +63,7 @@ $(function() {
 	});
 
 	myPlaceholder = function(obj) {
-		$(obj).on("keypress", function() {
+        $(obj).on("input propertychange", function () {
 			if($(this).val() == "") {
 				$(this).next().show();
 			} else {
@@ -108,6 +108,29 @@ $(function() {
 
 		showTip(msg);
 	}
+});
+
+$(function () {
+    // flag 0表示正常 1表示加../
+    loginout = function (x) {
+        var curUrl = x > 0 ? "../" : "";
+        var resUrl = curUrl + "../../Login/loginout";
+        $.ajax({
+            type: "post",
+            url: resUrl,
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            async: true,
+            success: function (json) {
+                if (json.result == "success") {
+                    location.href = curUrl + "../login";
+                }
+            },
+            error: function () {
+
+            }
+        });
+    }
 });
 
 $(function() {
@@ -360,7 +383,7 @@ $(function() {
 
 	showSelectedTabInfo = function(id) {
 		$(id).slideDown(1000);
-	}
+    };
 
 	selectTab = function(curId, infoType) {
 		if(curId != formerId) {

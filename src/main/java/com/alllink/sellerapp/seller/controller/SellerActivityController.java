@@ -91,7 +91,8 @@ public class SellerActivityController {
 		}*/
 		Timestamp createTime = TimeUtil.getCurrentTime();
 		map.put("createTime", createTime);
-		activityService.save(map);
+        map.put("enrollNumber", 0);
+        activityService.save(map);
 		return R.ok();
 	}
 

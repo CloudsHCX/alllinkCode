@@ -26,8 +26,7 @@ public class SellerController {
 
     @Autowired
     private SellerService sellerService;
-    @Autowired
-    private SellerActivityService sellerActivityService;
+
 
     /**
      * 添加商家
@@ -94,14 +93,14 @@ public class SellerController {
             return R.error(0, "用户名或密码错误");
         } else if (sellerMap.get("state").equals(0)) {
             return R.error(0, "用户没有短信激活");
-        } else if (sellerMap.get("state").equals(1)) {
+        } else {
             HttpSession session = request.getSession();
             session.setAttribute("seller", sellerMap);
             Map<String, Object> seller = new HashMap<>();
             seller.put("seller", sellerMap);
             return R.ok(seller);
         }
-        return R.error(0, "异常登录");
+
     }
 
     /*
@@ -109,8 +108,10 @@ public class SellerController {
     * */
     @RequestMapping(value = "/checkBalance", method = RequestMethod.POST)
     public R checkBalance(@RequestBody HashMap<String, String> map) {
-        //sellerActivityService.update();
-        Double balance = sellerService.checkBalance(Integer.parseInt(map.get("sellerId")));
+        int sellerId = Integer.parseInt(map.get("sellerId"));
+        //sellerActivityService.updateTotalCost(sellerId);
+        //sellerService.updateBalance(sellerId);
+        Double balance = sellerService.checkBalance(sellerId);
         return R.ok().put("balance", balance);
     }
 
@@ -118,8 +119,10 @@ public class SellerController {
     * 登出
     * */
     @RequestMapping(value="/logout")
-    public void logout(HttpServletRequest request){
+    @ResponseBody
+    public R logout(HttpServletRequest request) {
         request.getSession().invalidate();
+        return R.ok();
     }
 
 
@@ -138,11 +141,11 @@ public class SellerController {
         }
         sellerService.update(seller);
 
-        Map<String, Object> sellerMap = new HashMap<>();
-        sellerMap.put("seller", sellerService.findSellerById(seller.getSellerId()));
+        SellerEntity sessionSeller = sellerService.findSellerById(seller.getSellerId());
         HttpSession session = request.getSession();
-        session.setAttribute("seller", sellerMap);
-        return R.ok(sellerMap);
+        session.removeAttribute("seller");
+        session.setAttribute("seller", sessionSeller);
+        return R.ok().put("seller", sessionSeller);
     }
 
     /**

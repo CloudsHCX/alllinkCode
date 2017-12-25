@@ -1,7 +1,11 @@
 package com.alllink.userapp.order.controller;
 
+import com.alllink.commons.enums.OrderState;
+import com.alllink.commons.enums.PaymentChannel;
 import com.alllink.commons.utils.CheckDevice;
 import com.alllink.commons.utils.JsonUtils;
+import com.alllink.userapp.activity.entity.ActivityDetailItem;
+import com.alllink.userapp.activity.entity.ActivityEntity;
 import com.alllink.userapp.order.entity.OrderEntity;
 import com.alllink.userapp.order.entity.OrderItem;
 import com.alllink.userapp.order.service.OrderService;
@@ -107,6 +111,7 @@ public class OrderController {
         String str = JsonUtils.objectToJson(map);
         return str;
     }
+
     //修改订单状态，删除则orderState传递-1，支付完成orderState传递1
     @RequestMapping(value = "/modifyOrderState",method = RequestMethod.POST,produces="text/html;charset=UTF-8")
     @ResponseBody
@@ -125,5 +130,6 @@ public class OrderController {
         map.put("exception","");
         return JsonUtils.objectToJson(map);
     }
+
 
 }

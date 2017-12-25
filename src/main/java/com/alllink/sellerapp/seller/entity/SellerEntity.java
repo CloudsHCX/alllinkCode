@@ -199,7 +199,9 @@ public class SellerEntity implements Serializable {
                 ", phoneNumber='" + phoneNumber + '\'' +
                 ", qqNumber='" + qqNumber + '\'' +
                 ", wechatNumber='" + wechatNumber + '\'' +
+                ", alipayNumber='" + alipayNumber + '\'' +
                 ", email='" + email + '\'' +
+                ", photo='" + photo + '\'' +
                 ", accountBalance=" + accountBalance +
                 ", createTime=" + createTime +
                 ", codeCreatTime=" + codeCreatTime +

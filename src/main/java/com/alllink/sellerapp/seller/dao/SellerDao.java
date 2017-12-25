@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.Timestamp;
 import java.util.HashMap;
 
-@Repository
+@Repository("sellerDao")
 public interface SellerDao {
     void activeSeller(HashMap<String, Object> map);
 
@@ -26,4 +26,6 @@ public interface SellerDao {
     SellerEntity findSellerById(int id);
 
     Double checkBalance(int sellerId);
+
+    void updateBalance(int sellerId);
 }

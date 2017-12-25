@@ -10,7 +10,8 @@ public enum  ActivityState {
     ActivityWaitingCheck(0,"活动待审核"),
     ActivityChecked(1,"活动审核通过"), //发布状态
     ActivityCancel(2, "活动取消"),
-    ActivityEnd(3, "活动结束");
+    ActivityEnd(3, "活动结束"),
+    ActivityInvalid(4, "活动结束");
 
 
     private  int value ;

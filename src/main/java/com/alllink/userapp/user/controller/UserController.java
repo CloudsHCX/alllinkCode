@@ -175,10 +175,13 @@ public class UserController {
     @ResponseBody
     @RequestMapping(value={"/getUserBasicInfo","/getUserThirdPartyAccount"},method = RequestMethod.POST,produces="text/html;charset=UTF-8")
     public String upCreate(@RequestBody User user,HttpServletRequest request){
-        User u = userService.getUserInfo(user.getPhoneNumber());
+        User u = null;
         if(CheckDevice.getDevice(request)==1){
+            u = userService.getUserInfo(user.getPhoneNumber());
             String photo = u.getPhoto();
             u.setPhoto("http://101.132.191.9:8083/pic/"+photo);
+        } else {
+            u = userService.getUserInfoInWeb(Integer.parseInt(request.getSession().getAttribute("user").toString()));
         }
         Map<String,Object>map = new HashMap<String, Object>();
         if (u!=null) {
@@ -261,5 +264,44 @@ public class UserController {
             return "/pic/" + newName;
         }
 
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/getUserInfoFromSession", method = RequestMethod.POST)
+    public Object getUserInfoFromSession(HttpServletRequest request) {
+
+        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        HttpSession httpSession = request.getSession();
+
+        String userId = null;
+        if (httpSession.getAttribute("user") == null) {
+            map.put("message", "session已过期，请重新登录！");
+            map.put("result", "error");
+            return map;
+        }
+        userId = httpSession.getAttribute("user").toString();
+        paramMap.put("userId", userId);
+        User user = new User();
+        List<User> list = null;
+        try {
+            list = userService.getList(paramMap);
+        } catch (Exception e) {
+            map.put("result", "error");
+            return map;
+        }
+
+        if (list == null) {
+            map.put("result", "error");
+            return map;
+        }
+        String photoUrl = list.get(0).getPhoto();
+        String phoneNumber = list.get(0).getPhoneNumber();
+
+        map.put("photoUrl", photoUrl);
+        map.put("phoneNumber", phoneNumber);
+        map.put("result", "success");
+
+        return map;
     }
 }

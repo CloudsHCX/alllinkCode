@@ -10,11 +10,19 @@ import java.util.Map;
 
 @Repository
 public interface UserDao {
-   public void add(User user);
-   public void update(User user);
-   public int getListCount(Map<String, Object> map);
-   public List<User> getList(Map<String, Object> map);
-   public User getUserInfo(String phoneNumber);
-   public void updateUserInfo(User user);//更新用户信息（插入用户信息)
+    void add(User user);
+
+    void update(User user);
+
+    int getListCount(Map<String, Object> map);
+
+    List<User> getList(Map<String, Object> map);
+
+    User getUserInfo(String phoneNumber);
+
+    void updateUserInfo(User user);//更新用户信息（插入用户信息)
+
+    User getUserInfoInWeb(Integer userId);
+
 
 }
