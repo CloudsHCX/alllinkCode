@@ -72,7 +72,6 @@ public class SellerActivityController {
 	@RequestMapping(value="/save")
 	@ResponseBody
 	public R save(@RequestBody HashMap<String, Object> map, HttpServletRequest request) throws ParseException {
-		System.out.println("add.. activity:" + map.get("activityPhoto"));
 
 		//校验添加活动的活动名称
 	/*	if(activityName==null ||activityName.trim()==""){

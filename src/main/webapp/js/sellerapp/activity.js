@@ -14,7 +14,8 @@ $(function(){
         var activityInfo=$("#activity_info").val().trim();
         var latitude=$("#latitude").html();
         var longitude=$("#longitude").html();
-        if(latitude.trim()==null || longitude.trim() ==null)
+        var sellerId = $("#sellerId-none").html();
+        if (latitude.trim() == null || latitude.trim() == '' || longitude.trim() == null || longitude.trim() == '')
             alert("浏览器不支持H5定位，请用IE或edge");
         var activityPhoto= $("#activityPhoto").attr("src");
         if (activityName==''){
@@ -38,6 +39,7 @@ $(function(){
             alert("请完善所有信息！")
         }else {
             var jsondata = {
+                "sellerId": sellerId,
                 "activityName": activityName,
                 "totalNumber":totalNumber,
                 "cost":cost,
@@ -69,7 +71,7 @@ $(function(){
                     }
                 },
                 error:function(XMLHttpRequest, textStatus){
-                    alert(textStatus);
+                    alert(textStatus + "浏览器不支持H5定位，请用IE或edge");
                 }
             });
         }
