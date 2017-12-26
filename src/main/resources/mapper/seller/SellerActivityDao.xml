@@ -65,7 +65,7 @@
 			enroll_number,activity_state,activity_info,address,longitude,latitude
 		from activity
 		where seller_id = #{sellerId}
-            order by activity_id desc
+		order by activity_id desc
 		<if test="offset != null and limit != null">
 			limit #{offset}, #{limit}
 		</if>

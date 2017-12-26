@@ -26,20 +26,27 @@ public class SellerActivityController {
 	/**
 	 * 列表分页查询
 	 */
-	@RequestMapping("/list")
-	@ResponseBody
-	public R list(@RequestBody HashMap<String, Object> params){
-		//查询列表数据
+    @RequestMapping("/pageList")
+    @ResponseBody
+    public R pageList(@RequestBody HashMap<String, Object> params) {
+        System.out.println(">>>>>>>>>>>>>" + params.get("page").toString() + params.get("limit").toString());
+        //查询列表数据
 		Query query = new Query(params);
-		System.out.println("list");
+
 		List<SellerActivityEntity> activityList = activityService.queryList(query);
 		int total = activityService.queryTotal(query);
 		PageUtils pageUtil = new PageUtils(activityList, total, query.getLimit(), query.getPage());
-		for(int i = 0; i < pageUtil.getPageSize(); i++){
-			System.out.println(pageUtil.getList().get(0));
-		}
-		return R.ok().put("page", pageUtil);
-	}
+//		for(int i = 0; i < pageUtil.getPageSize(); i++){
+//			System.out.println(pageUtil.getList().get(0));
+//		}
+        HashMap<String, Object> pageMap = new HashMap<>();
+        pageMap.put("totalCount", total);
+        pageMap.put("limit", query.getLimit());
+        pageMap.put("currPage", query.getPage());
+        pageMap.put("totalPage", pageUtil.getTotalPage());
+        pageMap.put("list", activityList);
+        return R.ok(pageMap);
+    }
 
 	@RequestMapping("/queryAll")
 	@ResponseBody

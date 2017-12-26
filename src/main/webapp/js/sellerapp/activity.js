@@ -99,12 +99,13 @@ $(function(){
             dataType: "json",   //服务器返回的数据类型。可以为xml,script,json,html。如果不填写，jQuery会自动判断。
             //secureuri: false,   //是否启用安全提交，默认为false。
             contentType: "application/json;charset=utf-8",
-            async:false,   //是否是异步
+            //async:false,   //是否是异步
             success: function(result) {//提交成功后自动执行的处理函数，参数data就是服务器返回的数据。
-                $("#activityPhoto").attr("src",result.url);
+                // $("#activityPhoto").attr("src",result.url);
+                document.getElementById("activityPhoto").setAttribute('src', result.url);
             },
             error: function(data, status, e) {  //提交失败自动执行的处理函数。
-                alert("error");
+                alert("添加图片失败");
             }
         });
     });
