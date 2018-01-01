@@ -163,6 +163,8 @@ public class SellerController {
         return R.ok();
     }
 
+    //@RequestMapping(value = "resetPassword", method = )
+
     /*
     *
     * 发送短信验证码
@@ -183,7 +185,7 @@ public class SellerController {
         }else{
             sellerService.updateCheckcode(phoneNumber, verificationCode, currentTime);
         }
-        SendSMS.send(phoneNumber, verificationCode);
+        //SendSMS.send(phoneNumber, verificationCode);
         System.out.println(verificationCode);
         return R.ok();
     }

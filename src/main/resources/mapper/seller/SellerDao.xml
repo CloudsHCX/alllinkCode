@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- 设置为IUserDao接口方法提供sql语句配置 -->
 <mapper namespace="com.alllink.sellerapp.seller.dao.SellerDao">
 
 
@@ -42,7 +41,11 @@
                nickname, address, phone_number,
                qq_number, wechat_number, email,
                photo, account_balance,state
-        FROM seller WHERE phone_number=#{phoneNumber} AND password=#{password}
+        FROM seller WHERE (phone_number=#{phoneNumber} OR seller_name=#{phoneNumber} )
+        AND password=#{password}
+        <!--<if test="phoneNumber!= null"> AND phone_number=#{phoneNumber}</if>
+        <if test="sellerName!= null">AND seller_name=#{sellerName}</if> -->
+
     </select>
 
     <update id="update" parameterType="com.alllink.sellerapp.seller.entity.SellerEntity">
@@ -70,9 +73,10 @@
 
     <select id="updateBalance" parameterType="int">
         UPDATE seller s,
-        (SELECT SUM(a.total_cost) as account_balance,a.seller_id as seller_id
-        FROM activity a, seller s
-        WHERE a.seller_id=s.seller_id AND a.activity_state='3' AND s.seller_id='3' ) t
+        (SELECT SUM(a.total_cost)-SUM(so.cost) AS account_balance,a.seller_id as seller_id
+        FROM activity a, seller s, seller_order so
+        WHERE a.seller_id=s.seller_id AND so.seller_id=s.seller_id
+        AND a.activity_state='3' AND so.order-state='0' AND s.seller_id=#{sellerId} ) t
         SET s.account_balance= s.account_balance + t.account_balance
         WHERE s.seller_id=t.seller_id;
     </select>

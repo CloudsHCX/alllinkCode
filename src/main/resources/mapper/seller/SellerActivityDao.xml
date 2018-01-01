@@ -155,10 +155,11 @@
 
     <update id="updateTotalCost" parameterType="int">
         UPDATE activity a,
-        (SELECT SUM(o.cost) as total_cost,a.activity_id as activity_id
-        FROM activity a, orderu o, seller s
-        WHERE a.activity_id=o.activity_id AND a.end_time &lt; NOW() AND o.order_state='1' AND a.activity_state='1' AND
-        s.seller_id=#{sellerId} ) t
+		(SELECT SUM(o.cost) as total_cost,a.activity_id as activity_id
+		FROM activity a, orderu o, seller s
+		WHERE a.activity_id=o.activity_id AND a.end_time &lt; NOW()
+		AND o.order_state='1' AND a.activity_state='1' AND s.seller_id=#{sellerId}
+		GROUP BY a.activity_id) t
         SET a.total_cost=t.total_cost,a.activity_state='3'
         WHERE a.activity_id=t.activity_id;
     </update>

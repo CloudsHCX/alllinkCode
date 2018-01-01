@@ -11,7 +11,7 @@ public enum  ActivityState {
     ActivityChecked(1,"活动审核通过"), //发布状态
     ActivityCancel(2, "活动取消"),
     ActivityEnd(3, "活动结束"),
-    ActivityInvalid(4, "活动结束");
+    ActivityInvalid(4, "活动金额累加到账户余额上之后状态");
 
 
     private  int value ;

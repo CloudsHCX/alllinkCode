@@ -10,7 +10,6 @@ import java.util.Date;
  */
 public class SellerEntity implements Serializable {
     private static final long serialVersionUID = 1L;
-
     //商家id
     private int sellerId;
     //商家用户名
