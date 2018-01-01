@@ -6,13 +6,16 @@ import java.util.UUID;
 public class RandomNumberUtil {
     /*
     *
-    * 生成6位随机数字验证码
+    * 生成6位不包含零的随机数字验证码
     * */
     public static String CreateVerificationCode(){
         Random random = new Random();
-        double number = (1 + random.nextDouble()) * Math.pow(10, 6);
-        String length = String.valueOf(number);
-        return length.substring(1, 7);
+        String str = "";
+        for (int i = 0; i < 6; i++) {
+            int number = random.nextInt(9) + 1;
+            str += number;
+        }
+        return str;
     }
 
     /*

@@ -52,17 +52,26 @@
         UPDATE seller
         <set>
             <if test="sellerName!= null">`seller_name` = #{sellerName},</if>
-            <if test="password != null">`password` = #{password}, </if>
             <if test="state == 2">`state` = #{state},</if>
             <if test="address != null">`address` = #{address}, </if>
-            <if test="phoneNumber != null">`phone_number` = #{phoneNumber}, </if>
+            <if test="phoneNumber != null">`phone_number` = #{phoneNumber},</if>
             <if test="qqNumber != null">`qq_number` = #{qqNumber},</if>
             <if test="wechatNumber != null">`wechat_number` = #{wechatNumber},</if>
             <if test="email != null">`email` = #{email},</if>
             <if test="photo != null">`photo` = #{photo},</if>
-            <if test="alipayNumber != null">`alipay_number` = #{alipayNumber}</if>
+            <if test="alipayNumber != null">`alipay_number` = #{alipayNumber},</if>
+            <if test="verificationCode != null">`verification_code` = #{verificationCode},</if>
+            <if test="codeCreatTime != null">`code_creat_time` = #{codeCreatTime}</if>
         </set>
-        where seller_id = #{sellerId}
+        WHERE seller_id = #{sellerId}
+    </update>
+
+    <update id="updateByPhoneNumber" parameterType="com.alllink.sellerapp.seller.entity.SellerEntity">
+        UPDATE seller
+        <set>
+            <if test="password != null">password = #{password}</if>
+        </set>
+        WHERE phone_number = #{phoneNumber}
     </update>
 
     <select id="checkBalance" parameterType="int" resultType="Double">
@@ -88,14 +97,14 @@
         SELECT salt FROM seller WHERE phone_number = #{phoneNumber}
     </select>
 
-    <update id="updateCheckcode" parameterType="map">
-        UPDATE seller
-        <set>
-            verification_code = #{verificationCode},
-            code_creat_time = #{currentTime}
-        </set>
-        where phone_number = #{phoneNumber}
-    </update>
+    <!--    <update id="updateCheckcode" parameterType="map">
+            UPDATE seller
+            <set>
+                verification_code = #{verificationCode},
+                code_creat_time = #{codeCreatTime}
+            </set>
+            where seller_id=#{sellerId}
+        </update>-->
 
     <select id="findSellerById" parameterType="int" resultType="com.alllink.sellerapp.seller.entity.SellerEntity">
         SELECT * FROM seller WHERE seller_id = #{sellerId}

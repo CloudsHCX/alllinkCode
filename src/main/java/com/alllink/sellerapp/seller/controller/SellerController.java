@@ -97,9 +97,37 @@ public class SellerController {
             HttpSession session = request.getSession();
             session.setAttribute("seller", sellerMap);
             Map<String, Object> seller = new HashMap<>();
-            seller.put("seller", sellerMap);
-            return R.ok(seller);
+            return R.ok(seller).put("seller", sellerMap);
         }
+
+    }
+
+    /**
+     * 商家验证码登录
+     */
+    @RequestMapping(value = "/loginByCode", method = RequestMethod.POST)
+    @ResponseBody
+    public R loginByCode(@RequestBody HashMap<String, String> map, HttpServletRequest request) throws ParseException {
+        String phoneNumber = map.get("phoneNumber");
+        String verificationCode = map.get("verificationCode");
+
+        SellerEntity sellerEntity = sellerService.checkPhone(phoneNumber);
+        if (sellerEntity == null) {
+            return R.error(0, "手机号错误");
+        }
+        String code = sellerEntity.getVerificationCode();
+        if (!code.equals(verificationCode)) {
+            return R.error(0, "验证码错误");
+        }
+        Timestamp currentTime = TimeUtil.getCurrentTime();
+        Timestamp codeTime = sellerEntity.getCodeCreatTime();
+        Long betweenTime = currentTime.getTime() - codeTime.getTime();//验证码的时间差
+        if (betweenTime / 1000 > 60) {
+            return R.error(0, "验证码过期");
+        }
+        HttpSession session = request.getSession();
+        session.setAttribute("seller", sellerEntity);
+        return R.ok().put("seller", sellerEntity);
 
     }
 
@@ -115,6 +143,76 @@ public class SellerController {
         return R.ok().put("balance", balance);
     }
 
+    /**
+     * 商家信息修改
+     *
+     * */
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    @ResponseBody
+    public R update(@RequestBody SellerEntity seller, HttpServletRequest request) throws ParseException {
+        System.out.println("seller:" + seller);
+
+        sellerService.update(seller);
+
+        SellerEntity sessionSeller = sellerService.findSellerById(seller.getSellerId());
+        HttpSession session = request.getSession();
+        session.removeAttribute("seller");
+        session.setAttribute("seller", sessionSeller);
+        return R.ok().put("seller", sessionSeller);
+    }
+
+    /*
+    * 修改密码
+    * */
+    @RequestMapping(value = "updatePassword", method = RequestMethod.POST)
+    @ResponseBody
+    public R updatePassword(@RequestBody HashMap<String, Object> map) throws ParseException {
+        String phoneNumber = map.get("phoneNumber").toString();
+        System.out.println(">>>>>>>>>>>>" + phoneNumber);
+        SellerEntity sellerEntity = sellerService.checkPhone(phoneNumber);
+        if (sellerEntity == null) {
+            System.out.println("手机号错误");
+            return R.error(0, "手机号错误");
+        }
+        String verificationCode = (String) map.get("verificationCode");
+        String code = sellerEntity.getVerificationCode();
+        if (!code.equals(verificationCode)) {
+            return R.error(0, "验证码错误");
+        }
+        Timestamp currentTime = TimeUtil.getCurrentTime();
+        Timestamp codeTime = sellerEntity.getCodeCreatTime();
+        Long betweenTime = currentTime.getTime() - codeTime.getTime();//验证码的时间差
+        if (betweenTime / 1000 > 60) {
+            return R.error(0, "验证码过期");
+        }
+        String encodepassword = map.get("password") + sellerService.getSalt(map.get("phoneNumber").toString());
+        map.put("password", SHAUtil.SHAEncode(encodepassword));
+        sellerService.updateByPhoneNumber(map);
+        return R.ok();
+    }
+
+    /*
+   * 修改手机号
+   * */
+    @RequestMapping(value = "updatePhoneNumber", method = RequestMethod.POST)
+    @ResponseBody
+    public R updatePhoneNumber(@RequestBody SellerEntity seller) throws ClientException, InterruptedException, ParseException {
+        SellerEntity sellerEntity = sellerService.findSellerById(seller.getSellerId());
+        String verificationCode = seller.getVerificationCode();
+        String code = sellerEntity.getVerificationCode();
+        if (!code.equals(verificationCode)) {
+            return R.error(0, "验证码错误");
+        }
+        Timestamp currentTime = TimeUtil.getCurrentTime();
+        Timestamp codeTime = sellerEntity.getCodeCreatTime();
+        Long betweenTime = currentTime.getTime() - codeTime.getTime();//验证码的时间差
+        if (betweenTime / 1000 > 60) {
+            return R.error(0, "验证码过期");
+        }
+        sellerService.update(seller);
+        return R.ok();
+    }
+
     /*
     * 登出
     * */
@@ -123,29 +221,6 @@ public class SellerController {
     public R logout(HttpServletRequest request) {
         request.getSession().invalidate();
         return R.ok();
-    }
-
-
-    /**
-     * 商家信息修改
-     *
-     * */
-    @RequestMapping(value="/update" ,method= RequestMethod.POST)
-    @ResponseBody
-    public R update(@RequestBody SellerEntity seller, HttpServletRequest request) throws ParseException {
-        System.out.println("seller:" + seller);
-        String password = seller.getPassword();
-        if(password != null) {
-            String encodepassword = seller.getPassword() + sellerService.getSalt(seller.getSalt());
-            seller.setPassword(SHAUtil.SHAEncode(encodepassword));
-        }
-        sellerService.update(seller);
-
-        SellerEntity sessionSeller = sellerService.findSellerById(seller.getSellerId());
-        HttpSession session = request.getSession();
-        session.removeAttribute("seller");
-        session.setAttribute("seller", sessionSeller);
-        return R.ok().put("seller", sessionSeller);
     }
 
     /**
@@ -163,7 +238,6 @@ public class SellerController {
         return R.ok();
     }
 
-    //@RequestMapping(value = "resetPassword", method = )
 
     /*
     *
@@ -173,18 +247,49 @@ public class SellerController {
     @ResponseBody
     public R sendMessage(@RequestBody HashMap<String, String> map, HttpServletRequest request) throws ClientException, InterruptedException, ParseException {
         String phoneNumber = map.get("phoneNumber");
+        SellerEntity sellerEntity = new SellerEntity();
         String verificationCode = RandomNumberUtil.CreateVerificationCode();
         //获取当前时间
         Timestamp currentTime =TimeUtil.getCurrentTime();
-
-        SellerEntity sellerEntity = sellerService.checkPhone(phoneNumber);
-
-        if(sellerEntity == null) {
-            sellerService.register(phoneNumber, verificationCode, currentTime);
-
+        String sellerId = map.get("sellerId");
+        if (sellerId != null) {
+            System.out.println("修改手机号");
+            sellerEntity.setSellerId(Integer.parseInt(map.get("sellerId")));
+            sellerEntity.setVerificationCode(verificationCode);
+            sellerEntity.setCodeCreatTime(currentTime);
+            sellerService.update(sellerEntity);
         }else{
-            sellerService.updateCheckcode(phoneNumber, verificationCode, currentTime);
+            sellerEntity = sellerService.checkPhone(phoneNumber);
+            if (sellerEntity == null) {
+                sellerService.register(phoneNumber, verificationCode, currentTime);
+            } else {
+                sellerEntity.setVerificationCode(verificationCode);
+                sellerEntity.setCodeCreatTime(currentTime);
+                sellerService.update(sellerEntity);
+            }
         }
+
+        //SendSMS.send(phoneNumber, verificationCode);
+        System.out.println(verificationCode);
+        return R.ok();
+    }
+
+    /*
+   *
+   * 修改手机号验证码
+   * */
+    @RequestMapping(value = "/updateMessage", method = RequestMethod.POST)
+    @ResponseBody
+    public R updateMessage(@RequestBody HashMap<String, String> map, HttpServletRequest request) throws ClientException, InterruptedException, ParseException {
+        String phoneNumber = map.get("phoneNumber");
+        String verificationCode = RandomNumberUtil.CreateVerificationCode();
+        //获取当前时间
+        Timestamp currentTime = TimeUtil.getCurrentTime();
+        SellerEntity sellerEntity = new SellerEntity();
+        sellerEntity.setSellerId(Integer.parseInt(map.get("sellerId")));
+        sellerEntity.setVerificationCode(verificationCode);
+        sellerEntity.setCodeCreatTime(currentTime);
+        sellerService.update(sellerEntity);
         //SendSMS.send(phoneNumber, verificationCode);
         System.out.println(verificationCode);
         return R.ok();

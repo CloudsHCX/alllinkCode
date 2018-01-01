@@ -164,7 +164,7 @@
 					<span class="profileinfo-label">手机号</span>
 					<span>
   							<span class="profileinfo-value" id="phoneNumber1"></span>
-  							<!--<a onclick="updateMobile()">[修改]</a>-->
+  							<a onclick="updateMobile()">[修改]</a>
   						</span>
 				</p>
 				<p>
@@ -208,27 +208,30 @@
 			</div>
 		</div>
 
-		<!--<div class="right" id="right1.1" style="display: none;">-->
-			<!--<h3 class="person">修改手机号</h3>-->
-			<!--<div class="persons" style="width:230px;margin-left: 155px;">-->
-				<!--<form class="form-horizontal my_form" id="form1" name="form" action="提交页面" method="post"  onsubmit="">-->
-					<!--<div class="form-group" >-->
-						<!--<input type="text" name="phoneNubmer" class="form-control" id="phoneNubmer" placeholder="请输入新的手机号" style="height: 45px;">-->
-					<!--</div>-->
-					<!--<div class="form-group">-->
-						<!--<button type="button" class="btn btn-default" style="margin-left: 0;width: 95px;">获取验证码</button>-->
-					<!--</div>-->
-					<!--<div class="form-group" >-->
-						<!--<input type="text" name="verificationCode" class="form-control" id="verificationCode" placeholder="请输入验证码" style="height: 45px;">-->
-					<!--</div>-->
-					<!--<div class="form-group">-->
-						<!--<div class="col-sm-offset-2 col-sm-10">-->
-							<!--<button type="submit" class="btn btn-primary btn-lg" id="mobile-btn" style="margin-left: -56px;width: 95px;">确定</button>-->
-						<!--</div>-->
-					<!--</div>-->
-				<!--</form>-->
-			<!--</div>-->
-		<!--</div>-->
+        <div class="right" id="right1.11" style="display: none;">
+            <h3 class="person">修改手机号</h3>
+            <div class="persons" style="width:230px;margin-left: 155px;">
+                <div class="form-group">
+                    <input type="text" name="phoneNumber" class="form-control" id="phoneNumber" placeholder="请输入新的手机号"
+                           style="height: 45px;">
+                </div>
+                <div class="form-group">
+                    <button type="button" class="btn btn-default" style="margin-left: 0;width: 95px;" id="vbtn">获取验证码
+                    </button>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="verificationCode" class="form-control" id="verificationCode"
+                           placeholder="请输入验证码" style="height: 45px;">
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="button" class="btn btn-primary btn-lg" id="mobile-btn"
+                                style="margin-left: -56px;width: 95px;">确定
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 		<div class="right" id="right1.2" style="display: none;">
 			<h3 class="person">修改用户名</h3>
@@ -350,10 +353,17 @@ document.getElementById('photo').addEventListener('change',function(e){
           d2.style.display="block";
           $("#d1").replaceWith($("#d2").html());
       }
-      function updateWeChat()
-      {
-          var d1=document.getElementById('right1');
-          var d2=document.getElementById('right1.3');
+
+        function updateWeChat() {
+            var d1 = document.getElementById('right1');
+            var d2 = document.getElementById('right1.3');
+            d2.style.display = "block";
+            $("#d1").replaceWith($("#d2").html());
+        }
+
+        function updateMobile() {
+            var d1 = document.getElementById('right1');
+            var d2 = document.getElementById('right1.11');
           d2.style.display="block";
           $("#d1").replaceWith($("#d2").html());
       }

@@ -19,7 +19,7 @@ public interface SellerDao {
 
     void register(@Param("phoneNumber") String phoneNumber, @Param("verificationCode") String verificationCode, @Param("currentTime") Timestamp currentTime, @Param("salt") String salt);
 
-    void updateCheckcode(@Param("phoneNumber") String phoneNumber, @Param("verificationCode") String verificationCode, @Param("currentTime") Timestamp currentTime);
+    void updateCheckcode(SellerEntity seller);
 
     String getSalt(String phoneNumber);
 
@@ -28,4 +28,6 @@ public interface SellerDao {
     Double checkBalance(int sellerId);
 
     void updateBalance(int sellerId);
+
+    void updateByPhoneNumber(HashMap<String, Object> map);
 }

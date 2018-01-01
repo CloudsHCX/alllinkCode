@@ -45,17 +45,10 @@ public class SellerServiceImpl implements SellerService {
 
     @Override
     public void register(String phoneNumber, String verificationCode, Timestamp currentTime) {
-//        String uid = UUID.randomUUID().toString().replaceAll("-", "");
-//        System.out.println(uid);
-//        sellerDao.register(uid, phoneNumber, checkcode, currentTime);
         String salt = RandomNumberUtil.CreateSalt();
         sellerDao.register(phoneNumber, verificationCode, currentTime, salt);
     }
 
-    @Override
-    public void updateCheckcode(String phoneNumber, String verificationCode, Timestamp currentTime) {
-        sellerDao.updateCheckcode(phoneNumber, verificationCode, currentTime);
-    }
 
     @Override
     public String getSalt(String phoneNumber) {
@@ -83,6 +76,11 @@ public class SellerServiceImpl implements SellerService {
         sellerDao.updateBalance(sellerId);
         sellerActivityDao.updateActivityState();
         return sellerDao.checkBalance(sellerId);
+    }
+
+    @Override
+    public void updateByPhoneNumber(HashMap<String, Object> map) {
+        sellerDao.updateByPhoneNumber(map);
     }
 
 

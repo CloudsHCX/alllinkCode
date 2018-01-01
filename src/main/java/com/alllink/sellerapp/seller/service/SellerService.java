@@ -17,11 +17,11 @@ public interface SellerService {
 
     void register(String phoneNumber, String verificationCode, Timestamp currentTime);
 
-    void updateCheckcode(String phoneNumber, String verificationCode, Timestamp currentTime);
-
     String getSalt(String phoneNumber);
 
     SellerEntity findSellerById(int id);
 
     Double checkBalance(int sellerId);
+
+    void updateByPhoneNumber(HashMap<String, Object> map);
 }
