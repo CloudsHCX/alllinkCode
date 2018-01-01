@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="../js/userapp/common/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+
+<div id="pay">支付</div>
+<br/>
+<div id="refund">退款</div>
+
+</body>
+</html>
+<script>
+    var jsonData = {
+        "orderIdStr": "12345678064",
+        "totalAmount": "0.01",
+        "subject": "支付宝测试"
+    };
+    var jsonString = JSON.stringify(jsonData);
+    $("#pay").click(function () {
+        $.ajax({
+            type: "post",
+            url: "../alipay/payWeb",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            data: jsonString,
+            async: false,
+            timeout: 50000,
+            success: function (json) {//提交成功后自动执行的处理函数，参数data就是服务器返回的数据。
+                debugger;
+                $("#pay").html(json.data);
+                console.log(json.data);
+            },
+            error: function () {  //提交失败自动执行的处理函数。
+                alert("error");
+
+            }
+        });
+    });
+
+
+    var jsonData2 = {
+        "orderIdStr": "12345678064",
+        "totalAmount": "0.01"
+    };
+    var jsonString2 = JSON.stringify(jsonData2);
+
+    $("#refund").click(function () {
+        $.ajax({
+            type: "post",
+            url: "../alipay/refundWeb",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            data: jsonString2,
+            async: false,
+            timeout: 50000,
+            success: function (json) {//提交成功后自动执行的处理函数，参数data就是服务器返回的数据。
+                if (json.result == "success") {
+                    alert("退款成功！");
+                }
+            },
+            error: function () {  //提交失败自动执行的处理函数。
+                alert("error");
+
+            }
+        });
+    });
+</script>

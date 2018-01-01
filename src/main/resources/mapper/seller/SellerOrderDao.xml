@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.alllink.sellerapp.seller.dao.SellerOrderDao">
+    <insert id="save">
+        INSERT INTO
+        seller_order(seller_id,admin_id,cost,payment_channel,order_state)
+        VALUES (
+        #{sellerId},#{adminId},#{cost},#{paymentChannel},0
+        );
+    </insert>
+</mapper>

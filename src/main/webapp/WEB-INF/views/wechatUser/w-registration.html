@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+    <title>注册</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/weui/1.1.1/style/weui.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/jquery-weui/1.1.1/css/jquery-weui.min.css">
+    <style>
+        body {
+            font-family: "微软雅黑";
+        }
+
+        .head {
+            height: 200px;
+            line-height: 200px;
+            text-align: center;
+            font-size: 32px;
+            color: #666666;
+        }
+
+        .content {
+            margin-left: 35px;
+            margin-right: 45px;
+        }
+
+        .weui-btn_default {
+            margin: 0px 55px 20px 45px;
+        }
+
+        .weui-label {
+            width: 45px;
+        }
+
+        button.weui-btn {
+            width: 75%;
+        }
+
+        #btn {
+            border: 0;
+            background-color: #e6e6e6;
+        }
+    </style>
+</head>
+<body>
+<div class="head">
+    欢迎来到万众艺兴
+</div>
+
+<div class="content">
+
+    <div class="weui-cell weui-cell_vcode">
+        <div class="weui-cell__hd">
+            <label class="weui-label"><img src="../../img/sellerapp/user.png"/></label>
+        </div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" placeholder="请输入手机号" id="phone" name="phone" onblur="vailPhone()">
+        </div>
+        <div class="weui-cell__ft">
+            <input type="button" class="weui-vcode-btn" onclick="vailPhone()" id="btn" value="获取验证码">
+        </div>
+    </div>
+
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label"><img
+                src="../../img/sellerapp/VerificationCode.png"/></label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" placeholder="请输入验证码" name="verifycode" id="verificatonCode">
+        </div>
+    </div>
+
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label"><img src="../../img/sellerapp/password.png"/></label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="password" placeholder="请输入密码" name="pwd1" id="pwd1">
+        </div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label"><img src="../../img/sellerapp/password.png"/></label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="password" placeholder="请确认密码" name="pwd2" id="pwd2" onblur="check()">
+        </div>
+    </div>
+    <div class="weui-cell"></div>
+
+</div>
+
+<button type="button" class="weui-btn weui-btn_default" id="rbtn" onclick="RegistrationValidate()">注册</button>
+
+<script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-weui/1.1.1/js/jquery-weui.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-weui/1.1.1/js/swiper.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-weui/1.1.1/js/city-picker.min.js"></script>
+<script type="text/javascript" src="../../js/wechatUser/w-registration.js"></script>
+</body>
+</html>

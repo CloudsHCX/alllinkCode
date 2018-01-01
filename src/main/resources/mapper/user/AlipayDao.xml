@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.alllink.userapp.dao.AlipayDao">
+
+    <resultMap id="AlipayEntity" type="com.alllink.userapp.alipay.entity.AlipayEntity"/>
+
+    <select id="getListCount" parameterType="java.util.Map" resultType="int">
+        SELECT COUNT(1) FROM alipay WHERE 1=1
+        <if test="orderIdStr != null">AND order_id_str = #{orderIdStr}</if>
+    </select>
+
+    <select id="getList" parameterType="java.util.Map" resultMap="AlipayEntity">
+        SELECT * FROM alipay WHERE 1=1
+        <if test="orderIdStr != null">AND order_id_str = #{orderIdStr}</if>
+    </select>
+
+
+    <insert id="add" parameterType="com.alllink.userapp.alipay.entity.AlipayEntity">
+        insert into alipay
+        (
+        `order_id_str`,
+        `trade_no`,
+        `refund_amount`,
+        `refund_reason`,
+        `out_request_no`,
+        `create_time`,
+        `alipay_sign`,
+        `amount`,
+        `refund_time`
+        )
+        values
+        (
+        #{orderIdStr},
+        #{tradeNo},
+        #{refundAmount},
+        #{refundReason},
+        #{outRequestNo},
+        #{createTime},
+        #{alipaySign},
+        #{amount},
+        #{refundTime}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.alllink.userapp.alipay.entity.AlipayEntity">
+        update alipay
+        <set>
+            <if test="orderIdStr != null">`order_id_str` = #{orderIdStr},</if>
+            <if test="tradeNo != null">`trade_no` = #{tradeNo},</if>
+            <if test="refundAmount != null">`refund_amount` = #{refundAmount},</if>
+            <if test="refundReason != null">`refund_reason` = #{refundReason},</if>
+            <if test="outRequestNo != null">`out_request_no` = #{outRequestNo},</if>
+            <if test="createTime != null">`create_time` = #{createTime},</if>
+            <if test="alipaySign != null">`alipay_sign` = #{alipaySign},</if>
+            <if test="amount != null">`amount` = #{amount},</if>
+            <if test="refundTime != null">`refund_time` = #{refundTime}</if>
+        </set>
+        where alipay_id = #{alipayId}
+    </update>
+
+    <delete id="delete">
+        delete from alipay where alipay_id = #{value}
+    </delete>
+
+
+</mapper>

@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>添加个人资料</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/weui/1.1.1/style/weui.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/jquery-weui/1.1.1/css/jquery-weui.min.css">
+
+    <style>
+        body {
+            font-family: "微软雅黑";
+        }
+
+        .head {
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 25px;
+            color: #666666;
+        }
+
+        .content {
+            margin-left: 25px;
+            margin-right: 40px;
+        }
+
+        .weui-label {
+            width: 45px;
+        }
+
+        label > img {
+            width: 27px;
+            height: 27px;
+        }
+
+        .weui-uploader__title {
+            margin-left: 8px;
+        }
+
+        .weui-uploader__files {
+            margin-left: -80px;
+        }
+
+        #submit {
+            width: 90%;
+        }
+    </style>
+</head>
+<body>
+<div class="head">
+    设置个人资料
+</div>
+
+<div class="content">
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label"><img src="../../img/sellerapp/my.png"/></label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" placeholder="请输入用户名" id="sellerName">
+        </div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label"><img
+                src="../../img/sellerapp/ic_verification_code.png"/></label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" placeholder="请输入支付宝号码" id="alipayNumber">
+        </div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label"><img src="../../img/sellerapp/person.png"/></label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" placeholder="请输入邮箱" id="email">
+        </div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label"><img src="../../img/sellerapp/page.png"/></label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" placeholder="请输入地址" id="address">
+        </div>
+    </div>
+
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <div class="weui-uploader">
+                <div class="weui-uploader__hd">
+                    <p class="weui-uploader__title">上传头像<span id="crRealPhoto" style="display: none"></span></p>
+                    <div class="weui-uploader__info" id="info0">0/1</div>
+                </div>
+                <div class="weui-uploader__bd">
+                    <ul class="weui-uploader__files" id="uploaderFiles0">
+                        <li class="weui-uploader__file" id="li0"></li>
+                    </ul>
+                    <div class="weui-uploader__input-box">
+                        <input id="uploaderInput0" name="file" class="weui-uploader__input" type="file" accept="image/*"
+                               multiple="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="weui-cell"></div>
+
+</div>
+
+<button type="button" class="weui-btn weui-btn_primary" id="submit">确定
+    <span id="sellerId-none" style="display: none">${Session.seller.sellerId}</span>
+</button>
+
+<script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-weui/1.1.1/js/jquery-weui.min.js"></script>
+<script type="text/javascript" src="../../js/userapp/ajaxfileupload.js"></script>
+<script>
+    $(function () {
+        // 允许上传的图片类型
+        var allowTypes = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif'];
+        // 1024KB，也就是 1MB
+        var maxSize = 2048 * 2048;
+        // 图片最大宽度
+        var maxWidth = 10000;
+        // 最大上传图片数量
+        var maxCount = 1;
+        $('.weui-uploader__input').on('change', function (event) {
+            var id = $(event.target).attr('id');
+            var id1 = $("#" + id).parent().prev().attr("id");
+            var id2 = $("#" + id1).find("li").attr("id");
+            var id3 = $("#" + id).parent().parent().prev().find("div").attr("id");
+            var files = event.target.files;
+            // 如果没有选中文件，直接返回
+            if (files.length === 0) {
+                return;
+            }
+            for (var i = 0, len = files.length; i < len; i++) {
+                var file = files[i];
+                var reader = new FileReader();
+                // 如果类型不在允许的类型范围内
+                if (allowTypes.indexOf(file.type) === -1) {
+                    $.alert("该类型不允许上传！", "警告！");
+                    continue;
+                }
+                if (file.size > maxSize) {
+                    $.alert("图片太大，不允许上传", "警告！");
+                    continue;
+                }
+                if (($("#" + id2).length - 1) >= maxCount) {
+                    $.alert({text: '最多只能上传' + maxCount + '张图片'});
+                    return;
+                }
+                reader.readAsDataURL(file);
+                reader.onload = function (e) {
+                    var img = new Image();
+                    img.src = e.target.result;
+                    img.onload = function () {
+                        // 不要超出最大宽度
+                        var w = Math.min(maxWidth, img.width);
+                        // 高度按比例计算
+                        var h = img.height * (w / img.width);
+                        var canvas = document.createElement('canvas');
+                        var ctx = canvas.getContext('2d');
+                        // 设置 canvas 的宽度和高度
+                        canvas.width = w;
+                        canvas.height = h;
+                        ctx.drawImage(img, 0, 0, w, h);
+                        var base64 = canvas.toDataURL('image/jpeg', 0.8);
+                        // 插入到预览区
+                        var $preview = $('<li class="weui-uploader__file weui-uploader__file_status" style="background-image:url(' + img.src + ')"><div class="weui-uploader__file-content"></div></li>');
+                        $('#' + id1).append($preview);
+                        var id2 = $("#" + id1).parent().prev().find("span").attr("id");
+                        var num = $("#" + id2).length;
+                        $("#" + id3).text(num + '/' + maxCount);
+                        var formData = new FormData();
+                        formData.append("images", base64);
+                        $.ajaxFileUpload({
+                            url: "/alllink/file/image", //后台方法的路径
+                            type: "post",   //当要提交自定义参数时，这个参数要设置成post
+                            fileElementId: id,    //需要上传的文件域的ID，即<input type="file">的ID。
+                            dataType: "json",   //服务器返回的数据类型。可以为xml,script,json,html。如果不填写，jQuery会自动判断。
+                            contentType: "application/json;charset=utf-8",
+                            data: {"sellerId":${Session.seller.sellerId}},
+                            async: false,   //是否是异步
+                            success: function (result) {//提交成功后自动执行的处理函数，参数data就是服务器返回的数据。
+                                //alert(id2+ result.url);
+                                $("#" + id2).html(result.url);
+                                $("#" + id3).remove();
+                                $.toast("上传成功");
+                            },
+                            error: function (result, status, e) {  //提交失败自动执行的处理函数。
+                                $.alert("上传图片失败");
+                            }
+                        });
+                    };
+                };
+            }
+        });
+    });
+
+    // 验证邮箱
+    function isCardNo(card) {
+        var pattern = /^([A-Za-z0-9_\-\.])+\@([A-Za-z0-9_\-\.])+\.([A-Za-z]{2,4})$/;
+        return pattern.test(card);
+    }
+
+    // 验证函数
+    function formValidate() {
+        var str = '';
+
+        if ($.trim($('#sellerName').val()).length == 0) {
+            str += '用户名没有输入!';
+            $('#sellerName').focus();
+        }
+        if ($.trim($('#alipayNumber').val()).length == 0) {
+            str += '用户名没有输入!';
+            $('#alipayNumber').focus();
+        }
+        if ($.trim($('#address').val()).length == 0) {
+            str += '用户名没有输入!';
+            $('#address').focus();
+        }
+        // 验证邮箱
+        if ($.trim($('#email').val()).length == 0) {
+            str += '邮箱没有输入！';
+            $('#email').focus();
+        } else {
+            if (isCardNo($.trim($('#email').val())) == false) {
+                str += '邮箱不合法！';
+                $('#email').focus();
+            }
+        }
+
+        // 如果没有错误则提交
+        if (str != '') {
+            $.alert(str);
+            return false;
+        } else {
+            var sellerId =${Session.seller.sellerId};
+            var sellerName = $("#sellerName").val();
+            var alipayNumber = $("#alipayNumber").val();
+            var email = $("#email").val();
+            var address = $("#address").val();
+            var jsondata = {
+                "sellerId": sellerId,
+                "sellerName": sellerName,
+                "alipayNumber": alipayNumber,
+                "email": email,
+                "address": address
+            };
+            $.ajax({
+                async: false,
+                type: "POST",
+                url: "/alllink/seller/update",
+                processData: false,
+                contentType: "application/json;charset=utf-8", //这个是发送信息至服务器时内容编码类型
+                dataType: "json",
+                data: JSON.stringify(jsondata),//这里必须将对象转成string类型。
+                success: function (result) {
+                    if (result.code == 1) {
+                        window.location.href = "/alllink/views/wechat/w-PersonalData.html";
+                    }
+                    else {
+                        alert("出现错误！请重试！");
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus) {
+                    alert(textStatus);
+                }
+            });
+        }
+    }
+
+    $('#submit').on('click', function () {
+        formValidate();
+    });
+</script>
+</body>
+</html>

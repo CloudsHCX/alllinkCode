@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>微信主页</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/weui/1.1.1/style/weui.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/jquery-weui/1.1.1/css/jquery-weui.min.css">
+</head>
+<style>
+    body {
+        background-color: #fbfbfb;
+    }
+
+    .weui-cell {
+        padding: 10px 20px;
+    }
+
+    .weui-cell__bd {
+        margin-left: 15px;
+        font-size: 15px;
+    }
+
+    .weui-cell__hd > img {
+        width: 25px;
+        height: 25px;
+    }
+
+    #seller {
+        width: 55px;
+        height: 55px;
+    }
+</style>
+<body>
+
+<div class="weui-tab__bd">
+
+    <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
+        主页
+    </div>
+
+    <div id="tab2" class="weui-tab__bd-item">
+        <div class="weui-cells weui-cells_form">
+            <div class="weui-cell" onclick="window.location.href='/alllink/views/wechat/w-EventList.html'">
+                <div class="weui-cell__hd"><img src="../../img/sellerapp/sanheng.png" alt=""></div>
+                <div class="weui-cell__bd">
+                    所有活动
+                </div>
+            </div>
+        </div>
+        <div class="weui-cells weui-cells_form">
+            <div class="weui-cell" onclick="window.location.href='/alllink/views/wechat/w-AddActivity.html'">
+                <div class="weui-cell__hd"><img src="../../img/sellerapp/yesfang.png" alt=""></div>
+                <div class="weui-cell__bd">
+                    我的活动
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="tab3" class="weui-tab__bd-item">
+        订单页面
+    </div>
+    <div id="tab4" class="weui-tab__bd-item">
+        <div class="weui-cells weui-cells_form">
+            <div class="weui-cell" onclick="window.location.href='/alllink/views/wechat/w-PersonalData.html'">
+                <div class="weui-cell__hd"><img src="${Session.seller.photo}" id="seller"></div>
+                <div class="weui-cell__bd">
+                    <span id="sellerName">${Session.seller.sellerName}</span>
+                </div>
+            </div>
+        </div>
+        <div class="weui-cells weui-cells_form">
+            <div class="weui-cell" onclick="window.location.href='/alllink/views/wechatUser/w-AddPersonalData.html'">
+                <div class="weui-cell__hd"><img src="../../img/sellerapp/yesfang.png" alt=""></div>
+                <div class="weui-cell__bd">
+                    设置个人资料
+                </div>
+            </div>
+        </div>
+
+        <div class="weui-cells weui-cells_form">
+            <div class="weui-cell" onclick="window.location.href='w-login.html'">
+                <div class="weui-cell__hd"><img src="../../img/sellerapp/shezhi.png" alt=""></div>
+                <div class="weui-cell__bd">
+                    退出登录
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="weui-tabbar">
+    <a href="#tab1" class="weui-tabbar__item weui-bar__item--on">
+        <span class="weui-badge" style="position: absolute;top: -.4em;right: 1em;">8</span>
+        <div class="weui-tabbar__icon">
+            <img src="../../img/sellerapp/yuan.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">主页</p>
+    </a>
+    <a href="#tab2" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../../img/sellerapp/sanheng.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">活动</p>
+    </a>
+    <a href="#tab3" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../../img/sellerapp/yes.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">订单</p>
+    </a>
+    <a href="#tab4" class="weui-tabbar__item">
+        <div class="weui-tabbar__icon">
+            <img src="../../img/sellerapp/san.png" alt="">
+        </div>
+        <p class="weui-tabbar__label">我</p>
+        <span id="sellerId-none" style="display: none">${Session.seller.sellerId}</span>
+    </a>
+</div>
+
+
+<script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-weui/1.1.1/js/jquery-weui.min.js"></script>
+<script>
+    $(function () {
+        $(".weui-tabbar a").bind("click", function () {
+            //操作导航栏
+            $(".weui-bar__item--on").removeClass('weui-bar__item--on');
+            $(this).addClass("weui-bar__item--on");
+            //操作内容切换
+            $(".weui-tab__bd .weui-tab__bd-item--active").removeClass('weui-tab__bd-item--active');
+            var data_toggle = jQuery(this).attr("href");
+            $(data_toggle).addClass("weui-tab__bd-item--active");
+        });
+    });
+
+
+</script>
+</body>
+</html>

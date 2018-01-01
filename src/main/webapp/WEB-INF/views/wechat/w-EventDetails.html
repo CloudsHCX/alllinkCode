@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+    <title>活动详情</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/weui/1.1.1/style/weui.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/jquery-weui/1.1.1/css/jquery-weui.min.css">
+    <style>
+        body {
+            font-family: "微软雅黑";
+            background-color: #fbfbfb;
+        }
+
+        .weui-cells__title {
+            color: black;
+            font-size: 17px;
+        }
+
+        .weui-cells {
+            margin-top: 0;
+        }
+
+        button.weui-btn_plain-default {
+            margin-top: 10px;
+            width: 90%;
+            border-width: 0;
+            background-color: #dddddd;
+        }
+
+        #address, #activityInfo {
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="weui-cells">
+    <a class="weui-cell weui-cell_access" href="javascript:">
+        <div class="weui-cell__bd">
+            <p>名称</p>
+        </div>
+        <div class="weui-cell__ft" id="activityName">
+            haha
+        </div>
+    </a>
+</div>
+<div class="weui-cells">
+    <a class="weui-cell weui-cell_access" href="javascript:">
+        <div class="weui-cell__bd">
+            <p>人数</p>
+        </div>
+        <div class="weui-cell__ft" id="totalNumber">
+        </div>
+    </a>
+</div>
+<div class="weui-cells">
+    <a class="weui-cell weui-cell_access" href="javascript:">
+        <div class="weui-cell__bd">
+            <p>费用</p>
+        </div>
+        <div class="weui-cell__ft" id="cost">
+        </div>
+    </a>
+</div>
+<div class="weui-cells">
+    <a class="weui-cell weui-cell_access" href="javascript:">
+        <div class="weui-cell__bd">
+            <p>类型</p>
+        </div>
+        <div class="weui-cell__ft" id="activityType">
+        </div>
+    </a>
+</div>
+<div class="weui-cells">
+    <a class="weui-cell weui-cell_access" href="javascript:">
+        <div class="weui-cell__bd">
+            <p>开始时间</p>
+        </div>
+        <div class="weui-cell__ft" id="beginTime">
+        </div>
+    </a>
+</div>
+<div class="weui-cells">
+    <a class="weui-cell weui-cell_access" href="javascript:">
+        <div class="weui-cell__bd">
+            <p>结束时间</p>
+        </div>
+        <div class="weui-cell__ft" id="endTime">
+        </div>
+    </a>
+</div>
+<div class="weui-cells__title">地址</div>
+<div class="weui-cells">
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <p id="address">111</p>
+        </div>
+    </div>
+</div>
+
+<div class="weui-cells__title">详情</div>
+<div class="weui-cells weui-cells_form">
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <p id="activityInfo">详细情况</p>
+        </div>
+    </div>
+</div>
+<button class="weui-btn weui-btn_plain-default">修改活动</button>
+
+<script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-weui/1.1.1/js/jquery-weui.min.js"></script>
+<script>
+    $(document).ready(function () {
+        function GetQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) {
+                return unescape(r[2]);
+            }
+            return null;
+        }
+
+        var p1 = GetQueryString("p1");
+        var jsondata = {"activityId": p1};
+        $.ajax({
+            async: false,
+            type: "POST",
+            url: "/alllink/sellerActivity/info",
+            processData: false,
+            contentType: "application/json;charset=utf-8", //这个是发送信息至服务器时内容编码类型
+            dataType: "json",
+            data: JSON.stringify(jsondata),//这里必须将对象转成string类型。
+            success: function (result) {
+                if (result.code == 1) {
+                    $("#activityName").html(result.activity.activityName);
+                    $("#totalNumber").html(result.activity.totalNumber);
+                    $("#cost").html(result.activity.cost);
+                    $("#activityType").html(result.activity.activityType);
+                    $("#beginTime").html(result.activity.beginTime);
+                    $("#endTime").html(result.activity.endTime);
+                    $("#address").html(result.activity.address);
+                    $("#activityInfo").html(result.activity.activityInfo);
+                }
+                else {
+                    alert("出现错误！请重试！");
+                }
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

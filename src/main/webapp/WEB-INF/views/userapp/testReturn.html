@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../js/userapp/common/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+支付成功
+</body>
+</html>
+<script>
+
+    function getQueryVariable(variable) {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i = 0; i < vars.length; i++) {
+            var pair = vars[i].split("=");
+            if (pair[0] == variable) {
+                return pair[1];
+            }
+        }
+        return (false);
+    }
+
+    exce();
+
+
+    function exce() {
+        debugger;
+        var jsonData = {
+            "orderIdStr": getQueryVariable("out_trade_no")
+        };
+        var jsonString = JSON.stringify(jsonData);
+
+        $.ajax({
+            type: "post",
+            url: "../alipay/updateOrderInfo",
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            data: jsonString,
+            async: false,
+            timeout: 50000,
+            success: function (json) {//提交成功后自动执行的处理函数，参数data就是服务器返回的数据。
+                if (json.result == "success") {
+                    location.href = '../userapp/personal_center/order/paid_order';
+//                     http://10.82.60.48:8081/alllink/userapp/testReturn?total_amount=0.04&timestamp=2017-12-24+16%3A07%3A53&sign=hG9aTxQwLphRZYvOwQb6EaE261IFBjVd%2BUL0lZOFJ2nzSfPjqyk8oZwLc3GaHC0UcuByQUrYuzcX6H%2BUcrAIOQM9xqzLDeTQDeXg5iKnQyOXMZ3CWklTRtF5J%2FlujgUkV5baIHt2Hk7iELIicKSCkoXruU2A09IqDO80sOI8c3wpOKBAcWzC4h9AsCAvDZhieKWvY7j0ikYrxAsAGzlcx09rxLTKLb4UD2va8Z7KUz6jMBC%2Bk8JSeMDN8p4rpP0sHsrXxohdNv85AAVxg3o1MK3ncJV7MTLk3VLkOr3gl4tftMUmHBUHVHjtcYPXWDmFZ96qqvTdM4RAn8HjCemBgQ%3D%3D&trade_no=2017122421001004710200232686&sign_type=RSA2&auth_app_id=2016082700320775&charset=utf-8&seller_id=2088102173206426&method=alipay.trade.page.pay.return&app_id=2016082700320775&out_trade_no=2122435730005&version=1.0
+                }
+            },
+            error: function () {  //提交失败自动执行的处理函数。
+                alert("error");
+
+            }
+        });
+
+
+    }
+
+
+    //
+
+</script>
+

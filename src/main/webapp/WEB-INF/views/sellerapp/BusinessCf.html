@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>万众艺兴---商家版</title>
+    <link rel="stylesheet" href="../../css/sellerapp/bootstrap.css"/>
+    <link rel="stylesheet" href="../../css/sellerapp/BusinessCertification.css"/>
+
+</head>
+<body>
+<div class="header">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">万众艺兴</a>
+            </div>
+            <div>
+                <ul class="nav navbar-nav">
+                    <li><a href="#">订单</a></li>
+                    <li><a href="#">评价管理</a></li>
+                    <li><a href="#">行业排名</a></li>
+                    <li><a href="#">项目管理</a></li>
+                    <li><a href="#">财务管理</a></li>
+                    <li><a href="#">用户管理</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <span id="navName">${Session.seller.sellerName}</span><b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="home.html">个人中心</a>
+                                <span id="sellerId-none" style="display: none">${Session.seller.sellerId}</span>
+                            </li>
+                            <li><a href="#">我的地址</a></li>
+                            <li><a href="#">安全设置</a></li>
+                            <li class="divider"></li>
+                            <li><a href="home.html">退出登录</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<div class="content">
+    <div class="left">
+        <ul>
+            <li class="big-li">
+                <h2>
+                    <i><img src="../../img/sellerapp/person.png"></i>
+                    个人中心
+                </h2>
+            </li>
+
+            <li class="big-li">
+                <h2>
+                    <i><img src="../../img/sellerapp/page.png"> </i>
+                    我的活动
+                </h2>
+                <ul class="small-ul">
+                    <li><a onclick="window.location.href='EventsList.html'">所有活动</a></li>
+                    <li><a onclick="window.location.href='AddActivity.html'">添加活动</a></li>
+                </ul>
+            </li>
+
+            <li class="big-li">
+                <h2>
+                    <i><img src="../../img/sellerapp/money.png"> </i>
+                    我的资产
+                </h2>
+                <ul class="small-ul">
+                    <li><a>账户余额</a></li>
+                    <li><a>我的钱包</a></li>
+                </ul>
+            </li>
+
+            <li class="big-li">
+                <h2>
+                    <i><img src="../../img/sellerapp/my.png"> </i>
+                    我的资料
+                </h2>
+                <ul class="small-ul">
+                    <li><a href="home.html">个人资料</a></li>
+                    <li><a onclick="business()">商家认证</a></li>
+                    <li><a onclick="window.location.href='ChangePassword.html'">修改密码</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="right" id="right1">
+        <h3 class="person">商家营业信息</h3>
+        <div class="persons">
+            <p>
+                <span class="profileinfo-label">姓名</span>
+                <span>
+  							<span class="profileinfo-value"><span id="cr_real_name1"></span></span>
+  						</span>
+            </p>
+            <p>
+                <span class="profileinfo-label">身份证号码</span>
+                <span>
+	  						<span class="profileinfo-value"><span id="cr_card_id1"></span></span>
+  						</span>
+            </p>
+            <p>
+                <span class="profileinfo-label">组织机构代码</span>
+                <span>
+  							<span class="profileinfo-value"><span id="organziation_code_certificate1"></span></span>
+  						</span>
+            </p>
+            <!-- <p>
+                 <span class="profileinfo-label" style="vertical-align: top;">法人照片</span>
+                 <span>
+                             <span class="profileinfo-value">
+                                 <div id="click000" class="click"><img src="../../img/sellerapp/touxiang.jpg" id="img1"></div>
+                             </span>
+                           </span>
+             </p>-->
+
+            <p>
+                <span class="profileinfo-label" style="vertical-align: top;">身份证照片</span>
+                <span>
+							<span class="profileinfo-value">
+								<div id="click011" class="click"><img src="../../img/sellerapp/touxiang.jpg" id="img2"></div>
+							</span>
+  						</span>
+            </p>
+            <p>
+                <span class="profileinfo-label" style="vertical-align: top;"></span>
+                <span>
+							<span class="profileinfo-value">
+								<div id="click022" class="click"><img src="../../img/sellerapp/touxiang.jpg" id="img3"></div>
+							</span>
+  						</span>
+            </p>
+            <p>
+                <span class="profileinfo-label" style="vertical-align: top;">营业执照</span>
+                <span>
+							<span class="profileinfo-value">
+								<div id="click033" class="click"><img src="../../img/sellerapp/touxiang.jpg" id="img4"></div>
+							</span>
+  						</span>
+            </p>
+            <button type="button" class="btn btn-primary btn-lg" id="btn1">修改</button>
+        </div>
+    </div>
+</div>
+
+<div class="footer"></div>
+
+<script type="text/javascript" src="../../js/sellerapp/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/sellerapp/bootstrap.js"></script>
+<script>
+    $(document).ready(function () {
+        var sellerId = $("#sellerId-none").html();
+        var jsondata = {"sellerId": sellerId};
+        $.ajax({
+            async: false,
+            type: "POST",
+            url: "/alllink/sellerauthinfo/info",
+            processData: false,
+            contentType: "application/json;charset=utf-8", //这个是发送信息至服务器时内容编码类型
+            dataType: "json",
+            data: JSON.stringify(jsondata),//这里必须将对象转成string类型。
+            success: function (result) {
+                if (result.code == 1) {
+                    $("#cr_real_name1").html(result.sellerAuthinfo.crRealName);
+                    $("#cr_card_id1").html(result.sellerAuthinfo.crCardId);
+                    $("#organziation_code_certificate1").html(result.sellerAuthinfo.organziationCodeCertificate);
+//                      $("#img1").attr("src", result.sellerAuthinfo.crRealPhoto);
+                    $("#img2").attr("src", result.sellerAuthinfo.crCardFrontPhoto);
+                    $("#img3").attr("src", result.sellerAuthinfo.crCardBackPhoto);
+                    $("#img4").attr("src", result.sellerAuthinfo.businessLicence);
+                }
+                else {
+                    alert("出现错误！请重试！");
+                }
+            }
+        });
+    });
+    $(function () {
+        $("#btn1").click(function () {
+            window.location.href = "/alllink/views/sellerapp/BusinessCertification.html";
+        });
+    });
+</script>
+</body>
+</html>

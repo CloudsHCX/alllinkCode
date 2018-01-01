@@ -1,0 +1,101 @@
+input[type="button"] {
+    border-width: 0px;
+    border-radius: 5px;
+    cursor: pointer;
+    color: #FFFFFF;
+    outline: none;
+}
+
+.blue-button {
+    background-color: #1E90FF;
+}
+
+.blue-button:hover {
+    background-color: #5599FF;
+}
+
+.red-button {
+    background-color: #FF0000;
+}
+
+.red-button:hover {
+    background-color: #FF3333;
+}
+
+.green-button {
+    background-color: #00AA00;
+}
+
+.green-button:hover {
+    background-color: #00DD00;
+}
+
+input[type="button"]:disabled {
+    background-color: #777777;
+}
+
+input[type="button"]:disabled:hover {
+    cursor: not-allowed;
+}
+
+.radio-div {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.radio-none {
+    display: none;
+}
+
+.radio-repaint {
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    vertical-align: middle;
+    border: 1px solid #A9A9A9;
+    border-radius: 100%;
+    display: inline-block;
+    margin-right: 10px;
+    margin-top: -1px;
+}
+
+.radio-none:checked + .radio-repaint:after {
+    width: 10px;
+    height: 10px;
+    background-color: #00AA00;
+    border-radius: 100%;
+    content: "";
+    display: inline-block;
+    margin: 2px;
+}
+
+.demo--checkbox.radio-repaint,
+.radio-none:checked + .demo--checkbox.radio-repaint:after {
+    border-radius: 0;
+}
+
+input[type="text"],
+input[type="password"] {
+    border: 1px #AAAAAA solid;
+    border-radius: 3px;
+    padding-left: 10px;
+    cursor: pointer;
+    color: #444444;
+    /*透明*/
+    /*background-color: rgba(255, 255, 255, 0);*/
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-color: #1296db;
+}
+
+/*文本框提示*/
+
+.input-div-label {
+    position: absolute;
+    margin: auto;
+    color: #888888;
+    display: none;
+    cursor: pointer;
+}

@@ -97,7 +97,7 @@ public class SellerController {
             HttpSession session = request.getSession();
             session.setAttribute("seller", sellerMap);
             Map<String, Object> seller = new HashMap<>();
-            return R.ok(seller).put("seller", sellerMap);
+            return R.ok().put("seller", sellerMap);
         }
 
     }

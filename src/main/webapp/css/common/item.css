@@ -1,0 +1,15 @@
+/*.item-div:nth-child(odd) {
+	background-color: #FFE4E1;
+}
+
+.item-div:nth-child(even) {
+	background-color: #FFFFFF;
+}*/
+
+.item-div:hover {
+    background-color: wheat;
+}
+
+.item-div:not(:last-child) {
+    border-bottom: 1px solid #99BBFF;
+}

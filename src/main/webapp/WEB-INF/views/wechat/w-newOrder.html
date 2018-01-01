@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>新订单</title>
+    <link rel="stylesheet" href="../../css/sellerapp/bootstrap.css"/>
+    <style>
+        body {
+            padding-top: 50px;
+            background-color: #F7F7F7;
+            color: #666666;
+        }
+
+        .navbar > .container-fluid .navbar-brand {
+            margin-top: 5px;
+            margin-left: 81px;
+            font-size: 30px;
+            font-weight: 700;
+        }
+
+        .navbar-inverse .navbar-nav > li > a {
+            margin-left: 20px;
+            font-size: 16px;
+        }
+
+        .navbar-nav {
+            margin-top: 5px;
+        }
+
+        .dropdown {
+            display: block;
+            margin-left: 230px;
+        }
+
+        .navbar {
+            min-height: 60px;
+        }
+
+        .header {
+            margin-bottom: 50px;
+        }
+
+        .content {
+            height: 800px;
+        }
+
+        .maindiv {
+            margin: 0 auto;
+            width: 1000px;
+            height: 600px;
+            background-color: #FFFFFF;
+            padding-left: 10px;
+            padding-right: 10px;
+            border: 1px solid #ecedeb;
+        }
+
+        .maindiv-head {
+            /*border-bottom: 2px solid #F7F7F7;*/
+            padding: 0 20px 0 30px;
+            font-size: 16px;
+            font-weight: 700;
+            display: block;
+            margin-top: 24px;
+        }
+
+        .list-group-item {
+            border: 0;
+            border-top: 2px solid #ddd;
+            margin-left: -41px;
+            padding: 12px 20px 12px 30px;
+        }
+
+        .list-group-item:first-child {
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+
+        .list-group-item:last-child {
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        li > div {
+            margin-bottom: 10px;
+        }
+
+        .nameSpan {
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .activity_info {
+            border-top: 1px dashed #ddd;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            padding-top: 10px;
+        }
+
+        .cancel {
+        / / display: inline-block;
+            color: #cc0000;
+            font-size: 10px;
+            float: right;
+        }
+
+        .btn-primary {
+            width: 75px;
+        }
+
+        .sp {
+            margin-left: 20px;
+            font-size: 15px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="home.html">万众艺兴</a>
+                <span id="sellerId-none" style="display: none">${Session.seller.sellerId}</span>
+            </div>
+            <div>
+                <ul class="nav navbar-nav">
+                    <li><a href="#">订单</a></li>
+                    <li><a href="#">评价管理</a></li>
+                    <li><a href="#">行业排名</a></li>
+                    <li><a href="#">项目管理</a></li>
+                    <li><a href="#">财务管理</a></li>
+                    <li><a href="#">用户管理</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <span id="navName">${Session.seller.sellerName}</span><b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="home.html">个人中心</a></li>
+                            <li><a onclick="business()">法人信息</a></li>
+                            <li><a href="#">安全设置</a></li>
+                            <li class="divider"></li>
+                            <li><a href="login.html">退出登录</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</div>
+
+<div class="content">
+    <div class="maindiv" id="maindiv">
+        <h3 class="maindiv-head">新订单</h3>
+        <ul id="activity_list">
+
+        </ul>
+    </div>
+
+</div>
+
+<div class="footer"></div>
+
+<script type="text/javascript" src="../../js/sellerapp/jquery.min.js"></script>
+<script type="text/javascript" src="../../js/sellerapp/bootstrap.js"></script>
+
+<script>
+    $(document).ready(function () {
+        var sellerId = $("#sellerId-none").html();
+        var List = {"sellerId": sellerId};
+        var result;
+        $.ajax({
+            async: false,
+            type: "POST",
+            url: "/alllink/activityOrder/queryAll",
+            processData: false,
+            contentType: "application/json;charset=utf-8", //这个是发送信息至服务器时内容编码类型
+            dataType: "json",
+            data: JSON.stringify(List),//这里必须将对象转成string类型。
+            success: function (result) {
+                var resultList = document.getElementById("activity_list");
+                if (result.code == 1) {
+                    var obj = result.list;
+                    for (var key in obj) { //第一层循环取到各个list
+                        var List = obj[key];
+                        resultList.innerHTML = resultList.innerHTML + '<li class="list-group-item" id="li' + key + '">' +
+                            '<div class="activity_name" id="activity_name"><span class="nameSpan" id="span' + key + '">' + List.activityName + '</span>' +
+                            '<span  class="cancel" id="' + List.activityId + '" data-toggle="modal" data-target="#myModal" >已付款<br>付款时间：' + List.createTime + '</span>' +
+                            '</div>' +
+                            '<div class="activity_content">' +
+                            '<span class="activity_type">支付人:' + List.userName + '</span> ' +
+                            '<span class="address">手机号:' + List.phoneNumber + '</span>' +
+                            '</div>' +
+                            '<div class="cost">' +
+                            '<span class="address">金额：' + List.cost + '元</span>' +
+                            '</div>' +
+                            '<div class="activity_info">' +
+                            //                            '<button type="button" class="btn btn-primary">确认订单</button>'+
+                            //                            '<span class="sp">已付款</span>'
+                            '</div>' +
+                            '</li>';
+                    }
+                }
+                else {
+                    alert("出现错误！请重试！");
+                }
+            },
+            error: function (XMLHttpRequest, textStatus) {
+                alert(XMLHttpRequest.status);
+                alert(XMLHttpRequest.readyState);
+                alert(textStatus);
+            }
+        });
+    });
+    $(function () {
+        $(".nameSpan").click(function (e) {
+            var id = $(e.target).attr('id');
+            var activityId = $("#" + id).parent().find("span:last-child").attr("id");
+            var jsondata = {"activityId": activityId};
+            $.ajax({
+                async: false,
+                type: "POST",
+                url: "/alllink/sellerActivity/info",
+                processData: false,
+                contentType: "application/json;charset=utf-8", //这个是发送信息至服务器时内容编码类型
+                dataType: "json",
+                data: JSON.stringify(jsondata),//这里必须将对象转成string类型。
+                success: function (result) {
+                    if (result.code == 1) {
+                        //这里还有动态添加li标签及内容到活动列表页面
+
+//                      window.location.href="/alllink/views/sellerapp/EventDetails.html?p1="+result.activity.activityName+"&p2="+result.activity.totalNumber+"&p3="+result.activity.cost+"&p4="+result.activity.activityType+"&p5="+result.activity.beginTime+"&p6="+result.activity.endTime+"&p7="+result.activity.address+"&p8="+result.activity.activityInfo;
+                        window.location.href = "/alllink/views/sellerapp/EventDetails.html?p1=" + activityId;
+                    }
+                    else {
+                        alert("出现错误！请重试！");
+                    }
+                }
+            });
+        });
+    });
+    $(function () {
+        $(".cancel").click(function (e) {
+            alert("cancel");
+            var id = $(e.target).attr('id');
+            var delid = $("#" + id).parent().parent().attr("id");
+            var jsondata = {"activityId": id};
+            $.ajax({
+                type: "POST",
+                url: "/alllink/sellerActivity/delete",
+                processData: false,
+                contentType: "application/json;charset=utf-8", //这个是发送信息至服务器时内容编码类型
+                dataType: "json",
+                data: JSON.stringify(jsondata),//这里必须将对象转成string类型。
+                success: function (result) {
+                    if (result.code == 1) {
+                        $("#" + delid).remove();
+                    }
+                    else {
+                        alert("出现错误！请重试！");
+                    }
+                }
+            });
+        });
+    });
+
+    function business() {
+        var sellerId = $("#sellerId-none").html();
+        var jsondata = {"sellerId": sellerId};
+        $.ajax({
+            async: false,
+            type: "POST",
+            url: "/alllink/sellerauthinfo/info",
+            processData: false,
+            contentType: "application/json;charset=utf-8", //这个是发送信息至服务器时内容编码类型
+            dataType: "json",
+            data: JSON.stringify(jsondata),//这里必须将对象转成string类型。
+            success: function (result) {
+                if (result.code == 1) {
+                    window.location.href = "/alllink/views/sellerapp/BusinessCf.html";
+                } else {
+                    window.location.href = "/alllink/views/sellerapp/BusinessCertification.html";
+                }
+            },
+            error: function (XMLHttpRequest, textStatus) {
+                alert("XMLHttpRequest.status:" + XMLHttpRequest.status + "|XMLHttpRequest.readyState:" + XMLHttpRequest.readyState + "|textStatus:" + textStatus);
+            }
+        });
+    }
+</script>
+</body>
+</html>

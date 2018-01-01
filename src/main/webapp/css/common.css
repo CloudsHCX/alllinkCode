@@ -1,0 +1,488 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Microsoft YaHei;
+    outline: none;
+}
+
+body {
+    min-width: 1300px;
+    min-height: 650px;
+}
+
+.vertically-center-and-transparent-div {
+    width: 300px;
+    padding-top: 25px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.5);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+}
+
+.vertically-and-horizontally-center-img {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.input-div {
+    margin-top: 20px;
+    position: relative;
+}
+
+.input-div label {
+    position: absolute;
+    top: 6px;
+    left: 45px;
+    margin: auto;
+    color: #888888;
+    font-size: 17px;
+    display: none;
+    cursor: pointer;
+}
+
+.a-div {
+    padding-right: 30px;
+    margin-top: 16px;
+    text-align: right;
+}
+
+.a-div a {
+    font-size: 15px;
+    cursor: pointer;
+    color: #9955FF;
+}
+
+.a-div a:hover {
+    text-decoration: underline;
+    color: #5599FF;
+}
+
+/*隐藏file*/
+
+input[type="file"] {
+    display: none;
+}
+
+input[type="text"],
+input[type="password"] {
+    height: 35px;
+    border: 1px #AAAAAA solid;
+    border-radius: 3px;
+    font-size: 17px;
+    padding-left: 10px;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-color: #1296db;
+}
+
+.long-input-text {
+    width: 240px;
+}
+
+.short-input-text {
+    width: 80px;
+    margin-right: 10px;
+}
+
+input[type="button"] {
+    height: 35px;
+    border-width: 0px;
+    border-radius: 5px;
+    background-color: #1E90FF;
+    cursor: pointer;
+    color: #FFFFFF;
+    font-size: 17px;
+    outline: none;
+}
+
+input[type="button"]:hover {
+    background-color: #5599FF;
+}
+
+input[type="button"]:disabled {
+    background-color: #777777;
+}
+
+input[type="button"]:disabled:hover {
+    cursor: not-allowed;
+}
+
+.long-blue-button {
+    width: 240px;
+}
+
+.short-blue-button {
+    width: 145px;
+}
+
+.tip-div {
+    line-height: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: #777777;
+    border-radius: 15px;
+    display: none;
+    padding: 1px 20px;
+    color: #FFFFFF;
+    font-size: 15px;
+    margin-top: 10px;
+}
+
+.header {
+    height: 40px;
+    line-height: 40px;
+    padding: 0 20px;
+    text-align: center;
+    background-color: #5599FF;
+    font-size: 15px;
+    color: #FFFFFF;
+    position: relative;
+}
+
+.header img {
+    width: 32px;
+    height: 32px;
+}
+
+.icon-div {
+    float: left;
+    width: 80px;
+    height: 100%;
+    position: relative;
+}
+
+.avatar-div {
+    float: right;
+    width: 60px;
+    height: 100%;
+    position: relative;
+}
+
+.avatar-div img {
+    border-radius: 50%;
+}
+
+.left-element-div {
+    float: left;
+    width: 120px;
+}
+
+.left-element-no-menu-div {
+    float: left;
+    width: 120px;
+}
+
+.left-element-no-menu-div:hover {
+    background-color: #1E90FF;
+    cursor: pointer;
+}
+
+.right-element-div {
+    float: right;
+    width: 120px;
+}
+
+/* 容器 <div> - 需要定位下拉内容 */
+
+.left-dropdown {
+    float: left;
+    position: relative;
+    display: inline-block;
+}
+
+.right-dropdown {
+    float: right;
+    position: relative;
+    display: inline-block;
+}
+
+/* 下拉内容 (默认隐藏) */
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #1E90FF;
+    width: 120px;
+    top: 40px;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+/* 下拉菜单的链接 */
+
+.dropdown-content a {
+    color: #FFFFFF;
+    display: block;
+    text-decoration: none;
+}
+
+/* 鼠标移上去后修改下拉菜单链接颜色 */
+
+.dropdown-content a:hover {
+    background-color: #5599FF;
+}
+
+/* 在鼠标移上去后显示下拉菜单 */
+
+.left-dropdown:hover .dropdown-content,
+.right-dropdown:hover .dropdown-content {
+    display: block;
+    /*使菜单不被图片遮住*/
+    z-index: 1;
+}
+
+/*当下拉内容显示后修改下拉按钮的背景颜色*/
+
+.left-dropdown:hover .left-element-div,
+.right-dropdown:hover .right-element-div {
+    background-color: #1E90FF;
+}
+
+.info-div {
+    width: 660px;
+    height: 520px;
+    margin-top: 40px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tabs-div {
+    float: left;
+    height: 220px;
+    width: 140px;
+    text-align: center;
+}
+
+.title-tab-div {
+    width: 140px;
+    height: 60px;
+    line-height: 60px;
+    border-bottom: solid 3px #5599FF;
+    font-size: 17px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.title-left-tab-div {
+    float: left;
+    width: 60px;
+    height: 100%;
+    position: relative;
+}
+
+.title-right-tab-div {
+    float: left;
+    width: 80px;
+    text-align: left;
+}
+
+.white-space-div {
+    height: 15px;
+}
+
+.select-tab-div {
+    height: 45px;
+    line-height: 45px;
+    font-size: 15px;
+    color: #778899;
+    cursor: pointer;
+}
+
+.select-tab-div:hover {
+    /*加!important目的是避免JQuery设置CSS后使该hover失效*/
+    background-color: #A9A9A9 !important;
+    color: #FFFFFF !important;
+}
+
+.selected-tab-content-div {
+    float: left;
+    width: 450px;
+    height: 100%;
+    margin-left: 40px;
+    margin-top: 25px;
+    color: #444444;
+}
+
+.content-element-div-for-avatar {
+    height: 70px;
+    line-height: 70px;
+    margin-top: 20px;
+}
+
+/*使基本信息上边界与父div上边界重合*/
+
+#tab0Info {
+    margin-top: -20px;
+}
+
+.content-left-element-div-for-avatar {
+    float: left;
+    width: 100px;
+    text-align: right;
+}
+
+.content-middle-element-div-for-avatar {
+    float: left;
+    width: 124px;
+    height: 100%;
+    position: relative;
+}
+
+.content-middle-element-div-for-avatar img {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+}
+
+.content-right-element-div-for-avatar {
+    float: left;
+    width: 220px;
+    line-height: 0;
+    text-align: left;
+}
+
+.content-right-upper-element-div-for-avatar {
+    height: 35px;
+    line-height: 35px;
+}
+
+.content-right-upper-element-div-for-avatar label {
+    color: #0066FF;
+    cursor: pointer;
+}
+
+.content-right-upper-element-div-for-avatar label:hover {
+    color: #5599FF;
+}
+
+.content-right-underneath-element-div-for-avatar {
+    height: 35px;
+    line-height: 35px;
+    font-size: 12px;
+}
+
+.content-element-div-for-text {
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.content-left-element-div-for-text {
+    float: left;
+    width: 100px;
+    text-align: right;
+}
+
+.content-right-element-div-for-text {
+    float: left;
+    width: 350px;
+    text-align: left;
+    padding-left: 30px;
+}
+
+.content-right-element-div-for-text > .radio-div:not(:first-child) {
+    margin-left: 20px;
+}
+
+.tab-display {
+    display: block;
+}
+
+.tab-hide {
+    display: none;
+}
+
+.radio-div {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.radio-none {
+    display: none;
+}
+
+.radio-repaint {
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    vertical-align: middle;
+    border: 1px solid #A9A9A9;
+    border-radius: 100%;
+    display: inline-block;
+    margin-right: 10px;
+    margin-top: -1px;
+}
+
+.radio-none:checked + .radio-repaint:after {
+    width: 10px;
+    height: 10px;
+    background-color: #00AA00;
+    border-radius: 100%;
+    content: "";
+    display: inline-block;
+    margin: 2px;
+}
+
+.demo--checkbox.radio-repaint,
+.radio-none:checked + .demo--checkbox.radio-repaint:after {
+    border-radius: 0;
+}
+
+.maskLayer {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 2;
+    display: none;
+}
+
+.maskLayer .tip-div {
+    width: 260px;
+    height: 200px;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+    text-align: center;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    margin-left: -130px;
+    margin-top: -110px;
+    z-index: 3;
+    display: block;
+}
+
+.maskLayer .tip-div .upper-div {
+    height: 50px;
+    line-height: 40px;
+    font-size: 23px;
+    color: #444444;
+}
+
+.maskLayer .tip-div .middle-div {
+    width: 100%;
+    height: 80px;
+    line-height: 80px;
+    /*background-color: red;*/
+    font-size: 18px;
+    color: #444444;
+}
+
+.maskLayer .tip-div .underneath-div {
+    height: 70px;
+    line-height: 60px;
+}

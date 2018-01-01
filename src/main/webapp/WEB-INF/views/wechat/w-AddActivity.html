@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+    <title>添加活动</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/weui/1.1.1/style/weui.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/jquery-weui/1.1.1/css/jquery-weui.min.css">
+    <script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+    <script src="//cdn.bootcss.com/jquery-weui/1.1.1/js/jquery-weui.min.js"></script>
+    <script src="../../js/userapp/ajaxfileupload.js"></script>
+    <script type="text/javascript" src="../../js/wechatJS/w-AddActivity.js"></script>
+    <style>
+        body {
+            font-family: "微软雅黑";
+            background-color: #fbfbfb;
+        }
+
+        #submit {
+            width: 90%;
+        }
+
+        #activity_type {
+            width: 155px;
+            height: 30px;
+            border: 0 solid red;
+            background-color: #fbfbfb;
+        }
+
+        .weui-uploader__files {
+            margin-left: -80px;
+        }
+
+        .weui-btn_primary {
+            margin-top: 10px;
+            margin-bottom: 20px;
+        }
+
+        .weui-uploader__title {
+            margin-left: 10px;
+        }
+
+        .weui-cells__title {
+            color: black;
+            font-size: 17px;
+        }
+
+        select {
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+<input type="hidden" id="seller_id" value="${Session.seller.sellerId}">
+<div class="weui-cells weui-cells_form">
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">开始时间</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="datetime-local" value="" placeholder="" id="begin_time">
+        </div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">结束时间</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="datetime-local" value="" placeholder="" id="end_time">
+        </div>
+    </div>
+</div>
+<div class="weui-cells weui-cells_form">
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">活动名称</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" placeholder="请输入活动名称" id="activity_name">
+        </div>
+    </div>
+</div>
+
+<div class="weui-cells weui-cells_form">
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">活动人数</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" placeholder="请输入活动人数" id="total_number">
+        </div>
+    </div>
+</div>
+
+<div class="weui-cells weui-cells_form">
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">活动费用</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" placeholder="请输入费用数值" id="cost">
+        </div>
+    </div>
+</div>
+
+<div class="weui-cells weui-cells_form">
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">活动类型</label></div>
+        <div class="weui-cell__bd">
+            <select class="form-control" id="activity_type">
+                <option value="0">英语</option>
+                <option value="1">音乐</option>
+                <option value="2">美术</option>
+
+            </select>
+        </div>
+    </div>
+</div>
+
+<div class="weui-cells__title">活动地址</div>
+<div class="weui-cells">
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" placeholder="请输入活动地址" id="address">
+        </div>
+    </div>
+</div>
+
+<div class="weui-cells__title">活动详情</div>
+<div class="weui-cells weui-cells_form">
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <textarea class="weui-textarea" placeholder="请输入活动详情" rows="3" id="activity_info"></textarea>
+        </div>
+    </div>
+</div>
+
+<div class="weui-cells weui-cells_form">
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <div class="weui-uploader">
+                <div class="weui-uploader__hd">
+                    <p class="weui-uploader__title">上传活动图片<span id="photo" style="display: none"></span></p>
+                    <div class="weui-uploader__info">0/6</div>
+                </div>
+                <div class="weui-uploader__bd">
+                    <ul class="weui-uploader__files" id="uploaderFiles">
+                        <li class="weui-uploader__file"></li>
+                    </ul>
+                    <div class="weui-uploader__input-box">
+                        <input id="uploaderInput" name="file" class="weui-uploader__input" type="file" accept="image/*"
+                               multiple="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<button type="button" class="weui-btn weui-btn_primary" id="addactivity-btn">确定
+    <span id="sellerId" style="display: none"></span>
+    <span id="phoneNumber" style="display: none"></span></button>
+
+
+<script>
+
+    $(function () {
+        // 允许上传的图片类型
+        var allowTypes = ['image/jpg', 'image/jpeg', 'image/png', 'image/gif'];
+        // 1024KB，也就是 1MB
+        var maxSize = 2048 * 2048;
+        // 图片最大宽度
+        var maxWidth = 10000;
+        // 最大上传图片数量
+        var maxCount = 6;
+        $('#uploaderInput').on('change', function (event) {
+            var files = event.target.files;
+            //console.log(files);return false;
+            // 如果没有选中文件，直接返回
+            if (files.length === 0) {
+                return;
+            }
+            for (var i = 0, len = files.length; i < len; i++) {
+                var file = files[i];
+                var reader = new FileReader();
+                // 如果类型不在允许的类型范围内
+                if (allowTypes.indexOf(file.type) === -1) {
+                    $.alert("该类型不允许上传！", "警告！");
+                    continue;
+                }
+                if (file.size > maxSize) {
+                    //$.weui.alert({text: '图片太大，不允许上传'});
+                    $.alert("图片太大，不允许上传", "警告！");
+                    continue;
+                }
+                if (($('.weui-uploader__file').length - 1) >= maxCount) {
+                    $.weui.alert({text: '最多只能上传' + maxCount + '张图片'});
+                    return;
+                }
+                reader.readAsDataURL(file);
+                reader.onload = function (e) {
+                    //console.log(e);
+                    var img = new Image();
+                    img.src = e.target.result;
+                    img.onload = function () {
+                        // 不要超出最大宽度
+                        var w = Math.min(maxWidth, img.width);
+                        // 高度按比例计算
+                        var h = img.height * (w / img.width);
+                        var canvas = document.createElement('canvas');
+                        var ctx = canvas.getContext('2d');
+                        // 设置 canvas 的宽度和高度
+                        canvas.width = w;
+                        canvas.height = h;
+                        ctx.drawImage(img, 0, 0, w, h);
+                        var base64 = canvas.toDataURL('image/jpeg', 0.8);
+                        //console.log(base64);
+                        // 插入到预览区
+                        var $preview = $('<li class="weui-uploader__file weui-uploader__file_status" style="background-image:url(' + img.src + ')"></li>');
+                        $('#uploaderFiles').append($preview);
+                        var num = $('.weui-uploader__file').length - 1;
+                        $('.weui-uploader__info').text(num + '/' + maxCount);
+                        var formData = new FormData();
+                        formData.append("images", base64);
+                        //console.log(img.src);
+                        $.ajaxFileUpload({
+                            url: "/alllink/file/photo", //后台方法的路径
+                            type: "post",   //当要提交自定义参数时，这个参数要设置成post
+                            fileElementId: "uploaderInput",    //需要上传的文件域的ID，即<input type="file">的ID。
+                            dataType: "json",   //服务器返回的数据类型。可以为xml,script,json,html。如果不填写，jQuery会自动判断。
+                            //secureuri: false,   //是否启用安全提交，默认为false。
+                            contentType: "application/json;charset=utf-8",
+                            async: false,   //是否是异步
+                            success: function (result) {//提交成功后自动执行的处理函数，参数data就是服务器返回的数据。
+
+                                $("#photo").html(result.url);
+//                            $("#uploaderInput").parent().hide();
+//                            $.toast("上传成功");
+//                            $preview.removeClass('weui-uploader__file_status');
+                            },
+                            error: function (data, status, e) {  //提交失败自动执行的处理函数。
+                                alert("图片添加失败");
+                            }
+                        });
+                    };
+                };
+            }
+        });
+    });
+</script>
+</body>
+</html>

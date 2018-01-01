@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+    <title>商家个人资料</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/weui/1.1.1/style/weui.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/jquery-weui/1.1.1/css/jquery-weui.min.css">
+    <style>
+        .weui-cells {
+            margin-top: 0;
+        }
+
+        .weui-cell__ft > img {
+            width: 50px;
+            height: 50px;
+        }
+
+        button.weui-btn_plain-default {
+            margin-top: 10px;
+            width: 90%;
+            border-width: 0;
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+<body>
+<div class="weui-cells">
+    <div class="weui-cell">
+        <div class="weui-cell__bd">
+            <p>头像</p>
+        </div>
+        <div class="weui-cell__ft"><img src="${Session.seller.photo}" id="photo"/></div>
+    </div>
+</div>
+
+<div class="weui-cells">
+    <a class="weui-cell weui-cell_access" href="javascript:">
+        <div class="weui-cell__bd">
+            <p>用户名</p>
+            <span id="sellerId-none" style="display: none">${Session.seller.sellerId}</span>
+        </div>
+        <div class="weui-cell__ft" id="sellerName">
+            ${Session.seller.sellerName}
+        </div>
+    </a>
+</div>
+
+<div class="weui-cells">
+    <a class="weui-cell weui-cell_access" href="javascript:">
+        <div class="weui-cell__bd">
+            <p>支付宝</p>
+        </div>
+        <div class="weui-cell__ft" id="alipayNumber">
+            ${Session.seller.alipayNumber}
+        </div>
+    </a>
+</div>
+<div class="weui-cells">
+    <a class="weui-cell weui-cell_access" href="javascript:">
+        <div class="weui-cell__bd">
+            <p>邮箱</p>
+        </div>
+        <div class="weui-cell__ft" id="email">
+            ${Session.seller.email}
+        </div>
+    </a>
+</div>
+
+<button class="weui-btn weui-btn_plain-default"
+        onclick="window.location.href='/alllink/views/wechat/w-AddPersonalData.html'">修改
+</button>
+
+<script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-weui/1.1.1/js/jquery-weui.min.js"></script>
+<!--
+<script>
+    $(document).ready(function () {
+        var sellerId=$("#sellerId-none").html();
+        var jsondata = {"sellerId": sellerId};
+        $.ajax({
+            async: false,
+            type: "POST",
+            url: "/alllink/seller/info",
+            processData: false,
+            contentType: "application/json;charset=utf-8", //这个是发送信息至服务器时内容编码类型
+            dataType: "json",
+            data: JSON.stringify(jsondata),//这里必须将对象转成string类型。
+            success: function (result) {
+                $("#photo").attr("src",result.sellerAuthinfo.crRealPhoto);
+                $("#sellerName").html(result.sellerAuthinfo.crRealName);
+                $("#alipayNumber").html(result.sellerAuthinfo.crCardId);
+                $("#email").html(result.sellerAuthinfo.organziationCodeCertificate);
+
+            },
+            error:function(XMLHttpRequest, textStatus){
+                alert(XMLHttpRequest.status);
+                alert(XMLHttpRequest.readyState);
+                alert(textStatus);
+            }
+        });
+    });
+</script>
+-->
+
+</body>
+</html>
