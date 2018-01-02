@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface ActivityDao {
     List<ActivityEntity> getActivityByDistance(ActivitySearch activitySearch);
-
     ActivityEntity getActivityInfo(Integer id);
 
     void updateEnrollNumber(ActivityEntity activityEntity);

@@ -252,6 +252,7 @@ public class SellerController {
         //获取当前时间
         Timestamp currentTime =TimeUtil.getCurrentTime();
         String sellerId = map.get("sellerId");
+        System.out.println(">>>>" + sellerId);
         if (sellerId != null) {
             System.out.println("修改手机号");
             sellerEntity.setSellerId(Integer.parseInt(map.get("sellerId")));
@@ -269,15 +270,15 @@ public class SellerController {
             }
         }
 
-        //SendSMS.send(phoneNumber, verificationCode);
+        SendSMS.send(phoneNumber, verificationCode);
         System.out.println(verificationCode);
         return R.ok();
     }
 
-    /*
+/*    *//*
    *
    * 修改手机号验证码
-   * */
+   * *//*
     @RequestMapping(value = "/updateMessage", method = RequestMethod.POST)
     @ResponseBody
     public R updateMessage(@RequestBody HashMap<String, String> map, HttpServletRequest request) throws ClientException, InterruptedException, ParseException {
@@ -293,6 +294,6 @@ public class SellerController {
         //SendSMS.send(phoneNumber, verificationCode);
         System.out.println(verificationCode);
         return R.ok();
-    }
+    }*/
 
 }

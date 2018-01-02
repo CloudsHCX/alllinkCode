@@ -50,7 +50,6 @@ public class AlipayController extends AlipayApiException {
 
     /**
      * 支付宝付款
-     *
      * @param paramMap
      * @return
      */
@@ -74,9 +73,11 @@ public class AlipayController extends AlipayApiException {
         }
 
 
+
         String orderIdStr = paramMap.get("orderIdStr").toString();
         String totalAmount = list.get(0).getCost().toString();
         String subjectG = list.get(0).getActivityName();
+
 
 
         //获得初始化的AlipayClient
@@ -135,9 +136,9 @@ public class AlipayController extends AlipayApiException {
     }
 
 
+
     /**
      * 审核成功后：退款
-     *
      * @param paramMap
      * @return
      */
@@ -226,7 +227,6 @@ public class AlipayController extends AlipayApiException {
 
     /**
      * web端的获取支付的异步结果: 目前不打算用这个，而是同步通知
-     *
      * @param httpRequest
      * @param httpResponse
      */
@@ -342,6 +342,7 @@ public class AlipayController extends AlipayApiException {
             System.out.println("输出success");
 
 
+
             out.println("success");
 
 
@@ -415,7 +416,6 @@ public class AlipayController extends AlipayApiException {
 
     /**
      * 查询付款
-     *
      * @param paramMap
      * @return
      */
@@ -459,8 +459,8 @@ public class AlipayController extends AlipayApiException {
     }
 
     /**
-     * 查询退款
      *
+     * 查询退款
      * @param paramMap
      * @return
      */
@@ -509,8 +509,7 @@ public class AlipayController extends AlipayApiException {
 
 
     /**
-     * app端支付宝付款
-     *
+     *  app端支付宝付款
      * @param paramMap
      * @return
      * @throws ServletException

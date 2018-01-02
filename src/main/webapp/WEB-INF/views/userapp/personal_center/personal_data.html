@@ -7,6 +7,7 @@
 
         <link rel="icon" href="../../img/userapp/icon/system/icon_16_blue.png">
 		<link rel="stylesheet" type="text/css" href="../../css/userapp/common/all.css">
+        <link rel="stylesheet" type="text/css" href="../../css/userapp/common/tip.css">
 		<link rel="stylesheet" type="text/css" href="../../css/userapp/common/body.css">
 		<link rel="stylesheet" type="text/css" href="../../css/userapp/common/input.css">
 		<link rel="stylesheet" type="text/css" href="../../css/userapp/common/mask_layer.css">
@@ -128,8 +129,7 @@
 						<div class="float-left width-100px text-align-right">昵称</div>
 						<div class="float-left width-350px padding-left-30px text-align-left">
                             <input id="nickname" type="text" class="width-240px height-35px font-size-17px" value=""
-                                   maxlength="11"
-                                   onfocus="monitorContentChanges(this, 0, 0, 0, 0);" />
+                                   maxlength="11"/>
 						</div>
 					</div>
 
@@ -157,8 +157,7 @@
 						<div class="float-left width-100px text-align-right">年龄</div>
 						<div class="float-left width-350px padding-left-30px text-align-left">
                             <input id="age" type="text" class="width-80px height-35px font-size-17px" value=""
-                                   maxlength="3"
-                                   onfocus="monitorContentChanges(this, 0, 2, 2, 0);" />
+                                   maxlength="3"/>
 						</div>
 					</div>
 
@@ -166,8 +165,7 @@
 						<div class="float-left width-100px text-align-right">邮箱</div>
 						<div class="float-left width-350px padding-left-30px text-align-left">
                             <input id="mailbox" type="text" class="width-240px height-35px font-size-17px" value=""
-                                   maxlength="30"
-                                   onfocus="monitorContentChanges(this, 0, 3, 3, 0);" />
+                                   maxlength="30"/>
 						</div>
 					</div>
 
@@ -177,9 +175,12 @@
 					</div>
 
 					<div class="height-35px line-height-35px text-align-center margin-top-20px">
-						<input type="button" class="width-145px height-35px font-size-17px blue-button" id="modifyBasicInfoButton" disabled="disabled" value="确认修改"
-							onclick="modifyPersonalData(0);" />
+                        <input type="button" class="width-145px height-35px font-size-17px blue-button"
+                               id="modifyBasicInfoButton" value="确认修改"
+                               onclick="modifyPersonalData(0);" />
 					</div>
+
+                    <div id="tipDiv0" class="tip-div"></div>
 				</div>
 
 				<div id="tab1Info" class="display-none">
@@ -187,8 +188,7 @@
 						<div class="float-left width-100px text-align-right">QQ号</div>
 						<div class="float-left width-350px padding-left-30px text-align-left">
                             <input id="QQNumber" type="text" class="width-240px height-35px  font-size-17px" value=""
-                                   maxlength="10"
-                                   onfocus="monitorContentChanges(this, 1, 0, 4, 1);" />
+                                   maxlength="10"/>
 						</div>
 					</div>
 
@@ -196,16 +196,18 @@
 						<div class="float-left width-100px text-align-right">微信号</div>
 						<div class="float-left width-350px padding-left-30px text-align-left">
                             <input id="weChatNumber" type="text" class="width-240px height-35px  font-size-17px"
-                                   value="" maxlength="20"
-                                   onfocus="monitorContentChanges(this, 1, 1, 5, 1);" />
+                                   value="" maxlength="20"/>
 						</div>
 					</div>
 
 					<div class="height-35px line-height-35px text-align-center margin-top-20px">
                         <input type="button" class="width-145px height-35px  font-size-17px blue-button"
-                               id="modifyThirdPartyAccountButton" disabled="disabled"
-                               value="确认修改" onclick="modifyPersonalData(1);" />
+                               id="modifyThirdPartyAccountButton"
+                               value="确认修改" onclick="modifyPersonalData(1);"/>
 					</div>
+
+                    <div id="tipDiv1" class="tip-div">
+                    </div>
 				</div>
 
 				<div id="tab2Info" class="display-none">

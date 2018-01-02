@@ -29,4 +29,10 @@ public class SellerPageController {
         mv.setViewName("wechat/"+page);
         return mv;
     }
+
+    @RequestMapping("/wechatUser/{page}")
+    public ModelAndView showpage4(@PathVariable String page, ModelAndView mv) {
+        mv.setViewName("/wechatUser/" + page);
+        return mv;
+    }
 }

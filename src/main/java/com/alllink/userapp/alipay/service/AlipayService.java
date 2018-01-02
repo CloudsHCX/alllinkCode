@@ -7,10 +7,7 @@ import java.util.Map;
 
 public interface AlipayService {
     void add(AlipayEntity alipayEntity) throws Exception;
-
     void update(AlipayEntity alipayEntity) throws Exception;
-
     int getListCount(Map<String, Object> map) throws Exception;
-
     List<AlipayEntity> getList(Map<String, Object> map) throws Exception;
 }

@@ -298,7 +298,8 @@
         //发送短信
         $("#vbtn").click(function () {
             var phoneNumber = $("#phoneNumber").val();
-            var jsondata = {"phoneNumber": phoneNumber};
+            var sellerId = $("#sellerId-none").html();
+            var jsondata = {"phoneNumber": phoneNumber, "sellerId": sellerId};
             $.ajax({
                 type: "POST",
                 url: "/alllink/seller/sendMessage",

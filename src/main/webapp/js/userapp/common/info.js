@@ -2,7 +2,7 @@ $(function() {
 	redirect = function(obj) {
         activityIdss =$($(obj).children("label").get(0)).text();
         var getTimestamp=new Date().getTime();
-        window.open("../../activity/setActivityId?activityId="+activityIdss+"&timestamp="+getTimestamp);
+        window.open("activity_info?activityId=" + activityIdss + "&timestamp=" + getTimestamp);
     }
 });
 
@@ -115,6 +115,10 @@ $(function () {
     loginout = function (x) {
         var curUrl = x > 0 ? "../" : "";
         var resUrl = curUrl + "../../Login/loginout";
+
+        if (x == -1) {
+            resUrl = "../userapp/Login/loginout";
+        }
         $.ajax({
             type: "post",
             url: resUrl,
@@ -398,8 +402,8 @@ $(function() {
 
 			displayTabInfo(infoType);
 
-			var buttonIdArray = ["#modifyBasicInfoButton", "#modifyThirdPartyAccountButton"];
-			$(buttonIdArray[infoType]).attr("disabled", true);
+            // var buttonIdArray = ["#modifyBasicInfoButton", "#modifyThirdPartyAccountButton"];
+            // $(buttonIdArray[infoType]).attr("disabled", true);
 
 			$(formerId + "Info").slideUp(1000, showSelectedTabInfo(curId + "Info"));
 
@@ -411,21 +415,22 @@ $(function() {
 $(function() {
 	checkInfoFormat = function(value, infoNumber) {
 		// 如果没有字符或者输入的是空格
-		if(value.trim() == "") {
-			return false;
-		}
 
-		if(infoNumber == 0) {
+        if (infoNumber == 0) {
+            if (value.trim() == "") {
+                return false;
+            }
+
 			return true;
-		}
-
-		//		年龄(2)、邮箱(3)、QQ号(4)和微信号(5)
-		//		其中,年龄范围是1-120
-		var reg = [
-			"^(?:[1-9][0-9]?|1[01][0-9]|120)$", "^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$",
-			"^[1-9]{1}[0-9]{4,9}$", "^[a-zA-Z]{1}[-_a-zA-Z0-9]{5,19}$"
-		];
-		return RegExp(reg[infoNumber - 2]).test(value);
+        } else {
+            //		年龄(2)、邮箱(3)、QQ号(4)和微信号(5)
+            //		其中,年龄范围是1-120
+            var reg = [
+                "^(?:[1-9][0-9]?|1[01][0-9]|120)$", "^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$",
+                "^[1-9]{1}[0-9]{4,9}$", "^[a-zA-Z]{1}[-_a-zA-Z0-9]{5,19}$"
+            ];
+            return RegExp(reg[infoNumber - 2]).test(value);
+        }
 	}
 });
 

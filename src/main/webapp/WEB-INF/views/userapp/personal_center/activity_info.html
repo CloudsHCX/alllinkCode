@@ -5,18 +5,18 @@
 		<meta charset="UTF-8">
 		<title>活动信息</title>
 
-		<link rel="icon" href="../img/userapp/icon/system/icon_16_blue.png">
-		<link rel="stylesheet" type="text/css" href="../css/userapp/common/all.css">
-		<link rel="stylesheet" type="text/css" href="../css/userapp/common/body.css">
-		<link rel="stylesheet" type="text/css" href="../css/userapp/common/menu_bar.css">
-		<link rel="stylesheet" type="text/css" href="../css/userapp/common/item.css">
-		<link rel="stylesheet" type="text/css" href="../css/userapp/common/input.css">
-		<link rel="stylesheet" type="text/css" href="../css/userapp/common/menu_bar.css">
+        <link rel="icon" href="../../img/userapp/icon/system/icon_16_blue.png">
+        <link rel="stylesheet" type="text/css" href="../../css/userapp/common/all.css">
+        <link rel="stylesheet" type="text/css" href="../../css/userapp/common/body.css">
+        <link rel="stylesheet" type="text/css" href="../../css/userapp/common/menu_bar.css">
+        <link rel="stylesheet" type="text/css" href="../../css/userapp/common/item.css">
+        <link rel="stylesheet" type="text/css" href="../../css/userapp/common/input.css">
+        <link rel="stylesheet" type="text/css" href="../../css/userapp/common/menu_bar.css">
 
-		<script type="text/javascript" src="../js/userapp/common/jquery-3.2.1.min.js"></script>
-		<script type="text/javascript" src="../js/userapp/user/personal_center/activity_info.js"></script>
-		<script type="text/javascript" src="../js/userapp/common/info.js"></script>
-		<script type="text/javascript" src="../js/userapp/common/get_head_and_user_name.js"></script>
+        <script type="text/javascript" src="../../js/userapp/common/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="../../js/userapp/user/personal_center/activity_info.js"></script>
+        <script type="text/javascript" src="../../js/userapp/common/info.js"></script>
+        <script type="text/javascript" src="../../js/userapp/common/get_head_and_user_name.js"></script>
 
 		<script type="text/javascript">
 
@@ -35,7 +35,7 @@
                         var imgList= data.imageUrl.split(",");
                         var imgstr = "";
                         for(var i in imgList){
-                            imgstr = imgstr+ '<img class="vertically-center-by-absolute left-'+(30 + i * 70)+'px width-60px height-60px border-radius-50-percent" src="/pic/'+imgList[i]+'"/>'
+                            imgstr = imgstr + '<img class="vertically-center-by-absolute left-' + (30 + i * 70) + 'px width-60px height-60px border-radius-50-percent" src="' + imgList[i] + '"/>'
                         }
                         $imgDiv.append(imgstr);
                         $("#activityId").val(data.activityId);
@@ -61,12 +61,12 @@
 		<div class="horizontally-center-by-margin width-1100px height-100-percent">
 			<div class="position-relative float-left width-80px height-100-percent">
                 <img class="vertically-center-by-absolute left-0 right-0"
-                     src="../img/userapp/icon/system/icon_32_pink.png">
+                     src="../../img/userapp/icon/system/icon_32_pink.png">
 			</div>
 
 			<!--<div class="element-no-menu-div-hover  float-left width-120px">首页</div>-->
             <div class="element-no-menu-div-hover  float-left width-120px"
-                 onclick="redirectPage('../userapp/personal_center/nearby')">附近
+                 onclick="redirectPage('../../userapp/personal_center/nearby')">附近
             </div>
 
 			<div class="dropdown position-relative display-inline-block float-left">
@@ -74,11 +74,11 @@
 
 				<div class="dropdown-content">
                     <a class="display-block color-FFFFFF text-decoration-none"
-                       href="../userapp/personal_center/order/unpaid_order">待付款订单</a>
+                       href="../../userapp/personal_center/order/unpaid_order">待付款订单</a>
                     <a class="display-block color-FFFFFF text-decoration-none"
-                       href="../userapp/personal_center/order/paid_order">已付款订单</a>
+                       href="../../userapp/personal_center/order/paid_order">已付款订单</a>
                     <a class="display-block color-FFFFFF text-decoration-none"
-                       href="../userapp/personal_center/order/cancel_order">已取消订单</a>
+                       href="../../userapp/personal_center/order/cancel_order">已取消订单</a>
 				</div>
 			</div>
 
@@ -87,8 +87,9 @@
 
 				<div class="dropdown-content">
                     <a class="display-block color-FFFFFF text-decoration-none"
-                       href="../userapp/personal_center/personal_data">个人资料</a>
-                    <a class="display-block color-FFFFFF text-decoration-none" href="../userapp/reset_password">修改密码</a>
+                       href="../../userapp/personal_center/personal_data">个人资料</a>
+                    <a class="display-block color-FFFFFF text-decoration-none"
+                       href="../../userapp/reset_password">修改密码</a>
 				</div>
 			</div>
 
@@ -97,13 +98,15 @@
 
 				<div class="dropdown-content">
                     <a class="display-block color-FFFFFF text-decoration-none"
-                       href="../userapp/personal_center/personal_center">个人中心</a>
+                       href="../../userapp/personal_center/personal_center">个人中心</a>
                     <a class="display-block color-FFFFFF text-decoration-none" onclick="loginout(0);">退出</a>
 				</div>
 			</div>
 
 			<div class="position-relative float-right width-60px height-100-percent">
-				<img id="header-avatar" class="vertically-center-by-absolute left-0 right-0 width-32px height-32px border-radius-50-percent" src="../../img/userapp/avatar/0.png">
+                <img id="header-avatar"
+                     class="vertically-center-by-absolute left-0 right-0 width-32px height-32px border-radius-50-percent"
+                     src="../../../img/userapp/avatar/0.png">
 			</div>
 		</div>
 	</div>
@@ -115,7 +118,7 @@
 				<div class="title-tab-div">
 					<div class="position-relative float-left width-60px height-100-percent">
                         <img class="vertically-center-by-absolute left-0 right-0"
-                             src="../img/userapp/icon/page/enroll.png"/>
+                             src="../../img/userapp/icon/page/enroll.png"/>
 					</div>
 
 					<div class="float-left width-80px text-align-left">活动信息</div>
@@ -131,11 +134,11 @@
 				<div class="height-70px line-height-70px margin-top-15px">
 					<div class="float-left width-140px  text-align-right">活动图片</div>
 					<div id="imgDiv" class="position-relative float-left width-350px  height-100-percent">
-						<!--<img class="vertically-center-by-absolute left-30px width-60px height-60px border-radius-50-percent" src="../../../img/avatar/0.png">
-						<img class="vertically-center-by-absolute left-100px width-60px height-60px border-radius-50-percent" src="../../../img/avatar/0.png">
-						<img class="vertically-center-by-absolute left-170px width-60px height-60px border-radius-50-percent" src="../../../img/avatar/0.png">
-						<img class="vertically-center-by-absolute left-240px width-60px height-60px border-radius-50-percent" src="../../../img/avatar/0.png">
-						<img class="vertically-center-by-absolute left-310px width-60px height-60px border-radius-50-percent" src="../../../img/avatar/0.png">-->
+                        <!--<img class="vertically-center-by-absolute left-30px width-60px height-60px border-radius-50-percent" src="../../img/avatar/0.png">
+                        <img class="vertically-center-by-absolute left-100px width-60px height-60px border-radius-50-percent" src="../../../img/avatar/0.png">
+                        <img class="vertically-center-by-absolute left-170px width-60px height-60px border-radius-50-percent" src="../../../img/avatar/0.png">
+                        <img class="vertically-center-by-absolute left-240px width-60px height-60px border-radius-50-percent" src="../../../img/avatar/0.png">
+                        <img class="vertically-center-by-absolute left-310px width-60px height-60px border-radius-50-percent" src="../../../img/avatar/0.png">-->
 					</div>
 				</div>
 

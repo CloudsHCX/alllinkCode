@@ -14,9 +14,10 @@
 		<link rel="stylesheet" type="text/css" href="../../css/userapp/common/item.css">
 		<link rel="stylesheet" type="text/css" href="../../css/userapp/common/input.css">
 
+        <script type="text/javascript" src="../../js/userapp/common/jquery-3.2.1.min.js"></script>
 		<script src="http://api.map.baidu.com/api?v=2.0&ak=UhPDFE6Kcj5bHVRCfu4P7s3ZNVdf9Rfk" async defer></script>
 		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=UhPDFE6Kcj5bHVRCfu4P7s3ZNVdf9Rfk"></script>
-		<script type="text/javascript" src="../../js/userapp/common/jquery-3.2.1.min.js"></script>
+
 		<script type="text/javascript" src="../../js/userapp/common/info.js"></script>
 		<script type="text/javascript" src="../../js/userapp/common/get_head_and_user_name.js"></script>
 		<script type="text/javascript" src="../../js/userapp/common/select.js"></script>
@@ -81,13 +82,14 @@
 				<div class="position-relative margin-top-20px">
 					<input id="searchContent" type="text" class="width-220px height-32px font-size-15px" onfocus="myPlaceholder(this);" maxlength="11" />
 					<label id="searchContentLabel" for="searchContent" class="input-div-label top-6px left-75px font-size-15px">活动名称</label>
-					<input id="search" type="button" class="width-60px height-32px font-size-15px blue-button" disabled="true" value="搜索" onclick="getActivityList();" />
+                    <input id="search" type="button" class="width-60px height-32px font-size-15px blue-button"
+                           value="搜索" onclick="getActivityList();"/>
 				</div>
 
 				<div class="width-100-percent height-25px margin-top-20px color-444444">
 					<div class="select-box select-item">
 						<div id="type" class="select-header">所有类型</div>
-						<ul class="select-content" onclick="monitorTypeAndSortOrderChanges(this, 1);">
+                        <ul class="select-content">
 							<li>所有类型</li>
 							<li>外语类</li>
 							<li>音乐类</li>
@@ -98,7 +100,7 @@
 
 					<div class="select-box select-item">
 						<div id="sortOrder" class="select-header">综合排序</div>
-						<ul class="select-content" onclick="monitorTypeAndSortOrderChanges(this, 2);">
+                        <ul class="select-content">
 							<li>综合排序</li>
 							<li>距离由近到远</li>
 							<li>费用从低到高</li>
@@ -210,7 +212,7 @@
 		// 建立map映射
 		//var map = {};
 		// 按类型
-		//map["所有类型"] = 0;
+//		map["所有类型"] = 0;
 		map["外语类"] = 1;
 		map["音乐类"] = 2;
 		map["美术类"] = 3;
@@ -224,17 +226,14 @@
 
     $(function() {
         getActivityList = function() {
-
             var actype= map[$("#type").text()];
-
             var sort = map[$("#sortOrder").text()];
+
             var jsonData = {
                 "lng": pointX,
                 "lat": pointY,
                 "distance": "2000000000",
                 "searchContent": $("#searchContent").val(),
-                //"activityType": $("#type").text(),
-                //"sortParams": $("#sortOrder").text()
                 "activityType": actype,
                 "sortParams": sort
             };

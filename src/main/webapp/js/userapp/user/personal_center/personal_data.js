@@ -1,65 +1,77 @@
 var infoArray = [
-	["我的昵称", 2, 45, "111@qq.com"],
+    ["", 2, 45, ""],
     ["", ""]
 ];
 
 // 第1个表示基本信息被修改的地方个数， 第2个表示第三方账号被修改的地方个数
-var personalDataModifiedPlaceCount = [0, 0];
+// var personalDataModifiedPlaceCount = [0, 0];
 // 按钮id数组
-var buttonIdArray = ["#modifyBasicInfoButton", "#modifyThirdPartyAccountButton"];
+// var buttonIdArray = ["#modifyBasicInfoButton", "#modifyThirdPartyAccountButton"];
 
 $(function () {
+    showTip = function (index, msg) {
+        var id = "#tipDiv" + index;
+        $(id).css({
+            "display": "inline-block"
+        });
+        $(id).text(msg);
 
+        setTimeout(function () {
+            $(id).css({
+                "display": "none"
+            });
+        }, 3000);
+    }
 });
 
 $(function() {
 	// 对应昵称(0)、性别(1)、年龄(2)、邮箱(3)、QQ号(4)和微信号(5)
-	var modifiedState = [false, false, false, false, false, false];
-
-	setButtonState = function(isAdd, buttonNumber) {
-		if(isAdd) {
-			if(++personalDataModifiedPlaceCount[buttonNumber] == 1) {
-				$(buttonIdArray[buttonNumber]).attr("disabled", false);
-			}
-		} else {
-			if(--personalDataModifiedPlaceCount[buttonNumber] == 0) {
-				$(buttonIdArray[buttonNumber]).attr("disabled", true);
-			}
-		}
-    };
-
-	contrastAndAdjustModifiedState = function(infoNumber, curModifiedState, buttonNumber) {
-		if(curModifiedState != modifiedState[infoNumber]) {
-			if(curModifiedState) {
-				setButtonState(true, buttonNumber);
-			} else {
-				setButtonState(false, buttonNumber);
-			}
-
-			modifiedState[infoNumber] = curModifiedState;
-		}
-    };
-
-	$("input:radio[name=sex]").change(function() {
-		if(this.value == infoArray[0][1]) {
-			contrastAndAdjustModifiedState(1, false, 0);
-		} else {
-			contrastAndAdjustModifiedState(1, true, 0);
-		}
-	});
-
-	monitorContentChanges = function(obj, row, column, infoNumber, buttonNumber) {
-		$(obj).on("input propertychange", function() {
-			var originalValue = infoArray[row][column];
-			var curValue = $(this).val();
-
-			if(!checkInfoFormat(curValue, infoNumber) || (originalValue == curValue)) {
-				contrastAndAdjustModifiedState(infoNumber, false, buttonNumber);
-			} else {
-				contrastAndAdjustModifiedState(infoNumber, true, buttonNumber);
-			}
-		});
-	}
+    // var modifiedState = [false, false, false, false, false, false];
+    //
+    // setButtonState = function(isAdd, buttonNumber) {
+    // 	if(isAdd) {
+    // 		if(++personalDataModifiedPlaceCount[buttonNumber] == 1) {
+    // 			$(buttonIdArray[buttonNumber]).attr("disabled", false);
+    // 		}
+    // 	} else {
+    // 		if(--personalDataModifiedPlaceCount[buttonNumber] == 0) {
+    // 			$(buttonIdArray[buttonNumber]).attr("disabled", true);
+    // 		}
+    // 	}
+    // }
+    //
+    // contrastAndAdjustModifiedState = function(infoNumber, curModifiedState, buttonNumber) {
+    // 	if(curModifiedState != modifiedState[infoNumber]) {
+    // 		if(curModifiedState) {
+    // 			setButtonState(true, buttonNumber);
+    // 		} else {
+    // 			setButtonState(false, buttonNumber);
+    // 		}
+    //
+    // 		modifiedState[infoNumber] = curModifiedState;
+    // 	}
+    // }
+    //
+    // $("input:radio[name=sex]").change(function() {
+    // 	if(this.value == infoArray[0][1]) {
+    // 		contrastAndAdjustModifiedState(1, false, 0);
+    // 	} else {
+    // 		contrastAndAdjustModifiedState(1, true, 0);
+    // 	}
+    // });
+    //
+    // monitorContentChanges = function(obj, row, column, infoNumber, buttonNumber) {
+    // 	$(obj).on("input propertychange", function() {
+    // 		var originalValue = infoArray[row][column];
+    // 		var curValue = $(this).val();
+    //
+    // 		if(!checkInfoFormat(curValue, infoNumber) || (originalValue == curValue)) {
+    // 			contrastAndAdjustModifiedState(infoNumber, false, buttonNumber);
+    // 		} else {
+    // 			contrastAndAdjustModifiedState(infoNumber, true, buttonNumber);
+    // 		}
+    // 	});
+    // }
 });
 
 $(function() {
@@ -95,8 +107,8 @@ $(function() {
 			success: function(info) {
 				if(infoType == 0) {
 					//	设置图片路径
-                    $("#header-avatar").attr("src", info.data.photo);
-                    $("#tab-content-avatar").attr("src", info.data.photo);
+                    $("#header-avatar").attr("src", "/pic/" + info.data.photo);
+                    $("#tab-content-avatar").attr("src", "/pic/" + info.data.photo);
 
 					// 存储基本信息
                     infoArray[0][0] = info.data.nickname;
@@ -118,7 +130,7 @@ $(function() {
 				displayTabInfo(infoType);
 			},
 			error: function() {
-				alert("获取基本信息失败");
+
 			}
 		});
     };
@@ -127,15 +139,61 @@ $(function() {
 });
 
 $(function() {
+    var idArray = ["#phoneNumber", "#nickname", "#age", "#mailbox", "#QQNumber", "#weChatNumber"];
+
+    // 提交前校验基本资料格式是否合法
+    checkBasicInfo = function () {
+        if (!checkInfoFormat($(idArray[1]).val(), 0)) {
+            showTip(0, "昵称非法");
+            return false;
+        }
+
+        if (!checkInfoFormat($(idArray[2]).val(), 2)) {
+            showTip(0, "年龄非法");
+            return false;
+        }
+
+        if (!checkInfoFormat($(idArray[3]).val(), 3)) {
+            showTip(0, "邮箱非法");
+            return false;
+        }
+
+        return true;
+    };
+
+    // 提交前校验第三方账号是否合法
+    checkThirdAccount = function () {
+        if (!checkInfoFormat($(idArray[4]).val(), 4)) {
+            showTip(1, "QQ号非法");
+            return false;
+        }
+
+        if (!checkInfoFormat($(idArray[5]).val(), 5)) {
+            showTip(1, "微信号非法");
+            return false;
+        }
+
+        return true;
+    };
+
 	//	infoType: 0表示基本信息,1表示第三方账号
 	modifyPersonalData = function(infoType) {
-		var idArray = ["#phoneNumber", "#nickname", "#age", "#mailbox", "#QQNumber", "#weChatNumber"];
+        if (infoType == 0) {
+            if (!checkBasicInfo()) {
+                return false;
+            }
+        } else {
+            if (!checkThirdAccount()) {
+                return false;
+            }
+        }
+
 		var jsonData;
 		if(infoType == 0) {
 			jsonData = {
                 "phoneNumber": phoneNumber,
 				"nickname": $(idArray[1]).val(),
-				"sex": $("input:radio[name=sex]:checked").val(),
+                "gender": $("input:radio[name=sex]:checked").val(),
 				"age": $(idArray[2]).val(),
 				"email": $(idArray[3]).val()
 			};
@@ -157,18 +215,27 @@ $(function() {
 			contentType: "application/json;charset=utf-8",
 			dataType: "json",
 			data: jsonString,
-			async: false,
+            async: true,
 			success: function(json) {
-				if(json.result == "success") {
-					alert("注册成功，即将跳转主页面！");
-					$(buttonIdArray[infoType]).attr("disabled", true);
-				} else {
-					alert(json.message);
-				}
+                // if(json.result == "success") {
+                // 	$(buttonIdArray[infoType]).attr("disabled", true);
+                // }
+
+                if (infoType == 0) {
+                    infoArray[0][0] = $(idArray[1]).val();
+                    infoArray[0][1] = $("input:radio[name=sex]:checked").val();
+                    infoArray[0][2] = $(idArray[2]).val();
+                    infoArray[0][3] = $(idArray[3]).val();
+                } else {
+                    infoArray[1][0] = $(idArray[4]).val();
+                    infoArray[1][1] = $(idArray[5]).val();
+                }
+
+                showTip(infoType, json.message);
 			},
 			error: function() {
-				alert("注册失败");
-			}
+
+            }
 		});
 	}
 });

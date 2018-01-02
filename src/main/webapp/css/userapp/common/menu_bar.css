@@ -37,6 +37,7 @@
 
 .dropdown-content a:hover {
 	background-color: #5599FF;
+    cursor: pointer;
 }
 
 
