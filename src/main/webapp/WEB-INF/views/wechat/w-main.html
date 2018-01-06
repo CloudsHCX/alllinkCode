@@ -36,10 +36,27 @@
 
 <div class="weui-tab__bd">
 
-    <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item--active">
-        主页
+    <!--<div id="tab1" class="weui-tab__bd-item weui-tab__bd-item&#45;&#45;active">-->
+    <!--主页-->
+    <!--</div>-->
+    <div id="tab1" class="weui-tab__bd-item weui-tab__bd-item&#45;&#45;active">
+        <div class="weui-cells weui-cells_form">
+            <div class="weui-cell" onclick="window.location.href='/alllink/views/wechat/w-Evaluation.html'">
+                <div class="weui-cell__hd"><img src="../../img/sellerapp/sanheng.png" alt=""></div>
+                <div class="weui-cell__bd">
+                    所有评价
+                </div>
+            </div>
+        </div>
+        <div class="weui-cells weui-cells_form">
+            <div class="weui-cell" onclick="window.location.href='/alllink/views/wechat/w-BadReview.html'">
+                <div class="weui-cell__hd"><img src="../../img/sellerapp/san.png" alt=""></div>
+                <div class="weui-cell__bd">
+                    差评
+                </div>
+            </div>
+        </div>
     </div>
-
     <div id="tab2" class="weui-tab__bd-item">
         <div class="weui-cells weui-cells_form">
             <div class="weui-cell" onclick="window.location.href='/alllink/views/wechat/w-EventList.html'">
@@ -59,7 +76,14 @@
         </div>
     </div>
     <div id="tab3" class="weui-tab__bd-item">
-        <a href="w-newOrder.html"> 订单页面</a>
+        <div class="weui-cells weui-cells_form">
+            <div class="weui-cell" onclick="window.location.href='/alllink/views/wechat/w-newOrder.html'">
+                <div class="weui-cell__hd"><img src="../../img/sellerapp/sanheng.png" alt=""></div>
+                <div class="weui-cell__bd">
+                    所有订单
+                </div>
+            </div>
+        </div>
     </div>
     <div id="tab4" class="weui-tab__bd-item">
         <div class="weui-cells weui-cells_form">
@@ -100,11 +124,11 @@
 
 <div class="weui-tabbar">
     <a href="#tab1" class="weui-tabbar__item weui-bar__item--on">
-        <span class="weui-badge" style="position: absolute;top: -.4em;right: 1em;">8</span>
+        <!--<span class="weui-badge" style="position: absolute;top: -.4em;right: 1em;">8</span>-->
         <div class="weui-tabbar__icon">
             <img src="../../img/sellerapp/yuan.png" alt="">
         </div>
-        <p class="weui-tabbar__label">主页</p>
+        <p class="weui-tabbar__label">评价</p>
     </a>
     <a href="#tab2" class="weui-tabbar__item">
         <div class="weui-tabbar__icon">

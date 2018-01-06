@@ -38,29 +38,39 @@
             text-overflow: ellipsis;
             padding-top: 10px;
         }
-
         .cancel {
             display: inline-block;
             color: #cc0000;
             font-size: 10px;
             float: right;
             width: 24px;
+            cursor: pointer;
         }
-
         .cost, .activity_info {
             font-size: 10px;
         }
-
         .weui-cells {
             font-size: 20px;
             padding-top: 5px;
             padding-bottom: 0;
         }
-
         .weui-cell {
             padding-top: 0;
             padding-bottom: 0;
         }
+
+        li {
+            position: relative;
+        }
+
+        .btn {
+            height: 30px;
+            width: 80px;
+            left: 255px;
+            top: 85px;
+            position: absolute;
+        }
+
     </style>
 </head>
 <body>
@@ -107,12 +117,15 @@
                         resultList.innerHTML = resultList.innerHTML + '<div class="weui-cells weui-cells_form">' +
                             '<div class="weui-cell">' +
                             '<li class="list-group-item" id="li' + key + '">' +
-                            '<div class="activity_name" id="activity_name"><span class="nameSpan" id="span' + key + '">' + List.activityName + '</span>' +
-                            //                                '<span class="cancel" id="'+List.activityId+'" data-toggle="modal" data-target="#myModal" >取消</span>' +
+                            '<div class="activity_name" id="activity_name"><span class="nameSpan" >' + List.activityName + '</span>' +
+                            //                            '<button type="button" class="btn btn-primary" id="span' + key + '">查看评价</button>'+
+                            '<span class="cancel" id="' + List.activityId + '" data-toggle="modal" data-target="#myModal" >取消</span>' +
                             '</div>' +
+
                             '<div class="cost">每人￥' + List.cost + '元&nbsp&nbsp&nbsp&nbsp总报名人数：' + List.totalNumber + '人</div> ' +
                             '<div class="cost">开始时间：' + List.beginTime + '</div> ' +
                             '<div class="cost"> 结束时间：' + List.endTime + '</div> ' +
+
                             '<div class="activity_info">' + List.activityInfo + '</div>' +
                             '</li>' +
                             '</div>' +
@@ -130,30 +143,31 @@
             }
         });
     });
-    $(function () {
-        $(".nameSpan").click(function (e) {
-            var id = $(e.target).attr('id');
-            var activityId = $("#" + id).parent().find("span:last-child").attr("id");
-            var jsondata = {"activityId": activityId};
-            $.ajax({
-                async: false,
-                type: "POST",
-                url: "/alllink/sellerActivity/info",
-                processData: false,
-                contentType: "application/json;charset=utf-8", //这个是发送信息至服务器时内容编码类型
-                dataType: "json",
-                data: JSON.stringify(jsondata),//这里必须将对象转成string类型。
-                success: function (result) {
-                    if (result.code == 1) {
-                        window.location.href = "/alllink/views/wechat/w-EventDetails.html?p1=" + activityId;
-                    }
-                    else {
-                        alert("出现错误！请重试！");
-                    }
-                }
-            });
-        });
-    });
+    //    $(function () {
+    //        $(".btn").click(function (e) {
+    //            var id = $(e.target).attr('id');
+    //            var activityId = $("#" + id).parent().find("span:last-child").attr("id");
+    //            window.location.href = "/alllink/views/wechat/w-Evaluation.html?p1=" + activityId;
+    //            var jsondata = {"activityId": activityId};
+    //            $.ajax({
+    //                async: false,
+    //                type: "POST",
+    //                url: "/alllink/sellerActivity/info",
+    //                processData: false,
+    //                contentType: "application/json;charset=utf-8", //这个是发送信息至服务器时内容编码类型
+    //                dataType: "json",
+    //                data: JSON.stringify(jsondata),//这里必须将对象转成string类型。
+    //                success: function (result) {
+    //                    if (result.code == 1) {
+    //                        window.location.href = "/alllink/views/wechat/w-EventDetails.html?p1=" + activityId;
+    //                    }
+    //                    else {
+    //                        alert("出现错误！请重试！");
+    //                    }
+    //                }
+    //            });
+    //        });
+    //    });
     $(function () {
         $(".cancel").click(function (e) {
             var id = $(e.target).attr('id');

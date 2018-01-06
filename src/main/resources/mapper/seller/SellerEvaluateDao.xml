@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.alllink.sellerapp.seller.dao.SellerEvaluateDao">
+
+    <resultMap id="levelResult" type="com.alllink.sellerapp.seller.entity.SellerEvaluateEntity">
+        <result column="count" property="count"></result>
+        <result column="one" property="one"></result>
+        <result column="two" property="two"></result>
+        <result column="three" property="three"></result>
+        <result column="four" property="four"></result>
+        <result column="five" property="five"></result>
+    </resultMap>
+
+    <select id="findLevelBySellerId" resultMap="levelResult">
+        SELECT count(*) AS count,
+        sum(CASE WHEN evaluate_level=1 then 1 END) AS one,
+        sum(CASE WHEN evaluate_level=2 then 1 END) AS two,
+        sum(CASE WHEN evaluate_level=3 then 1 END) AS three,
+        sum(CASE WHEN evaluate_level=4 then 1 END) AS four,
+        sum(CASE WHEN evaluate_level=5 then 1 END) AS five
+        FROM evaluate e,activity a
+        WHERE e.activity_id=a.activity_id AND seller_id=#{sellerId}
+    </select>
+
+    <select id="queryList" resultType="com.alllink.sellerapp.seller.entity.SellerEvaluateEntity">
+        SELECT e.evaluate_content AS evaluate_content,
+        e.evaluate_level AS evaluate_level,
+        DATE_FORMAT(e.create_time,'%Y-%m-%d %T') AS create_time,
+        u.user_name AS user_name,
+        a.activity_name AS activity_name
+        FROM evaluate e
+        JOIN user u
+        ON u.user_id=e.user_id
+        JOIN activity a
+        ON a.activity_id=e.activity_id
+        JOIN seller s
+        ON s.seller_id=a.seller_id
+        WHERE a.seller_id=#{sellerId}
+        <if test="criteria == 1">AND e.evaluate_level IN (4,5)</if>
+        <if test="criteria == 2">AND e.evaluate_level IN (1,2,3)</if>
+        ORDER BY evaluate_id DESC
+        <if test="offset != null and limit != null">
+            limit #{offset}, #{limit}
+        </if>
+    </select>
+
+    <select id="queryTotal" resultType="int">
+        select count(*) from evaluate
+    </select>
+</mapper>

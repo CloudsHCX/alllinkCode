@@ -1,81 +1,103 @@
 <!DOCTYPE html>
 <html>
 
-	<head>
-		<meta charset="UTF-8">
-		<title>个人中心</title>
+<head>
+    <meta charset="UTF-8">
+    <title>个人中心</title>
 
-		<link rel="icon" href="../../img/userapp/icon/system/icon_16_blue.png">
-		<link rel="stylesheet" type="text/css" href="../../css/userapp/common/all.css">
-		<link rel="stylesheet" type="text/css" href="../../css/userapp/common/body.css">
-		<link rel="stylesheet" type="text/css" href="../../css/userapp/common/menu_bar.css">
+    <link rel="icon" href="../../img/userapp/icon/system/icon_16_blue.png">
+    <link rel="stylesheet" type="text/css" href="../../css/userapp/common/all.css">
+    <link rel="stylesheet" type="text/css" href="../../css/userapp/common/body.css">
+    <link rel="stylesheet" type="text/css" href="../../css/userapp/common/menu_bar.css">
 
-		<script type="text/javascript" src="../../js/userapp/common/jquery-3.2.1.min.js"></script>
-		<script type="text/javascript" src="../../js/userapp/common/get_head_and_user_name.js"></script>
-		<script type="text/javascript" src="../../js/userapp/common/info.js"></script>
-	</head>
+    <script type="text/javascript" src="../../js/userapp/common/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../../js/userapp/common/get_head_and_user_name.js"></script>
+    <script type="text/javascript" src="../../js/userapp/common/info.js"></script>
+</head>
 
-	<body>
-		<div class="menu-bar-div">
-			<div class="horizontally-center-by-margin width-1100px height-100-percent">
-				<div class="position-relative float-left width-80px height-100-percent">
-					<img class="vertically-center-by-absolute left-0 right-0" src="../../img/userapp/icon/system/icon_32_pink.png">
-				</div>
+<body>
+<div class="menu-bar-div">
+    <div class="horizontally-center-by-margin width-1100px height-100-percent">
+        <div class="position-relative float-left width-80px height-100-percent">
+            <img class="vertically-center-by-absolute left-0 right-0"
+                 src="../../img/userapp/icon/system/icon_32_pink.png">
+        </div>
 
-				<!--<div class="element-no-menu-div-hover  float-left width-120px">首页</div>-->
-				<div class="element-no-menu-div-hover  float-left width-120px" onclick="redirectPage('../../userapp/personal_center/nearby')">附近</div>
-				
-				<div class="dropdown position-relative display-inline-block float-left">
-					<div class="element-div float-left width-120px">我的订单</div>
+        <!--<div class="element-no-menu-div-hover  float-left width-120px">首页</div>-->
+        <div class="element-no-menu-div-hover  float-left width-120px"
+             onclick="redirectPage('../../userapp/personal_center/nearby')">附近
+        </div>
 
-					<div class="dropdown-content">
-						<a class="display-block color-FFFFFF text-decoration-none" href="../../userapp/personal_center/order/unpaid_order">待付款订单</a>
-						<a class="display-block color-FFFFFF text-decoration-none" href="../../userapp/personal_center/order/paid_order">已付款订单</a>
-                        <a class="display-block color-FFFFFF text-decoration-none"
-                           href="../../userapp/personal_center/order/cancel_order">已取消订单</a>
-					</div>
-				</div>
+        <div class="dropdown position-relative display-inline-block float-left">
+            <div class="element-div float-left width-120px">我的订单</div>
 
-				<div class="dropdown position-relative display-inline-block float-left">
-					<div class="element-div float-left width-120px">我的资料</div>
+            <div class="dropdown-content">
+                <a class="display-block color-FFFFFF text-decoration-none"
+                   href="../../userapp/personal_center/order/unpaid_order">待付款订单</a>
+                <a class="display-block color-FFFFFF text-decoration-none"
+                   href="../../userapp/personal_center/order/paid_order">已付款订单</a>
+                <a class="display-block color-FFFFFF text-decoration-none"
+                   href="../../userapp/personal_center/order/cancel_order">已取消订单</a>
+                <a class="display-block color-FFFFFF text-decoration-none"
+                   href="../../userapp/personal_center/order/not_evaluated_order">待评价订单</a>
+                <a class="display-block color-FFFFFF text-decoration-none"
+                   href="../../userapp/personal_center/order/completed_order">已完成订单</a>
+            </div>
+        </div>
 
-					<div class="dropdown-content">
-						<a class="display-block color-FFFFFF text-decoration-none" href="../../userapp/personal_center/personal_data">个人资料</a>
-						<a class="display-block color-FFFFFF text-decoration-none" href="../../userapp/reset_password">修改密码</a>
-					</div>
-				</div>
+        <div class="dropdown position-relative display-inline-block float-left">
+            <div class="element-div float-left width-120px">我的资料</div>
 
-				<div class="dropdown position-relative display-inline-block float-right">
-					<div id="header-user-name" class="element-div float-right width-120px">用户名哈</div>
+            <div class="dropdown-content">
+                <a class="display-block color-FFFFFF text-decoration-none"
+                   href="../../userapp/personal_center/personal_data">个人资料</a>
+                <a class="display-block color-FFFFFF text-decoration-none" href="../../userapp/reset_password">修改密码</a>
+            </div>
+        </div>
 
-					<div class="dropdown-content">
-						<a class="display-block color-FFFFFF text-decoration-none" href="../../userapp/personal_center/personal_center">个人中心</a>
-                        <a class="display-block color-FFFFFF text-decoration-none" onclick="loginout(0);">退出</a>
-					</div>
-				</div>
+        <div class="dropdown position-relative display-inline-block float-right">
+            <div id="header-user-name" class="element-div float-right width-120px">用户名哈</div>
 
-				<div class="position-relative float-right width-60px height-100-percent">
-					<img id="header-avatar" class="vertically-center-by-absolute left-0 right-0 width-32px height-32px border-radius-50-percent" src="../../img/userapp/avatar/0.png">
-				</div>
-			</div>
-		</div>
+            <div class="dropdown-content">
+                <a class="display-block color-FFFFFF text-decoration-none"
+                   href="../../userapp/personal_center/personal_center">个人中心</a>
+                <a class="display-block color-FFFFFF text-decoration-none" onclick="loginout(0);">退出</a>
+            </div>
+        </div>
 
-		<div style="width: 700px; height: 400px; margin-top: 50px; margin-left: auto; margin-right: auto;">
-			<div style="width: 550px; height: 100px; font-size: 18px; line-height: 100px; color: white; text-align: center; margin-top: 180px;" class="horizontally-center-by-margin">
-                <div style="float: left; width: 100px; cursor:pointer; background-color: rgb(88, 201, 105); border-radius: 10px;"
-                     title="附近" onclick="redirectPage('../../userapp/personal_center/nearby')">附近
-                </div>
-                <div style="float: left; width: 100px; cursor:pointer; margin-left: 50px; background-color: rgb(62, 177, 243); border-radius: 10px;"
-                     title="待付款订单" onclick="redirectPage('../../userapp/personal_center/order/unpaid_order')">待付款订单
-                </div>
-                <div style="float: left; width: 100px; cursor:pointer; margin-left: 50px;background-color: rgb(255, 148, 10); border-radius: 10px;"
-                     title="个人资料" onclick="redirectPage('../../userapp/personal_center/personal_data')">个人资料
-                </div>
-                <div style="float: left; width: 100px; cursor:pointer; margin-left: 50px;background-color: rgb(156, 136, 245); border-radius: 10px;"
-                     title="修改密码" onclick="redirectPage('../../userapp/reset_password')">修改密码
-                </div>
-			</div>
-		</div>
-	</body>
+        <div class="position-relative float-right width-60px height-100-percent">
+            <img id="header-avatar"
+                 class="vertically-center-by-absolute left-0 right-0 width-32px height-32px border-radius-50-percent"
+                 src="../../img/userapp/avatar/0.png">
+        </div>
+    </div>
+</div>
+
+<div style="width: 700px; height: 400px; margin-top: 100px; margin-left: auto; margin-right: auto;">
+    <div style="position: relative; width: 100%; height: 100px; line-height: 100px; text-align: right; padding-right: 280px;">
+        <img id="main-avatar"
+             class="vertically-center-by-absolute border-radius-50-percent"
+             style="width: 70px; height: 70px; left: 200px;"
+             src="../../img/userapp/avatar/0.png">
+        积分：<label id="integral">17</label>
+    </div>
+
+    <div style="width: 550px; height: 100px; font-size: 18px; line-height: 100px; color: white; text-align: center; margin-top: 50px;"
+         class="horizontally-center-by-margin">
+        <div style="float: left; width: 100px; cursor:pointer; background-color: rgb(88, 201, 105); border-radius: 10px;"
+             title="附近" onclick="redirectPage('../../userapp/personal_center/nearby')">附近
+        </div>
+        <div style="float: left; width: 100px; cursor:pointer; margin-left: 50px; background-color: rgb(62, 177, 243); border-radius: 10px;"
+             title="待付款订单" onclick="redirectPage('../../userapp/personal_center/order/unpaid_order')">待付款订单
+        </div>
+        <div style="float: left; width: 100px; cursor:pointer; margin-left: 50px;background-color: rgb(255, 148, 10); border-radius: 10px;"
+             title="个人资料" onclick="redirectPage('../../userapp/personal_center/personal_data')">个人资料
+        </div>
+        <div style="float: left; width: 100px; cursor:pointer; margin-left: 50px;background-color: rgb(156, 136, 245); border-radius: 10px;"
+             title="修改密码" onclick="redirectPage('../../userapp/reset_password')">修改密码
+        </div>
+    </div>
+</div>
+</body>
 
 </html>

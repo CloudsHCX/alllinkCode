@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+    <title>所有评价</title>
+    <link rel="stylesheet" href="//cdn.bootcss.com/weui/1.1.1/style/weui.min.css">
+    <link rel="stylesheet" href="//cdn.bootcss.com/jquery-weui/1.1.1/css/jquery-weui.min.css">
+
+    <style>
+        body {
+            font-family: "微软雅黑";
+            background-color: #fbfbfb;
+        }
+
+        .list-group-item {
+            width: 100%;
+        }
+
+        ul li {
+            list-style: none;
+        }
+
+        li > div {
+            margin-bottom: 10px;
+        }
+
+        .nameSpan {
+            font-size: 25px;
+        }
+
+        .activity_info {
+            border-top: 1px dashed #ddd;
+            padding-top: 10px;
+        }
+
+        .cost, .activity_info {
+            font-size: 14px;
+        }
+
+        .weui-cells {
+            font-size: 20px;
+            padding-top: 5px;
+            padding-bottom: 0;
+        }
+
+        .weui-cell {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
+
+        .cleanfloat::after {
+            display: block;
+            clear: both;
+            content: "";
+            visibility: hidden;
+            height: 0;
+        }
+
+        .cleanfloat li {
+            list-style: none;
+            float: left;
+            font-size: 25px;
+            margin: 5px;
+            color: #ccc;
+        }
+
+        .c::after {
+            display: block;
+            clear: both;
+            content: "";
+            visibility: hidden;
+            height: 0;
+        }
+
+        .c li {
+            list-style: none;
+            float: left;
+            font-size: 15px;
+            margin: 5px;
+        }
+
+        .list-group-item {
+            position: relative;
+        }
+
+        .time {
+            font-size: 10px;
+            position: absolute;
+            left: 185px;
+            top: 2px;
+        }
+
+        .cleanfloat {
+            position: absolute;
+            left: 160px;
+            top: 17px;
+        }
+
+        #c5, #c4, #c3, #c2, #c1 {
+            float: right;
+            color: #0d0d0d;
+        }
+
+        .c li {
+            margin-bottom: -5px;
+        }
+
+        .weui-cells {
+            margin-top: 2px;
+        }
+
+    </style>
+</head>
+<body>
+<ul id="activity_list">
+    <span id="sellerId-none" style="display: none">${Session.seller.sellerId}</span>
+</ul>
+
+<script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/jquery-weui/1.1.1/js/jquery-weui.min.js"></script>
+<script>
+    $(document).ready(function () {
+        function GetQueryString(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+            var r = window.location.search.substr(1).match(reg);
+            if (r != null) {
+                return unescape(r[2]);
+            }
+            return null;
+        }
+
+        var activityId = GetQueryString("p1");
+        var sellerId = $("#sellerId-none").html();
+        var List = {"sellerId": sellerId, "criteria": "2"};
+        var result;
+        $.ajax({
+            async: false,
+            type: "POST",
+            url: "/alllink/sellerEvaluate/evaluate",
+            processData: false,
+            contentType: "application/json;charset=utf-8", //这个是发送信息至服务器时内容编码类型
+            dataType: "json",
+            data: JSON.stringify(List),//这里必须将对象转成string类型。
+            success: function (result) {
+                if (result.code == 1) {
+                    var resultList = document.getElementById("activity_list");
+                    for (var i = 0; i < result.evaluate.length; i++) {
+                        var evaluate = result.evaluate[i];
+                        resultList.innerHTML = resultList.innerHTML + '<div class="weui-cells weui-cells_form">' +
+                            '<div class="weui-cell">' +
+                            '<li class="list-group-item" id="li' + i + '">' +
+                            '<div class="cost">' + evaluate.userName + '</div> ' +
+                            '<div class="activity_name" id="activity_name"><span class="nameSpan" id="span' + i + '">' + evaluate.activityName + '</span>' + '</div>' +
+                            '<div class="time">' + evaluate.createTime + '</div> ' +
+                            '<ul class="cleanfloat">' +
+                            '    <li id="x1' + i + '">&#9733;</li>' +
+                            '    <li id="x2' + i + '">&#9733;</li>' +
+                            '    <li id="x3' + i + '">&#9733;</li>' +
+                            '    <li id="x4' + i + '">&#9733;</li>' +
+                            '    <li id="x5' + i + '">&#9733;</li>' +
+                            '</ul>' +
+                            '<div class="activity_info">评价内容：' + evaluate.evaluateContent + '</div>' +
+                            '</li>' +
+                            '</div>' +
+                            '</div>';
+
+                        var a = evaluate.evaluateLevel;
+                        if (a == 1) {
+                            $("#x1" + i).css("color", "#ff0000");
+                        } else if (a == 2) {
+                            $("#x1" + i).css("color", "#ff0000");
+                            $("#x2" + i).css("color", "#ff0000");
+                        } else if (a == 3) {
+                            $("#x1" + i).css("color", "#ff0000");
+                            $("#x2" + i).css("color", "#ff0000");
+                            $("#x3" + i).css("color", "#ff0000");
+                        } else if (a == 4) {
+                            $("#x1" + i).css("color", "#ff0000");
+                            $("#x2" + i).css("color", "#ff0000");
+                            $("#x3" + i).css("color", "#ff0000");
+                            $("#x4" + i).css("color", "#ff0000");
+                        } else if (a == 5) {
+                            $("#x1" + i).css("color", "#ff0000");
+                            $("#x2" + i).css("color", "#ff0000");
+                            $("#x3" + i).css("color", "#ff0000");
+                            $("#x4" + i).css("color", "#ff0000");
+                            $("#x5" + i).css("color", "#ff0000");
+                        }
+                    }
+                }
+                else {
+                    alert("出现错误！请重试！");
+                }
+            },
+            error: function (XMLHttpRequest, textStatus) {
+                alert(XMLHttpRequest.status);
+                alert(XMLHttpRequest.readyState);
+                alert(textStatus);
+            }
+        });
+
+    });
+    //    function pro(){
+    //        var name = prompt("请输入您的回复", ""); //将输入的内容赋给变量 name ，
+    //        //这里需要注意的是，prompt有两个参数，前面是提示的话，后面是当对话框出来后，在对话框里的默认值
+    //        if (name)//如果返回的有内容
+    //        {
+    //            alert(name);
+    //            var sellerId = $("#sellerId-none").html();
+    //            var jsondata = {"sellerId": sellerId};
+    //            $.ajax({
+    //                async: false,
+    //                type: "POST",
+    //                url: "/alllink/sellerActivity/queryAll",
+    //                processData: false,
+    //                contentType: "application/json;charset=utf-8", //这个是发送信息至服务器时内容编码类型
+    //                dataType: "json",
+    //                data: JSON.stringify(jsondata),//这里必须将对象转成string类型。
+    //                success: function (result) {
+    //                    if (result.code == 1) {
+    //                        window.location.href='/alllink/views/wechat/w-Evaluation.html';
+    //                    }
+    //                    else {
+    //                        alert("出现错误！请重试！");
+    //                    }
+    //                },
+    //                error: function (XMLHttpRequest, textStatus) {
+    //                    alert(XMLHttpRequest.status);
+    //                    alert(XMLHttpRequest.readyState);
+    //                    alert(textStatus);
+    //                }
+    //            });
+    //
+    //        }
+    //    }
+</script>
+</body>
+</html>

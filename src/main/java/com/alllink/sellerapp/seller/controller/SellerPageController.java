@@ -16,7 +16,7 @@ public class SellerPageController {
     @RequestMapping("/sellerapp/{page}")
     public ModelAndView showpage1(@PathVariable String page, ModelAndView mv) {
         mv.setViewName("sellerapp/"+page);
-        mv.addObject("name", "hello world");
+        // mv.addObject("name", "hello world");
         return mv;
     }
     @RequestMapping("/sellerapp/modules/{page}")
