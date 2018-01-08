@@ -162,6 +162,11 @@
         #aa {
             border-top: 2px solid #ddd;
         }
+
+        .navbar-inverse .navbar-nav > li > a {
+            margin-left: 67px;
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
@@ -170,15 +175,15 @@
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" href="home.html">万众艺兴</a>
+                <span id="sellerId-none" style="display: none">${Session.seller.sellerId}</span>
             </div>
             <div>
                 <ul class="nav navbar-nav">
                     <li><a href="NewOrder.html">订单</a></li>
-                    <li><a href="#">评价管理</a></li>
-                    <li><a href="#">行业排名</a></li>
-                    <li><a href="#">项目管理</a></li>
-                    <li><a href="#">财务管理</a></li>
-                    <li><a href="#">用户管理</a></li>
+                    <li><a href="#">XXX</a></li>
+                    <li><a href="#">XXX</a></li>
+                    <li><a href="#">XXX</a></li>
+                    <li><a href="#">XXX</a></li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <span id="navName">${Session.seller.sellerName}</span><b class="caret"></b>
@@ -195,7 +200,7 @@
         </div>
     </nav>
 </div>
-<!--<input type="hidden" id="seller_id" value="${Session.seller.sellerId}">-->
+
 <div class="content">
     <div class="maindiv" id="maindiv">
         <h3 class="maindiv-head">所有评价</h3>
@@ -243,6 +248,7 @@
 
 <script type="text/javascript" src="../../js/sellerapp/jquery.min.js"></script>
 <script type="text/javascript" src="../../js/sellerapp/bootstrap.js"></script>
+<script type="text/javascript" src="../../js/sellerapp/business.js"></script>
 <!--<script type="text/javascript" src="../../js/sellerapp/EventList.js" ></script>-->
 <script>
     $(document).ready(function () {

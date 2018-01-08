@@ -270,7 +270,7 @@ public class SellerController {
             }
         }
 
-        //SendSMS.send(phoneNumber, verificationCode);
+        SendSMS.send(phoneNumber, verificationCode);
         System.out.println(verificationCode);
         return R.ok();
     }

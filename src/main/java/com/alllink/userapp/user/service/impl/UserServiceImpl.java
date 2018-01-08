@@ -53,6 +53,11 @@ public class UserServiceImpl implements UserService {
         return userDao.getUserInfoInWeb(userId);
     }
 
+    @Override
+    public void updatetotalPoints(User user) {
+        userDao.updatetotalPoints(user);
+    }
+
 
 
 }

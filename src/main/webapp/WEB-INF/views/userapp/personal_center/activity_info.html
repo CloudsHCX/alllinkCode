@@ -21,7 +21,9 @@
 		<script type="text/javascript">
 
             $(function(){
-                var jsonData = {"activityId":"123"};
+                var url = window.location.search;
+                //var jsonData = {"activityId":url.substring(url.indexOf("=")+1, url.length)};
+                var jsonData = {"activityId": url.substring(url.indexOf("=") + 1, url.indexOf("&"))};
                 var jsonString = JSON.stringify(jsonData);
                 $.ajax({
                     url:"/alllink/activity/getActivityInfo",
@@ -32,12 +34,14 @@
                     success:function (json) {
                         var data = json.data;
                         var $imgDiv = $("#imgDiv");
-                        var imgList= data.imageUrl.split(",");
-                        var imgstr = "";
-                        for(var i in imgList){
-                            imgstr = imgstr + '<img class="vertically-center-by-absolute left-' + (30 + i * 70) + 'px width-60px height-60px border-radius-50-percent" src="' + imgList[i] + '"/>'
+                        if (data.imageUrl != null) {
+                            var imgList = data.imageUrl.split(",");
+                            var imgstr = "";
+                            for (var i in imgList) {
+                                imgstr = imgstr + '<img class="vertically-center-by-absolute left-' + (30 + i * 70) + 'px width-60px height-60px border-radius-50-percent" src="' + imgList[i] + '"/>'
+                            }
+                            $imgDiv.append(imgstr);
                         }
-                        $imgDiv.append(imgstr);
                         $("#activityId").val(data.activityId);
                         $("#sellerId").val(data.sellerId);
                         $("#activityInfo").html(data.activityInfo);
@@ -76,9 +80,11 @@
                     <a class="display-block color-FFFFFF text-decoration-none"
                        href="../../userapp/personal_center/order/unpaid_order">待付款订单</a>
                     <a class="display-block color-FFFFFF text-decoration-none"
-                       href="../../userapp/personal_center/order/paid_order">已付款订单</a>
-                    <a class="display-block color-FFFFFF text-decoration-none"
                        href="../../userapp/personal_center/order/cancel_order">已取消订单</a>
+                    <a class="display-block color-FFFFFF text-decoration-none"
+                       href="../../userapp/personal_center/order/not_evaluated_order">待评价订单</a>
+                    <a class="display-block color-FFFFFF text-decoration-none"
+                       href="../../userapp/personal_center/order/completed_order">已完成订单</a>
 				</div>
 			</div>
 
@@ -94,12 +100,13 @@
 			</div>
 
 			<div class="dropdown position-relative display-inline-block float-right">
-				<div id="header-user-name" class="element-div float-right width-120px">用户名哈</div>
+                <div id="header-user-name" class="element-div float-right width-120px"></div>
 
 				<div class="dropdown-content">
                     <a class="display-block color-FFFFFF text-decoration-none"
                        href="../../userapp/personal_center/personal_center">个人中心</a>
-                    <a class="display-block color-FFFFFF text-decoration-none" onclick="loginout(0);">退出</a>
+                    <a class="display-block color-FFFFFF text-decoration-none"
+                       onclick="location.href='/alllink/userapp/login'">退出</a>
 				</div>
 			</div>
 
@@ -128,7 +135,7 @@
 			<div class="float-left width-490px height-100-percent padding-top-20px color-444444">
 				<div class="height-20px margin-top-25px">
 					<div class="float-left width-140px  text-align-right">活动名称</div>
-					<div id="activityName" class="float-left width-350px  padding-left-30px text-align-left">这是活动名称</div>
+                    <div id="activityName" class="float-left width-350px  padding-left-30px text-align-left"></div>
 				</div>
 
 				<div class="height-70px line-height-70px margin-top-15px">

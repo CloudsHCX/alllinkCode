@@ -43,7 +43,7 @@ $(function() {
                     "<div class='width-100-percent height-70px margin-top-15px font-size-15px line-height-70px border-1px-solid-DDDDDD hover-border-1px-solid-9F88FF class-for-index0'>" +
                     "<div class='float-left width-15-percent'>" + dataarray[order].orderIdStr + "</div>" +
                     "<div class='position-relative float-left height-100-percent padding-left-100px text-align-left' style='width: 25%;'>" +
-                    "<img class='vertically-center-by-absolute left-30px width-60px height-60px' src='../../pic/" + dataarray[order].imageUrl + "' / > " +
+                    "<img class='vertically-center-by-absolute left-30px width-60px height-60px' src='" + dataarray[order].imageUrl + "' / > " +
                     dataarray[order].activityName +
                     "</div>" +
                     "<div class='float-left width-10-percent'>" + dataarray[order].cost + "</div>" +
@@ -58,7 +58,8 @@ $(function() {
                 );
             }
             for (var i = 0; i < dataarray.length; i++) {
-                countDownForActivity(new Date(dataarray[i].createTime).getTime() + 1800000, i + 1);
+                var createTime = new Date(dataarray[i].createTime).getTime();
+                countDownForActivity(createTime + 1800000, i + 1);
             }
         },
         error: function () {

@@ -285,18 +285,21 @@ public class UserController {
         User user = new User();
         List<User> list = null;
         try {
-            list = userService.getList(paramMap);
+            //list = userService.getList(paramMap);
+            user = userService.getUserInfoInWeb(Integer.parseInt(paramMap.get("userId").toString()));
         } catch (Exception e) {
             map.put("result", "error");
             return map;
         }
 
-        if (list == null) {
-            map.put("result", "error");
-            return map;
-        }
-        String photoUrl = list.get(0).getPhoto();
-        String phoneNumber = list.get(0).getPhoneNumber();
+//        if(list==null){
+//            map.put("result","error");
+//            return map;
+//        }
+//        String photoUrl =  list.get(0).getPhoto();
+//        String phoneNumber = list.get(0).getPhoneNumber();
+        String photoUrl = user.getPhoto();
+        String phoneNumber = user.getPhoneNumber();
 
         map.put("photoUrl", photoUrl);
         map.put("phoneNumber", phoneNumber);

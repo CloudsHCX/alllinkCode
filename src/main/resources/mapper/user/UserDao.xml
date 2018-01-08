@@ -62,4 +62,13 @@
         select * from USER where user_id=#{userId}
     </select>
 
+
+    <update id="updatetotalPoints" parameterType="com.alllink.userapp.user.entity.User">
+        update user set total_points = total_points + #{totalPoints} where 1=1
+        <if test="userId != null">and user_id = #{userId}</if>
+        <if test="phoneNumber != null">AND phone_number = #{phoneNumber}</if>
+
+    </update>
+
+
 </mapper>

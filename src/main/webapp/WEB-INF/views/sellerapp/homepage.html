@@ -8,86 +8,90 @@
     <link rel="stylesheet" href="../../css/sellerapp/bootstrap.css" />
     <link rel="stylesheet" href="../../css/sellerapp/homepage.css" />
 	<link rel="stylesheet" href="../../css/sellerapp/homepage-photo.css">
-
+      <style>
+          .navbar-inverse .navbar-nav > li > a {
+              margin-left: 67px;
+              font-size: 16px;
+          }
+      </style>
   </head>
   <body>
-  	<div class="header">
-  		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-     		<div class="container-fluid">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="home.html">万众艺兴</a>
-				</div>
-		<div>
-			<span id="sellerId-none" style="display: none">${Session.seller.sellerId}</span>
-		<ul class="nav navbar-nav">
-			<li><a href="NewOrder.html">订单</a></li>
-            <li><a href="#">评价管理</a></li>
-            <li><a href="#">行业排名</a></li>
-            <li><a href="#">项目管理</a></li>
-            <li><a href="#">财务管理</a></li>
-            <li><a href="#">用户管理</a></li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
-                    <span id="navName">${Session.seller.phoneNumber}</span><b class="caret"></b>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a href="home.html">个人中心</a></li>
-                    <li><a onclick="business()">法人信息</a></li>
-                    <li class="divider"></li>
-                    <li><a href="login.html">退出登录</a></li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-    </div>
-    </nav>
-  	</div>
-  	
-  	<div class="content">
-  		<div class="left">
-  			<ul>
-  				<li class="big-li">
-  					<h2>
-  						<i><img src="../../img/sellerapp/person.png"></i>
-  						个人中心
-  					</h2>
-  				</li>
-  				
-  				<li class="big-li">
-  					<h2>
-  						<i><img src="../../img/sellerapp/page.png"> </i>
-  						我的活动
-  					</h2>
-  					<ul class="small-ul">
-  						<li><a onclick="window.location.href='/alllink/views/sellerapp/EventsList.html'">所有活动</a></li>
-  						<li><a onclick="window.location.href='/alllink/views/sellerapp/AddActivity.html'">添加活动</a></li>
-  					</ul>
-  				</li>
-  				
-  				<li class="big-li">
-  					<h2>
-  						<i><img src="../../img/sellerapp/money.png"> </i>
-  						我的资产
-  					</h2>
-  					<ul class="small-ul">
-  						<li><a>账户余额</a></li>
-  						<li><a>我的钱包</a></li>
-  					</ul>
-  				</li>
-  				
-  				<li class="big-li">
-  					<h2>
-  						<i><img src="../../img/sellerapp/my.png"> </i>
-  						我的资料
-  					</h2>
-  					<ul class="small-ul">
-  						<li><a href="home.html">个人资料</a></li>
-  						<li><a href="BusinessCertification.html">商家认证</a></li>
-  						<li><a onclick="window.location.href='/alllink/views/sellerapp/ChangePassword.html'">修改密码</a></li>
-  					</ul>
-  				</li>
-  			</ul>
-  		</div>
+  <div class="header">
+      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+          <div class="container-fluid">
+              <div class="navbar-header">
+                  <a class="navbar-brand" href="home.html">万众艺兴</a>
+                  <span id="sellerId-none" style="display: none">${Session.seller.sellerId}</span>
+              </div>
+              <div>
+                  <ul class="nav navbar-nav">
+                      <li><a href="NewOrder.html">订单</a></li>
+                      <li><a href="#">XXX</a></li>
+                      <li><a href="#">XXX</a></li>
+                      <li><a href="#">XXX</a></li>
+                      <li><a href="#">XXX</a></li>
+                      <li class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                              <span id="navName">${Session.seller.phoneNumber}</span><b class="caret"></b>
+                          </a>
+                          <ul class="dropdown-menu">
+                              <li><a href="home.html">个人中心</a></li>
+                              <li><a onclick="business()">法人信息</a></li>
+                              <li class="divider"></li>
+                              <li><a href="login.html">退出登录</a></li>
+                          </ul>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </nav>
+  </div>
+
+  <div class="content">
+      <div class="left">
+          <ul>
+              <li class="big-li">
+                  <h2>
+                      <i><img src="../../img/sellerapp/person.png"></i>
+                      个人中心
+                  </h2>
+              </li>
+
+              <li class="big-li">
+                  <h2>
+                      <i><img src="../../img/sellerapp/page.png"> </i>
+                      我的活动
+                  </h2>
+                  <ul class="small-ul">
+                      <li><a onclick="window.location.href='/alllink/views/sellerapp/EventsList.html'">所有活动</a></li>
+                      <li><a onclick="window.location.href='/alllink/views/sellerapp/AddActivity.html'">添加活动</a></li>
+                  </ul>
+              </li>
+
+              <li class="big-li">
+                  <h2>
+                      <i><img src="../../img/sellerapp/money.png"> </i>
+                      评价管理
+                  </h2>
+                  <ul class="small-ul">
+                      <li><a onclick="window.location.href='/alllink/views/sellerapp/Evaluation.html'">所有评价</a></li>
+                      <li><a onclick="window.location.href='/alllink/views/sellerapp/BadReview.html'">差评</a></li>
+                  </ul>
+              </li>
+
+              <li class="big-li">
+                  <h2>
+                      <i><img src="../../img/sellerapp/my.png"> </i>
+                      我的资料
+                  </h2>
+                  <ul class="small-ul">
+                      <li><a href="home.html">个人资料</a></li>
+                      <li><a onclick="business()">商家认证</a></li>
+                      <li><a onclick="window.location.href='/alllink/views/sellerapp/ChangePassword.html'">修改密码</a></li>
+                  </ul>
+              </li>
+          </ul>
+      </div>
   		
   	    <div class="right" id="right0">
   			<h3 class="person">设置个人资料</h3>
@@ -294,7 +298,7 @@
 	<script type="text/javascript" src="../../js/sellerapp/bootstrap.js" ></script>
 	<script type="text/javascript" src="../../js/userapp/ajaxfileupload.js" ></script>
 	<script type="text/javascript" src="../../js/sellerapp/homepage.js" ></script>
-
+  <script type="text/javascript" src="../../js/sellerapp/business.js"></script>
     <script>
         /*      window.onload = function () {
                   function GetQueryString(name) {

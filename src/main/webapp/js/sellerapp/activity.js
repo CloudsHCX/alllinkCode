@@ -1,5 +1,6 @@
 $(function(){
     $("#addactivity-btn").click(function(e) {
+
         var activityName=$("#activity_name").val().trim();
         var totalNumber=$("#total_number").val().trim();
         var cost=$("#cost").val().trim();
@@ -14,9 +15,8 @@ $(function(){
         var activityInfo=$("#activity_info").val().trim();
         var latitude=$("#latitude").html();
         var longitude=$("#longitude").html();
+
         var sellerId = $("#sellerId-none").html();
-        if (latitude.trim() == null || latitude.trim() == '' || longitude.trim() == null || longitude.trim() == '')
-            alert("浏览器不支持H5定位，请用IE或edge");
         var activityPhoto= $("#activityPhoto").attr("src");
         if (activityName==''){
             $("#activity_name").focus();
@@ -35,8 +35,26 @@ $(function(){
         }else if (activityInfo==''){
             $("#activity_info").focus();
         }
+
+        function check(beginTime, endTime) {
+            if (beginTime.length > 0 && endTime.length > 0) {
+                var startTmp = beginTime.toString().substr(0, 10).split("-");
+                var endTmp = endTime.toString().substr(0, 10).split("-");
+                var startTmp1 = beginTime.toString().substr(12, 19).split(":");
+                var endTmp1 = endTime.toString().substr(12, 19).split(":");
+                var sd = new Date(startTmp[0], startTmp[1], startTmp[2], startTmp1[0], startTmp1[1], startTmp1[2]);
+                var ed = new Date(endTmp[0], endTmp[1], endTmp[2], endTmp1[0], endTmp1[1], endTmp1[2]);
+                if (sd.getTime() > ed.getTime()) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
         if (activityName==''||totalNumber==''||cost==''||activityType==''||beginTime==''||endTime==''||address==''||activityInfo=='') {
             alert("请完善所有信息！")
+        } else if (check(beginTime, endTime)) {
+            alert("开始日期不能大于结束日期");
         }else {
             var jsondata = {
                 "sellerId": sellerId,
@@ -62,7 +80,7 @@ $(function(){
                 data: JSON.stringify(jsondata),//这里必须将对象转成string类型。
                 success: function (result) {
                     if(result.code == 1){
-                    	//这里还有动态添加li标签及内容到活动列表页面
+                        //这里还有动态添加li标签及内容到活动列表页面
                         // window.location.href="/alllink/views/sellerapp/EventDetails.html?p1="+result.activityName+"&p2="+result.totalNumber+"&p3="+result.cost+"&p4="+result.activityType+"&p5="+result.beginTime+"&p6="+result.endTime+"&p7="+result.address+"&p8="+result.activityInfo;
                         window.location.href="/alllink/views/sellerapp/EventsList.html";
                     }
@@ -71,12 +89,13 @@ $(function(){
                     }
                 },
                 error:function(XMLHttpRequest, textStatus){
-                    alert(textStatus + "浏览器不支持H5定位，请用IE或edge");
+                    alert(textStatus);
                 }
             });
         }
     });
-    
+
+
     $("#addimage").change(function (e) {
         $("#addimage").hide();
         var img_addrs=$("#addimage").prop("files");
@@ -109,5 +128,4 @@ $(function(){
             }
         });
     });
-
 });

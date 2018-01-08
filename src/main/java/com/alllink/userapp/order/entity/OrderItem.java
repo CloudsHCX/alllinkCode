@@ -16,8 +16,12 @@ public class OrderItem {
     private String orderIdStr = null;
     //订单号
     /**
-    * 活动名称
-    */
+     * 活动ID
+     */
+    private int activityId;
+    /**
+     * 活动名称
+     */
     private String activityName = null;
     /**
     * 订单创建时间
@@ -84,5 +88,13 @@ public class OrderItem {
 
     public void setOrderIdStr(String orderIdStr) {
         this.orderIdStr = orderIdStr;
+    }
+
+    public int getActivityId() {
+        return activityId;
+    }
+
+    public void setActivityId(int activityId) {
+        this.activityId = activityId;
     }
 }

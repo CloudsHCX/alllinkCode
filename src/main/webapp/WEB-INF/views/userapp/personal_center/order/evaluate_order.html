@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>评价活动</title>
+
+    <link rel="icon" href="../../../img/userapp/icon/system/icon_16_blue.png">
+    <link rel="stylesheet" type="text/css" href="../../../css/userapp/common/all.css">
+    <link rel="stylesheet" type="text/css" href="../../../css/userapp/common/body.css">
+    <link rel="stylesheet" type="text/css" href="../../../css/userapp/common/menu_bar.css">
+    <link rel="stylesheet" type="text/css" href="../../../css/userapp/common/item.css">
+    <link rel="stylesheet" type="text/css" href="../../../css/userapp/common/mask_layer.css">
+    <link rel="stylesheet" type="text/css" href="../../../css/userapp/common/input.css">
+    <link rel="stylesheet" type="text/css" href="../../../css/userapp/common/tip.css">
+
+    <script type="text/javascript" src="../../../js/userapp/common/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="../../../js/userapp/common/info.js"></script>
+    <script type="text/javascript" src="../../../js/userapp/common/get_head_and_user_name.js"></script>
+    <script type="text/javascript" src="../../../js/userapp/user/personal_center/order/evaluate_order.js"></script>
+</head>
+
+<body>
+<!--阴影-->
+<div id="maskLayer" class="mask-layer">
+    <!-- 提示框 -->
+    <div class="tip-div-in-mask-layer">
+        <div class="height-50px line-height-50px font-size-23px color-444444">提示</div>
+
+        <img src="../../../img/userapp/icon/page/close.png" title="关闭" onclick="hideMaskLayer();"/>
+
+        <div id="tipContent"
+             class="width-100-percent height-80px font-size-18px line-height-80px font-size-18px color-444444"></div>
+
+        <div class="height-50px line-height-50px">
+            <input type="button" class="width-145px height-35px font-size-17px blue-button" value="确定"
+                   onclick="deleteOrder();"/>
+        </div>
+    </div>
+</div>
+
+<div class="menu-bar-div">
+    <div class="horizontally-center-by-margin width-1100px height-100-percent">
+        <div class="position-relative float-left width-80px height-100-percent">
+            <img class="vertically-center-by-absolute left-0 right-0"
+                 src="../../../img/userapp/icon/system/icon_32_pink.png">
+        </div>
+
+        <!--<div class="element-no-menu-div-hover  float-left width-120px">首页</div>-->
+        <div class="element-no-menu-div-hover  float-left width-120px"
+             onclick="redirectPage('../../../userapp/personal_center/nearby')">附近
+        </div>
+
+        <div class="dropdown position-relative display-inline-block float-left">
+            <div class="element-div float-left width-120px">我的订单</div>
+
+            <div class="dropdown-content">
+                <a class="display-block color-FFFFFF text-decoration-none"
+                   href="../../../userapp/personal_center/order/unpaid_order">待付款订单</a>
+                <a class="display-block color-FFFFFF text-decoration-none"
+                   href="../../../userapp/personal_center/order/cancel_order">已取消订单</a>
+                <a class="display-block color-FFFFFF text-decoration-none"
+                   href="../../../userapp/personal_center/order/not_evaluated_order">待评价订单</a>
+                <a class="display-block color-FFFFFF text-decoration-none"
+                   href="../../../userapp/personal_center/order/completed_order">已完成订单</a>
+            </div>
+        </div>
+
+        <div class="dropdown position-relative display-inline-block float-left">
+            <div class="element-div float-left width-120px">我的资料</div>
+
+            <div class="dropdown-content">
+                <a class="display-block color-FFFFFF text-decoration-none"
+                   href="../../../userapp/personal_center/personal_data">个人资料</a>
+                <a class="display-block color-FFFFFF text-decoration-none"
+                   href="../../../userapp/reset_password">修改密码</a>
+            </div>
+        </div>
+
+        <div class="dropdown position-relative display-inline-block float-right">
+            <div id="header-user-name" class="element-div float-right width-120px"></div>
+
+            <div class="dropdown-content">
+                <a class="display-block color-FFFFFF text-decoration-none"
+                   href="../../../userapp/personal_center/personal_center">个人中心</a>
+                <a class="display-block color-FFFFFF text-decoration-none" onclick="loginout(1)">退出</a>
+            </div>
+        </div>
+
+        <div class="position-relative float-right width-60px height-100-percent">
+            <img id="header-avatar"
+                 class="vertically-center-by-absolute left-0 right-0 width-32px height-32px border-radius-50-percent"
+                 src="">
+        </div>
+    </div>
+</div>
+
+<div class="height-500px padding-top-20px horizontally-center-by-margin color-444444 text-align-center"
+     style="width: 600px; margin-top: 50px;">
+
+    <div style="width: 100%; height: 30px; margin-top: 20px; font-size: 22px;">评价活动</div>
+    <div style="width: 100%; height: 30px; margin-top: 50px; font-size: 17px; text-align: left;">
+        <div style="float:left; width: 20%; text-align: right;">评分</div>
+
+        <div style="float:left; width: 80%; text-align: left; padding-left: 30px;">
+            <label class="radio-div">
+                <input class="radio-none" type="radio" name="evaluation" value="1">
+                <span class="radio-repaint"></span>1分
+            </label>
+
+            <label class="radio-div margin-left-20px">
+                <input class="radio-none" type="radio" name="evaluation" value="2">
+                <span class="radio-repaint"></span>2分
+            </label>
+
+            <label class="radio-div margin-left-20px">
+                <input class="radio-none" type="radio" name="evaluation" value="3">
+                <span class="radio-repaint"></span>3分
+            </label>
+
+            <label class="radio-div margin-left-20px">
+                <input class="radio-none" type="radio" name="evaluation" value="4">
+                <span class="radio-repaint"></span>4分
+            </label>
+
+            <label class="radio-div margin-left-20px">
+                <input class="radio-none" type="radio" name="evaluation" value="5">
+                <span class="radio-repaint"></span>5分
+            </label>
+        </div>
+    </div>
+    <div style="width: 100%; height: 30px; margin-top: 20px; font-size: 17px; text-align: left;">
+        <div style="float:left; width: 20%; text-align: right;">评价内容</div>
+
+        <div style="float:left; width: 80%; text-align: left; padding-left: 30px;">
+            <textarea id="evaluation-content" name="yoursuggest" cols="60" rows="3" style="resize:none;"></textarea>
+        </div>
+    </div>
+    <div style="width: 100%; height: 30px; margin-top: 80px; font-size: 20px;">
+        <input type="button" class="width-240px height-35px  font-size-17px blue-button" value="提交评价"
+               onclick="commitEvaluation();"/>
+    </div>
+
+    <div id="tipDiv" class="tip-div">
+        <label id="tipLabel"></label>
+    </div>
+
+</div>
+</body>
+
+</html>

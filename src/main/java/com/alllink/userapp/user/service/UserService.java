@@ -16,4 +16,7 @@ public interface UserService {
     User getUserInfo(String phoneNumber);
     User getUserInfoInWeb(Integer userId);
 
+    void updatetotalPoints(User user);
+
+
 }

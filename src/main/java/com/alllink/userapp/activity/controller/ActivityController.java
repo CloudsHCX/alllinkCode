@@ -40,12 +40,12 @@ public class ActivityController {
         return mv;
     }
 
-    @RequestMapping(value = "setActivityId")
-    public ModelAndView toActivityList(String activityId, HttpSession session,ModelAndView mv){
-        actId = Integer.parseInt(activityId);
-        mv.setViewName("/userapp/personal_center/activity_info");
-        return mv;
-    }
+//    @RequestMapping(value = "setActivityId")
+//    public ModelAndView toActivityList(String activityId, HttpSession session,ModelAndView mv){
+//        actId = Integer.parseInt(activityId);
+//        mv.setViewName("/userapp/personal_center/activity_info");
+//        return mv;
+//    }
 
     @RequestMapping(value = "/getDefaultActivityList",method = RequestMethod.POST,produces="text/html;charset=UTF-8")
     @ResponseBody
@@ -80,17 +80,18 @@ public class ActivityController {
     }
     @RequestMapping(value="getActivityInfo",method = RequestMethod.POST,produces="text/html;charset=UTF-8")
     @ResponseBody
-       public String getActivityInfo(@RequestBody ActivityEntity activityEntity,HttpServletRequest request){
+    public String getActivityInfo(@RequestBody ActivityEntity activityEntity, HttpServletRequest request) {
 
         int aa = actId;
         Map<String,Object> map = new HashMap<>();
         Integer activiityId = null;
-        if (CheckDevice.getDevice(request)==1){
-            activiityId = activityEntity.getActivityId();
-        }else {
-            //activiityId = Integer.parseInt(request.getSession().getAttribute("activityId").toString());
-            activiityId = actId;
-        }
+//        if (CheckDevice.getDevice(request)==1){
+//            activiityId = activityEntity.getActivityId();
+//        }else {
+//            //activiityId = Integer.parseInt(request.getSession().getAttribute("activityId").toString());
+//            //activiityId = actId;
+//        }
+        activiityId = activityEntity.getActivityId();
         ActivityDetailItem activity =  activityService.getActivityInfo(activiityId);
         if (activity!=null){
             map.put("result","success");

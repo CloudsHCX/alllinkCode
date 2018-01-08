@@ -57,6 +57,27 @@ public class ActivityDetailItem {
     */
     private String address = null;
 
+    private double longitude;
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    private double latitude;
+
+
     public String getActivityId() {
         return activityId;
     }

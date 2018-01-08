@@ -90,41 +90,46 @@
 			font-size: 10px;
 			margin-left: 10px;
 		}
+
+        .navbar-inverse .navbar-nav > li > a {
+            margin-left: 67px;
+            font-size: 16px;
+        }
 	</style>
   </head>
   <body>
-  	<div class="header">
-  		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-     		<div class="container-fluid">
-				<div class="navbar-header">
-                    <a class="navbar-brand" href="home.html">万众艺兴</a>
-				</div>
-		<div>
-		<ul class="nav navbar-nav">
-            <li><a href="NewOrder.html">订单</a></li>
-            <li><a href="#">评价管理</a></li>
-            <li><a href="#">行业排名</a></li>
-            <li><a href="#">项目管理</a></li>
-            <li><a href="#">财务管理</a></li>
-            <li><a href="#">用户管理</a></li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
-                    <span id="navName">${Session.seller.sellerName}</span><b class="caret"></b>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a href="home.html">个人中心</a></li>
-                    <li><a onclick="business()">法人信息</a></li>
-                    <li class="divider"></li>
-                    <li><a href="login.html">退出登录</a></li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-    </div>
-    </nav>
-  	</div>
-    <!--<input type="hidden" id="seller_id" value="${Session.seller.sellerId}">-->
-  	<div class="content">
+  <div class="header">
+      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+          <div class="container-fluid">
+              <div class="navbar-header">
+                  <a class="navbar-brand" href="home.html">万众艺兴</a>
+                  <span id="sellerId-none" style="display: none">${Session.seller.sellerId}</span>
+              </div>
+              <div>
+                  <ul class="nav navbar-nav">
+                      <li><a href="NewOrder.html">订单</a></li>
+                      <li><a href="#">XXX</a></li>
+                      <li><a href="#">XXX</a></li>
+                      <li><a href="#">XXX</a></li>
+                      <li><a href="#">XXX</a></li>
+                      <li class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                              <span id="navName">${Session.seller.sellerName}</span><b class="caret"></b>
+                          </a>
+                          <ul class="dropdown-menu">
+                              <li><a href="home.html">个人中心</a></li>
+                              <li><a onclick="business()">法人信息</a></li>
+                              <li class="divider"></li>
+                              <li><a href="login.html">退出登录</a></li>
+                          </ul>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </nav>
+  </div>
+
+  <div class="content">
   	  <div class="maindiv" id="maindiv">
   	  	<h3 class="maindiv-head">活动列表</h3>
   		<ul id="activity_list">
@@ -138,6 +143,7 @@
   	
     <script type="text/javascript" src="../../js/sellerapp/jquery.min.js" ></script>
     <script type="text/javascript" src="../../js/sellerapp/bootstrap.js" ></script>
+  <script type="text/javascript" src="../../js/sellerapp/business.js"></script>
     <!--<script type="text/javascript" src="../../js/sellerapp/EventList.js" ></script>-->
   <script>
     $(document).ready(function () {
@@ -162,11 +168,12 @@
                             resultList.innerHTML = resultList.innerHTML + '<li class="list-group-item" id="li'+key+'">' +
                                 '<span class="badge">新</span>' +
                                 '<div class="activity_name" id="activity_name"><span class="nameSpan" id="span'+key+'">'+List.activityName+'</span>' +
-                                '<span class="cancel" id="'+List.activityId+'" data-toggle="modal" data-target="#myModal" >取消</span>' +
+                                '<span class="cancel" id="' + List.activityId + '" data-toggle="modal" data-target="#myModal" ></span>' +
                                 '</div>' +
                                 '<div class="activity_content">' +
-                                '<span class="activity_type">'+List.activityType+'</span>|' +
-                                '<span class="address">'+List.address+'</span>' +
+                                '<span class="activity_type">[报名总人数：' + List.totalNumber + ']</span> [当前报名人数：' + List.enrollNumber + ']<br>' +
+                                '<span class="activity_time">[开始时间：' + List.beginTime + ']</span> [结束时间：' + List.endTime + ']<br>' +
+                                '<span class="address">活动地址：' + List.address + '</span>' +
                                 '</div>' +
                                 '<div class="cost">每人 ￥'+List.cost+'元</div>' +
                                 '<div class="activity_info">'+List.activityInfo+'</div>' +

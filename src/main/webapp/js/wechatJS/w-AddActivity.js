@@ -10,12 +10,14 @@ $(function () {
         var endTime = $("#end_time").val();
         endTime = endTime.replace('T', ' ');
         endTime = endTime + ":00";
-
         var address = $("#address").val().trim();
         var activityInfo = $("#activity_info").val().trim();
         var activityPhoto = $("#photo").html();
         var sellerId = $("#seller_id").val();
+        var latitude = $("#latitude").html();
+        var longitude = $("#longitude").html();
 
+        // alert("经度"+longitude+"\n纬度"+latitude);
         function check(beginTime, endTime) {
             if (beginTime.length > 0 && endTime.length > 0) {
                 var startTmp = beginTime.toString().substr(0, 10).split("-");
@@ -46,7 +48,9 @@ $(function () {
                 "endTime": endTime,
                 "address": address,
                 "activityInfo": activityInfo,
-                "activityPhoto": activityPhoto
+                "activityPhoto": activityPhoto,
+                "latitude": latitude,
+                "longitude": longitude
             };
             $.ajax({
                 async: false,

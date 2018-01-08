@@ -28,7 +28,7 @@ public class OrderServiceImpl implements OrderService {
 	public void CreateOrder(Integer userId, Integer sellerId, Integer activityId,String ord_str) {
 		OrderEntity order = new OrderEntity();
 		order.setUserId(userId);
-		order.setSellerId(sellerId);
+		//order.setSellerId(sellerId);
 		order.setActivityId(activityId);
 		ActivityEntity activityEntity = activityDao.getActivityInfo(activityId);
 		order.setActivityName(activityEntity.getActivityName());
@@ -38,6 +38,7 @@ public class OrderServiceImpl implements OrderService {
 		order.setModifiedTime(new Date());
 		order.setEvaluateState(0);
 		order.setOrderIdStr(ord_str);
+		order.setSellerId(activityEntity.getSellerId());
 		orderDao.createOrder(order);
 	}
 
@@ -52,6 +53,9 @@ public class OrderServiceImpl implements OrderService {
 			item.setCost(order.getCost().toString());
 			item.setCreateTime(convert(order.getCreateTime()));
 			item.setOrderId(order.getOrderId().toString());
+
+			item.setActivityId(order.getActivityId());
+
 			ActivityEntity activity = activityDao.getActivityInfo(order.getActivityId());
 			item.setImageUrl(activity.getActivityPhoto().split(",")[0]);
 			item.setOrderState(order.getOrderState().toString());
@@ -71,7 +75,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	public String convert(Date d1){
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        return sdf.format(d1);
-    }
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return sdf.format(d1);
+	}
 }

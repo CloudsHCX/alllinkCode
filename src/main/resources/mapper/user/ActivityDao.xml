@@ -22,4 +22,5 @@
         where activity_id = #{activityId}
     </update>
 
+
 </mapper>

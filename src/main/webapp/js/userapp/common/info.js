@@ -3,8 +3,17 @@ $(function() {
         activityIdss =$($(obj).children("label").get(0)).text();
         var getTimestamp=new Date().getTime();
         window.open("activity_info?activityId=" + activityIdss + "&timestamp=" + getTimestamp);
+        // +"&timestamp="+getTimestamp
     }
 });
+
+// 获取url参数
+function etQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(r[2]);
+    return null;
+}
 
 $(function () {
 	redirectPage = function (curUrl) {
@@ -137,6 +146,9 @@ $(function () {
     }
 });
 
+$(function () {
+
+});
 $(function() {
 	checkPhoneNumberFormat = function() {
 		var id = "#phoneNumber";

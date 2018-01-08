@@ -82,40 +82,44 @@
 		.btn{
 			width:100px;
 		}
+
+        .navbar-inverse .navbar-nav > li > a {
+            margin-left: 67px;
+            font-size: 16px;
+        }
 	</style>
   </head>
   <body>
-  	<div class="header">
-  		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-     		<div class="container-fluid">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="#">万众艺兴</a>
-				</div>
-		<div>
-		<ul class="nav navbar-nav">
-            <li><a href="NewOrder.html">订单</a></li>
-            <li><a href="#">评价管理</a></li>
-            <li><a href="#">行业排名</a></li>
-            <li><a href="#">项目管理</a></li>
-            <li><a href="#">财务管理</a></li>
-            <li><a href="#">用户管理</a></li>
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
-                    <span id="navName"></span><b class="caret"></b>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">个人中心</a></li>
-                    <li><a href="#">我的地址</a></li>
-                    <li><a href="#">安全设置</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">退出登录</a></li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-    </div>
-    </nav>
-  	</div>
+  <div class="header">
+      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+          <div class="container-fluid">
+              <div class="navbar-header">
+                  <a class="navbar-brand" href="home.html">万众艺兴</a>
+                  <span id="sellerId-none" style="display: none">${Session.seller.sellerId}</span>
+              </div>
+              <div>
+                  <ul class="nav navbar-nav">
+                      <li><a href="NewOrder.html">订单</a></li>
+                      <li><a href="#">XXX</a></li>
+                      <li><a href="#">XXX</a></li>
+                      <li><a href="#">XXX</a></li>
+                      <li><a href="#">XXX</a></li>
+                      <li class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                              <span id="navName">${Session.seller.sellerName}</span><b class="caret"></b>
+                          </a>
+                          <ul class="dropdown-menu">
+                              <li><a href="home.html">个人中心</a></li>
+                              <li><a onclick="business()">法人信息</a></li>
+                              <li class="divider"></li>
+                              <li><a href="login.html">退出登录</a></li>
+                          </ul>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </nav>
+  </div>
   	
   	<div class="content">
   	    <div class="maindiv">
@@ -205,6 +209,7 @@
   	
     <script type="text/javascript" src="../../js/sellerapp/jquery.min.js" ></script>
     <script type="text/javascript" src="../../js/sellerapp/bootstrap.js" ></script>
+  <script type="text/javascript" src="../../js/sellerapp/business.js"></script>
    <!--<script>-->
        <!--window.onload = function () {-->
            <!--function GetQueryString(name) {-->

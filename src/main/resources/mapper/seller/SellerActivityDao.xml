@@ -110,7 +110,7 @@
 			#{endTime}, 
 			#{enrollNumber},
 			#{activityInfo},
-		0,
+        0,
 			#{createTime}, 
 			#{modifiedTime}, 
 			#{auditTime}, 

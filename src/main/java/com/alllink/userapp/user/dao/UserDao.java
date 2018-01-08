@@ -24,5 +24,5 @@ public interface UserDao {
 
     User getUserInfoInWeb(Integer userId);
 
-
+    void updatetotalPoints(User user);
 }

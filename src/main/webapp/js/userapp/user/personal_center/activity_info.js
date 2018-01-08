@@ -50,7 +50,7 @@ $(function() {
 
 		$.ajax({
 			type: "post",
-			url: "../order/apply",
+            url: "../../order/apply",
 			contentType: "application/json;charset=utf-8",
 			dataType: "json",
 			data: jsonString,
@@ -61,13 +61,13 @@ $(function() {
                     location.href = "../userapp/login?url="+local;
 				}
 				if(json.result=="success"){
-                    location.href = "../userapp/personal_center/order/unpaid_order";
+                    location.href = "../../userapp/personal_center/order/unpaid_order";
 				}else{
 
 				}
 			},
-			error: function(json) {
-								alert(json.message);
+            error: function () {
+
 			}
 		});
 	}

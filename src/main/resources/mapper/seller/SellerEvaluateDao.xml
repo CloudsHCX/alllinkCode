@@ -27,7 +27,7 @@
         SELECT e.evaluate_content AS evaluate_content,
         e.evaluate_level AS evaluate_level,
         DATE_FORMAT(e.create_time,'%Y-%m-%d %T') AS create_time,
-        u.user_name AS user_name,
+        u.nickname AS user_name,
         a.activity_name AS activity_name
         FROM evaluate e
         JOIN user u

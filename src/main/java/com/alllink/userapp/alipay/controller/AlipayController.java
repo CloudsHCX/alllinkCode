@@ -359,60 +359,6 @@ public class AlipayController extends AlipayApiException {
 
     }
 
-    @RequestMapping(value = "/updateOrderInfo", method = RequestMethod.POST)
-    @ResponseBody
-    public Object updateOrderInfo(@RequestBody Map<String, Object> paramMap) {
-        Map<String, Object> map = new HashMap<String, Object>();
-        if (paramMap.get("orderIdStr") == null) {
-            map.put("result", "error");
-            return map;
-        }
-        String orderIdStr = paramMap.get("orderIdStr").toString();
-
-        OrderEntity orderEntity = new OrderEntity();
-        orderEntity.setOrderIdStr(orderIdStr);
-        orderEntity.setOrderState(OrderState.OrderPayed.getValue());
-        orderEntity.setPaymentChannel(PaymentChannel.alipay.getValue());
-        try {
-            orderService.modifyOrder(orderEntity);
-        } catch (Exception e) {
-
-            map.put("result", "error");
-            return map;
-        }
-
-        //付款成功后，活动人数减一
-
-        //获取订单具体信息
-        List<OrderEntity> list = null;
-        list = orderService.getList(paramMap);
-        if (list == null) {
-            map.put("result", "error");
-            return map;
-        }
-
-        int activityId = list.get(0).getActivityId();
-
-        //获得活动信息
-        ActivityDetailItem activityDetailItem = new ActivityDetailItem();
-        activityDetailItem = activityService.getActivityInfo(activityId);
-
-        //修改活动信息
-
-        Integer enrollNumber = new Integer(activityDetailItem.getEnrollNumber());
-
-        enrollNumber = enrollNumber + 1;
-
-        ActivityEntity activityEntity = new ActivityEntity();
-        activityEntity.setActivityId(activityId);
-        activityEntity.setEnrollNumber(enrollNumber);
-
-        activityService.updateEnrollNumber(activityEntity);
-
-
-        map.put("result", "success");
-        return map;
-    }
 
     /**
      * 查询付款

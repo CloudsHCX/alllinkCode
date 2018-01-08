@@ -11,6 +11,8 @@
 	  <script type="text/javascript" src="../../js/sellerapp/bootstrap.js" ></script>
 	  <script type="text/javascript" src="../../js/sellerapp/activity.js" ></script>
 	  <script type="text/javascript" src="../../js/userapp/ajaxfileupload.js" ></script>
+      <script type="text/javascript"
+              src="http://api.map.baidu.com/api?v=1.5&ak=zIyiV9jYFnIq4FgcudRKArpQjbr94P3e"></script>
 	<style>
 		body{
 			padding-top:50px;
@@ -87,48 +89,66 @@
 		#addimage{
 			margin-top: 7px;
 		}
+
+        .navbar-inverse .navbar-nav > li > a {
+            margin-left: 67px;
+            font-size: 16px;
+        }
 	</style>
   </head>
   <body>
-  	<div class="header">
-  		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-     		<div class="container-fluid">
-				<div class="navbar-header">
-					<a class="navbar-brand" href="#">万众艺兴</a>
-				</div>
-		<div>
-		<ul class="nav navbar-nav">
-			<li><a href="NewOrder.html">订单</a></li>
-            <li><a href="#">评价管理</a></li>
-            <li><a href="#">行业排名</a></li>
-            <li><a href="#">项目管理</a></li>
-            <li><a href="#">财务管理</a></li>
-            <li><a href="#">用户管理</a></li>
-            <li class="dropdown">
-
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown" >
-					<span id="navName">${Session.seller.phoneNumber}</span><b class="caret"></b>
-					<span id="sellerId-none" style="display: none">${Session.seller.sellerId}</span>
-				</a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">个人中心</a></li>
-                    <li><a href="#">我的地址</a></li>
-                    <li><a href="#">安全设置</a></li>
-                    <li class="divider"></li>
-                    <li><a href="#">退出登录</a></li>
-                </ul>
-            </li>
-        </ul>
-    </div>
-    </div>
-    </nav>
-  	</div>
+  <div class="header">
+      <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+          <div class="container-fluid">
+              <div class="navbar-header">
+                  <a class="navbar-brand" href="home.html">万众艺兴</a>
+                  <span id="sellerId-none" style="display: none">${Session.seller.sellerId}</span>
+              </div>
+              <div>
+                  <ul class="nav navbar-nav">
+                      <li><a href="NewOrder.html">订单</a></li>
+                      <li><a href="#">XXX</a></li>
+                      <li><a href="#">XXX</a></li>
+                      <li><a href="#">XXX</a></li>
+                      <li><a href="#">XXX</a></li>
+                      <li class="dropdown">
+                          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                              <span id="navName">${Session.seller.sellerName}</span><b class="caret"></b>
+                          </a>
+                          <ul class="dropdown-menu">
+                              <li><a href="home.html">个人中心</a></li>
+                              <li><a onclick="business()">法人信息</a></li>
+                              <li class="divider"></li>
+                              <li><a href="login.html">退出登录</a></li>
+                          </ul>
+                      </li>
+                  </ul>
+              </div>
+          </div>
+      </nav>
+  </div>
   	
   	<div class="content">
   	    <div class="maindiv">
   			<h3 class="maindiv-head">添加活动</h3>
   			<div class="maindiv-content">
-  			<form class="form-horizontal" role="form">	
+                <form class="form-horizontal" role="form">
+                    <div class="weui-cells weui-cells_form form-group">
+                        <div class="weui-cell">
+                            <label class="col-sm-2 control-label">开始时间</label>
+                            <div class="weui-cell__bd col-sm-10">
+                                <input class="weui-input form-control" type="datetime-local" id="begin_time">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="weui-cells weui-cells_form form-group">
+                        <div class="weui-cell">
+                            <label class="col-sm-2 control-label">结束时间</label>
+                            <div class="weui-cell__bd col-sm-10">
+                                <input class="weui-input form-control" type="datetime-local" id="end_time">
+                            </div>
+                        </div>
+                    </div>
   				  <div class="form-group">
 				    <label class="col-sm-2 control-label">活动名称</label>
 				    <div class="col-sm-10">
@@ -165,31 +185,20 @@
 				    </select>
 				    </div>
 				  </div>
-				<div class="weui-cells weui-cells_form form-group">
-					<div class="weui-cell">
-						<label class="col-sm-2 control-label">开始时间</label>
-						<div class="weui-cell__bd col-sm-10">
-							<input class="weui-input form-control" type="datetime-local" id="begin_time">
-						</div>
-					</div>
-				</div>
-				<div class="weui-cells weui-cells_form form-group">
-					<div class="weui-cell">
-						<label class="col-sm-2 control-label">结束时间</label>
-						<div class="weui-cell__bd col-sm-10">
-							<input class="weui-input form-control" type="datetime-local" id="end_time">
-						</div>
-					</div>
-				</div>
-				  <div class="form-group">
-				    <label class="col-sm-2 control-label">活动地址</label>
-					  <div class="col-sm-10">
-						  <textarea class="form-control" rows="3" id="address"></textarea>
-						  <span  id="latitude" style="display: none"></span>
-						  <span  id="longitude" style="display: none"></span>
-					  </div>
-				  </div>
-				  <div class="form-group" >
+
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">活动地址</label>
+                        <div class="col-sm-10">
+                            <textarea class="form-control" rows="3" id="address"
+                                      onblur="searchByStationName()"></textarea>
+                            <!--<input type="button" value="获取经纬度" onclick="searchByStationName();"/>-->
+                            <!--<span style="color:red;">必须点击获取经纬度按钮！否则无法提交</span>-->
+                            <span id="latitude" style="display: none"></span>
+                            <span id="longitude" style="display: none"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group" >
 				    <label class="col-sm-2 control-label">活动详情</label>
 				    <div class="col-sm-10">
 				      <textarea class="form-control" rows="3" id="activity_info"></textarea>
@@ -205,10 +214,16 @@
 					  </div>
 					  </div>
 					</div>
-				  
-				  <div class="form-group">
+
+
+                    <div id="container"
+                         style="display: none">
+                    </div>
+
+                    <div class="form-group">
 				    <div class="col-sm-offset-2 col-sm-10">
-				      <button type="button" class="btn btn-default" id="addactivity-btn">确定</button>
+                        <!--<button type="button" class="btn btn-default" id="addactivity-btn" onclick="searchByStationName();">确定</button>-->
+                        <button type="button" class="btn btn-default" id="addactivity-btn">确定</button>
 				    </div>
 				  </div>
 				</form>
@@ -219,25 +234,36 @@
   	
   	<div class="footer"></div>
 
-    <script>
-        $("#address").focus(
-            function getLocation()
-            {
-                if (navigator.geolocation)
-                {
-                    navigator.geolocation.getCurrentPosition(showPosition);
-                }
-                else
-                {
-                    alert("该浏览器不支持获取地理位置。");
-                }
+  <script type="text/javascript">
+      var map = new BMap.Map("container");
+      map.centerAndZoom("宁波", 12);
+      map.enableScrollWheelZoom();    //启用滚轮放大缩小，默认禁用
+      map.enableContinuousZoom();    //启用地图惯性拖拽，默认禁用
+
+      map.addControl(new BMap.NavigationControl());  //添加默认缩放平移控件
+      map.addControl(new BMap.OverviewMapControl()); //添加默认缩略地图控件
+      map.addControl(new BMap.OverviewMapControl({isOpen: true, anchor: BMAP_ANCHOR_BOTTOM_RIGHT}));   //右下角，打开
+
+      var localSearch = new BMap.LocalSearch(map);
+      localSearch.enableAutoViewport(); //允许自动调节窗体大小
+      function searchByStationName() {
+          map.clearOverlays();//清空原来的标注
+          var keyword = document.getElementById("address").value;
+          localSearch.setSearchCompleteCallback(function (searchResult) {
+              var poi = searchResult.getPoi(0);
+              map.centerAndZoom(poi.point, 13);
+              var marker = new BMap.Marker(new BMap.Point(poi.point.lng, poi.point.lat));  // 创建标注，为要查询的地方对应的经纬度
+              map.addOverlay(marker);
+
+              $('#longitude').html(poi.point.lng);
+              $('#latitude').html(poi.point.lat);
+              var latitude = $("#latitude").html();
+              var longitude = $("#longitude").html();
             });
-        function showPosition(position)
-        {
-            $("#latitude").html(position.coords.latitude);
-            $("#longitude").html(position.coords.longitude);
+          localSearch.search(keyword);
         }
 	</script>
 
   </body>
+
 </html>

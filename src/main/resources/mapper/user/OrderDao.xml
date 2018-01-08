@@ -6,29 +6,32 @@
 			insert into orderu (user_id,seller_id,activity_id,order_state,cost,activity_name,create_time,modified_time,evaluate_state,order_id_str) VALUES (#{userId},#{sellerId},#{activityId},#{orderState},#{cost},#{activityName},#{createTime},#{modifiedTime},#{evaluateState},#{orderIdStr})
 	</insert>
 	<select id="getOrderList" resultType="com.alllink.userapp.order.entity.OrderEntity">
-        select order_id,activity_name,o.create_time,cost,activity_id,order_id_str,order_state from orderu o where
-        o.user_id=#{userId} and (order_state = -1 or order_state = 0 or order_state = 1)
+		select order_id,activity_name,o.create_time,cost,activity_id,order_id_str,order_state from orderu o where
+		o.user_id=#{userId} and (order_state = -1 or order_state = 0 or order_state = 1 or order_state = 5 or
+		order_state = 6)
 		<if test="orderState != null">AND order_state=#{orderState}</if>
 	</select>
 	<update id="modifyOrder" parameterType="com.alllink.userapp.order.entity.OrderEntity">
-        <!--update orderu
-        <set>
-            <if test="orderState != null">order_state = #{orderState}, </if>
-            <if test="paymentChannel != null">payment_channel = #{paymentChannel}</if>
-            <if test="refundReason != null">refund_reason = #{refundReason}</if>
-        </set>
-        where order_id_str = #{orderIdStr}-->
+		<!--update orderu
+		<set>
+			<if test="orderState != null">order_state = #{orderState}, </if>
+			<if test="paymentChannel != null">payment_channel = #{paymentChannel}</if>
+			<if test="refundReason != null">refund_reason = #{refundReason}</if>
+		</set>
+		where order_id_str = #{orderIdStr}-->
 
-        update orderu
-        <set>
-            <if test="orderState != null">order_state = #{orderState}</if>
-            <if test="paymentChannel != null">,payment_channel = #{paymentChannel}</if>
-            <if test="refundReason != null">,refund_reason = #{refundReason}</if>
-        </set>
-		where order_id_str = #{orderIdStr}
+		update orderu
+		<set>
+			<if test="orderState != null">order_state = #{orderState}</if>
+			<if test="paymentChannel != null">,payment_channel = #{paymentChannel}</if>
+			<if test="refundReason != null">,refund_reason = #{refundReason}</if>
+		</set>
+		where 1=1
+		<if test="orderIdStr != null">AND order_id_str=#{orderIdStr}</if>
+		<if test="orderId != null">AND order_id=#{orderId}</if>
 
 
-    </update>
+	</update>
 
 	<resultMap id="OrderEntity" type="com.alllink.userapp.order.entity.OrderEntity" />
 	<select id="getList" parameterType="java.util.Map" resultMap="OrderEntity">

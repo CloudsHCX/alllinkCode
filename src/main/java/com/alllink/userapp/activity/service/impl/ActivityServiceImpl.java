@@ -113,6 +113,8 @@ public class ActivityServiceImpl implements ActivityService {
         activityItem.setSellerId(activity.getSellerId().toString());
         activityItem.setActivityInfo(activity.getActivityInfo());
         activityItem.setTotalNumber(activity.getTotalNumber().toString());
+        activityItem.setLatitude(activity.getLatitude());
+        activityItem.setLongitude(activity.getLongitude());
         return activityItem;
     }
 

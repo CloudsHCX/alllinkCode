@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.alllink.userapp.evaluate.dao.EvaluateDao">
+
+
+    <select id="queryObject" resultType="com.alllink.userapp.evaluate.entity.EvaluateEntity">
+        select * from evaluate where evaluate_id = #{value}
+    </select>
+
+
+    <select id="queryTotal" resultType="int">
+        select count(*) from evaluate
+    </select>
+
+    <insert id="add" parameterType="com.alllink.userapp.evaluate.entity.EvaluateEntity">
+        insert into evaluate
+        (
+        activity_id,
+        order_id,
+        user_id,
+        evaluate_level,
+        evaluate_content,
+        create_time
+        )
+        values
+        (
+        #{activityId},
+        #{orderId},
+        #{userId},
+        #{evaluateLevel},
+        #{evaluateContent},
+        #{createTime}
+        )
+    </insert>
+
+    <update id="update" parameterType="com.alllink.userapp.evaluate.entity.EvaluateEntity">
+        update evaluate
+        <set>
+            <if test="activityId != null">activity_id = #{activityId},</if>
+            <if test="orderId != null">order_id = #{orderId},</if>
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="evaluateLevel != null">evaluate_level = #{evaluateLevel},</if>
+            <if test="evaluateContent != null">evaluate_content = #{evaluateContent}</if>
+        </set>
+        where evaluate_id = #{evaluateId}
+    </update>
+
+    <delete id="delete">
+        delete from evaluate where evaluate_id = #{value}
+    </delete>
+
+
+    <!--查询一个用户下的所有评价-->
+    <select id="getListByOne" parameterType="com.alllink.userapp.evaluate.entity.EvaluateEntityByOne"
+            resultType="com.alllink.userapp.evaluate.entity.EvaluateEntityByOne">
+        select a.activity_id,a.activity_name,e.evaluate_level,e.evaluate_content,e.create_time
+        from evaluate e,activity a where e.activity_id = a.activity_id
+        <if test="userId != null">and e.user_id = #{userId}</if>
+    </select>
+
+    <!--查询一个活动的所有评价-->
+
+    <select id="getListByActivity" parameterType="com.alllink.userapp.evaluate.entity.EvaluateEntityByActivity"
+            resultType="com.alllink.userapp.evaluate.entity.EvaluateEntityByActivity">
+        select
+        u.nickname,u.phone_number,u.photo,a.activity_id,a.activity_name,e.evaluate_level,e.evaluate_content,e.create_time
+        from activity a,evaluate e,user u where a.activity_id = e.activity_id and e.user_id =u.user_id
+        <if test="activityId != null">and a.activity_id = #{activityId}</if>
+    </select>
+
+</mapper>

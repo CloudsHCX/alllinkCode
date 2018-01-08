@@ -14,8 +14,10 @@
          <if test="offset != null and limit != null">
              limit #{offset}, #{limit}
          </if>-->
-        SELECT a.activity_name,o.order_id,o.cost,u.user_name,u.phone_number,DATE_FORMAT(o.create_time,'%Y-%m-%d %T') AS
-        createTime
+        SELECT a.activity_name,
+        o.order_id,o.cost,
+        u.nickname AS user_name ,u.phone_number,
+        DATE_FORMAT(o.create_time,'%Y-%m-%d %T') AS createTime
         FROM orderu o
         RIGHT JOIN activity a
         ON o.activity_id=a.activity_id
@@ -23,7 +25,7 @@
         ON o.user_id=u.user_id
         RIGHT JOIN seller s
         ON s.seller_id=o.seller_id
-        WHERE o.seller_id=#{sellerId} and o.order_state='1'
+        WHERE o.seller_id=#{sellerId} and o.order_state IN (1,5,6)
         order by o.order_id desc
         <if test="offset != null and limit != null">
             limit #{offset}, #{limit}
@@ -31,7 +33,7 @@
     </select>
 
     <select id="queryTotal" resultType="int">
-        select count(*) from orderu
+        select count(*) from orderu where seller_id=#{sellerId} and order_state IN (1,5,6)
     </select>
 
 

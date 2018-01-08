@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="//cdn.bootcss.com/jquery-weui/1.1.1/css/jquery-weui.min.css">
     <script src="//cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
     <script src="//cdn.bootcss.com/jquery-weui/1.1.1/js/jquery-weui.min.js"></script>
+    <script type="text/javascript"
+            src="http://api.map.baidu.com/api?v=1.5&ak=zIyiV9jYFnIq4FgcudRKArpQjbr94P3e"></script>
     <script src="../../js/userapp/ajaxfileupload.js"></script>
     <script type="text/javascript" src="../../js/wechatJS/w-AddActivity.js"></script>
     <style>
@@ -114,7 +116,13 @@
     <div class="weui-cell">
         <div class="weui-cell__bd">
             <input class="weui-input" type="text" placeholder="请输入活动地址" id="address">
+
+            <span id="latitude" style="display: none"></span>
+            <span id="longitude" style="display: none"></span>
         </div>
+    </div>
+    <div id="container"
+         style="display: none">
     </div>
 </div>
 
@@ -141,7 +149,7 @@
                     </ul>
                     <div class="weui-uploader__input-box">
                         <input id="uploaderInput" name="file" class="weui-uploader__input" type="file" accept="image/*"
-                               multiple="">
+                               multiple="" onblur="searchByStationName()">
                     </div>
                 </div>
             </div>
@@ -240,6 +248,36 @@
             }
         });
     });
+
+    var map = new BMap.Map("container");
+    map.centerAndZoom("宁波", 12);
+    map.enableScrollWheelZoom();    //启用滚轮放大缩小，默认禁用
+    map.enableContinuousZoom();    //启用地图惯性拖拽，默认禁用
+
+    map.addControl(new BMap.NavigationControl());  //添加默认缩放平移控件
+    map.addControl(new BMap.OverviewMapControl()); //添加默认缩略地图控件
+    map.addControl(new BMap.OverviewMapControl({isOpen: true, anchor: BMAP_ANCHOR_BOTTOM_RIGHT}));   //右下角，打开
+
+    var localSearch = new BMap.LocalSearch(map);
+    localSearch.enableAutoViewport(); //允许自动调节窗体大小
+    function searchByStationName() {
+        map.clearOverlays();//清空原来的标注
+        var keyword = document.getElementById("address").value;
+        localSearch.setSearchCompleteCallback(function (searchResult) {
+            var poi = searchResult.getPoi(0);
+            map.centerAndZoom(poi.point, 13);
+            var marker = new BMap.Marker(new BMap.Point(poi.point.lng, poi.point.lat));  // 创建标注，为要查询的地方对应的经纬度
+            map.addOverlay(marker);
+
+            $('#longitude').html(poi.point.lng);
+            $('#latitude').html(poi.point.lat);
+            var latitude = $("#latitude").html();
+            var longitude = $("#longitude").html();
+//            $.alert("经度："+longitude+"\n纬度："+latitude);
+
+        });
+        localSearch.search(keyword);
+    }
 </script>
 </body>
 </html>
