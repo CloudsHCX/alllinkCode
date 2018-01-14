@@ -94,6 +94,47 @@
             margin-left: 67px;
             font-size: 16px;
         }
+
+        .tt {
+            position: relative;
+        }
+
+        .tdiv {
+            width: 240px;
+            position: absolute;
+            left: 325px;
+            top: 2px;
+        }
+
+        .ediv {
+            width: 240px;
+            position: absolute;
+            left: 325px;
+            top: 2px;
+        }
+
+        .bt {
+            width: 45%;
+        }
+
+        .t {
+            width: 40px;
+            float: left;
+            margin-left: 5px;
+        }
+
+        .mspan {
+            font-size: 22px;
+        }
+
+        .sf {
+            margin-left: -217px;
+            margin-top: -2px;
+        }
+
+        .q {
+            margin-right: -32px;
+        }
 	</style>
   </head>
   <body>
@@ -134,18 +175,34 @@
   			<div class="maindiv-content">
                 <form class="form-horizontal" role="form">
                     <div class="weui-cells weui-cells_form form-group">
-                        <div class="weui-cell">
+                        <div class="weui-cell tt">
                             <label class="col-sm-2 control-label">开始时间</label>
                             <div class="weui-cell__bd col-sm-10">
-                                <input class="weui-input form-control" type="datetime-local" id="begin_time">
+                                <input class="weui-input form-control bt" type="date" id="begin_time">
+                            </div>
+                            <!--<label class="col-sm-2 control-label sf">时分</label>-->
+                            <div class="tdiv">
+                                <input type="text" class="form-control t" id="t1">
+                                <input type="text" class="form-control t" id="t2">
+                                <div class="t q"><span class="mspan">：</span></div>
+                                <input type="text" class="form-control t" id="t3">
+                                <input type="text" class="form-control t" id="t4">
                             </div>
                         </div>
                     </div>
                     <div class="weui-cells weui-cells_form form-group">
-                        <div class="weui-cell">
+                        <div class="weui-cell tt">
                             <label class="col-sm-2 control-label">结束时间</label>
                             <div class="weui-cell__bd col-sm-10">
-                                <input class="weui-input form-control" type="datetime-local" id="end_time">
+                                <input class="weui-input form-control bt" type="date" id="end_time">
+                            </div>
+                            <!--<label class="col-sm-2 control-label sf">时分</label>-->
+                            <div class="ediv">
+                                <input type="text" class="form-control t" id="e1">
+                                <input type="text" class="form-control t" id="e2">
+                                <div class="t q"><span class="mspan">：</span></div>
+                                <input type="text" class="form-control t" id="e3">
+                                <input type="text" class="form-control t" id="e4">
                             </div>
                         </div>
                     </div>
@@ -168,7 +225,7 @@
 				    <label class="col-sm-2 control-label">活动费用</label>
 				    <div class="col-sm-10">
 				      <div class="input-group">
-			            <span class="input-group-addon">$</span>
+                          <span class="input-group-addon">￥</span>
 			            <input type="text" class="form-control" id="cost">
 			            <span class="input-group-addon">元</span>
 			          </div>

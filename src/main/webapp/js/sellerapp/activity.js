@@ -6,11 +6,22 @@ $(function(){
         var cost=$("#cost").val().trim();
         var activityType=$("#activity_type").val().trim();
         var beginTime=$("#begin_time").val();
-        beginTime=beginTime.replace('T',' ');
-        beginTime=beginTime+":00";
+        var t1 = $("#t1").val().trim();
+        var t2 = $("#t2").val().trim();
+        var t3 = $("#t3").val().trim();
+        var t4 = $("#t4").val().trim();
+        beginTime = beginTime + " " + t1 + t2 + ":" + t3 + t4 + ":00";
         var endTime=$("#end_time").val();
-        endTime=endTime.replace('T',' ');
-        endTime=endTime+":00";
+        var e1 = $("#e1").val().trim();
+        var e2 = $("#e2").val().trim();
+        var e3 = $("#e3").val().trim();
+        var e4 = $("#e4").val().trim();
+        endTime = endTime + " " + e1 + e2 + ":" + e3 + e4 + ":00";
+        // beginTime=beginTime.replace('T',' ');
+        // beginTime=beginTime+":00";
+        // var endTime=$("#end_time").val();
+        // endTime=endTime.replace('T',' ');
+        // endTime=endTime+":00";
         var address=$("#address").val().trim();
         var activityInfo=$("#activity_info").val().trim();
         var latitude=$("#latitude").html();
@@ -51,7 +62,7 @@ $(function(){
             return false;
         }
 
-        if (activityName==''||totalNumber==''||cost==''||activityType==''||beginTime==''||endTime==''||address==''||activityInfo=='') {
+        if (activityName == '' || totalNumber == '' || cost == '' || activityType == '' || beginTime == '' || endTime == '' || address == '' || activityInfo == '' || latitude == '' || longitude == '' || t1 == '' || t2 == '' || t3 == '' || t4 == '' || e1 == '' || e2 == '' || e3 == '' || e4 == '') {
             alert("请完善所有信息！")
         } else if (check(beginTime, endTime)) {
             alert("开始日期不能大于结束日期");
@@ -89,7 +100,7 @@ $(function(){
                     }
                 },
                 error:function(XMLHttpRequest, textStatus){
-                    alert(textStatus);
+                    alert("每个时间输入框只能输入一位数字！请重新输入");
                 }
             });
         }

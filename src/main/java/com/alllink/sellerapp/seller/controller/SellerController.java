@@ -33,7 +33,7 @@ public class SellerController {
      * */
     @RequestMapping(value="/add" ,method= RequestMethod.POST)
     @ResponseBody
-    public R add(@RequestBody HashMap<String, Object> map) throws ParseException {
+    public R add(@RequestBody HashMap<String, Object> map, HttpServletRequest request) throws ParseException {
         System.out.println("add.. phoneNumber" + map.get("phoneNumber"));
         String phoneNumber = (String)map.get("phoneNumber");
         String password = (String)map.get("password");
@@ -70,9 +70,10 @@ public class SellerController {
 
         sellerService.activeSeller(map);
 
-        Map<String, Object> sellerMap = new HashMap<>();
-        sellerMap.put("phoneNumber", phoneNumber);
-        return R.ok(sellerMap);
+        SellerEntity sessionSeller = sellerService.checkPhone(phoneNumber);
+        HttpSession session = request.getSession();
+        session.setAttribute("seller", sessionSeller);
+        return R.ok();
     }
 
     /**
@@ -270,7 +271,7 @@ public class SellerController {
             }
         }
 
-        SendSMS.send(phoneNumber, verificationCode);
+        //SendSMS.send(phoneNumber, verificationCode);
         System.out.println(verificationCode);
         return R.ok();
     }

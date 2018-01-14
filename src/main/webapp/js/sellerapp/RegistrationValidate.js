@@ -120,7 +120,7 @@ function RegistrationValidate(){
                 data:JSON.stringify(jsondata),//这里必须将对象转成string类型，否则将掉入无线的大坑中。
                 success:function(result){
                     if(result.code == 1){
-                        window.location.href="/alllink/views/sellerapp/login.html";
+                        window.location.href = "/alllink/views/sellerapp/homepage.html";
                     } else {
                         $("#sms-p").html(result.msg+"!");
                         $("#sms-p").css("color","#ff0000");

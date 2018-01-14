@@ -35,13 +35,14 @@
 		.header{
 			margin-bottom: 50px;
 		}
-		.content{
-			height:800px;
-		}
+
+        /*.content{*/
+        /*height:800px;*/
+        /*}*/
 		.maindiv{
 			margin: 0 auto;
 			width:1000px;
-			height:600px;
+            /*height:600px;*/
 			background-color: #FFFFFF;
 			padding-left:10px;
 			padding-right:10px;
@@ -74,7 +75,7 @@
 		}
 		.nameSpan{
 			font-size: 20px;
-			cursor:pointer;
+
 		}
 		.activity_info{
 			border-top: 1px dashed #ddd;
@@ -168,7 +169,7 @@
                             resultList.innerHTML = resultList.innerHTML + '<li class="list-group-item" id="li'+key+'">' +
                                 '<span class="badge">新</span>' +
                                 '<div class="activity_name" id="activity_name"><span class="nameSpan" id="span'+key+'">'+List.activityName+'</span>' +
-                                '<span class="cancel" id="' + List.activityId + '" data-toggle="modal" data-target="#myModal" ></span>' +
+                                '<span class="cancel" id="' + List.activityId + '" data-toggle="modal" data-target="#myModal" >取消活动</span>' +
                                 '</div>' +
                                 '<div class="activity_content">' +
                                 '<span class="activity_type">[报名总人数：' + List.totalNumber + ']</span> [当前报名人数：' + List.enrollNumber + ']<br>' +
